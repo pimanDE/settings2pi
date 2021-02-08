@@ -1,7 +1,7 @@
 ## Erläuterungen zum Script
 
 <br>
----
+
 **Warum dieses Projekt?**
 
 Der Raspberry Pi ist bei vielen nicht mehr wegzudenken und er erfüllt mittlerweile viele Aufgaben. Er dient häufig als eigene Cloud, als Mailserver oder fungiert als miniDLNA. Hierbei werden am Raspberry Pi im Laufe der Zeit Einstellungen vorgenommen, die sich zum Beispiel beim Defekt der SD-Karte nur mit sehr viel Aufwand wieder herstellen lassen.
