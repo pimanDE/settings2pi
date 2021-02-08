@@ -16,7 +16,7 @@ Mit diesem Installations- und Konfigurationsscript sollen Programme auf dem Rasp
 
 Es wird versucht, dass der Benutzer so wenig wie möglich von Hand eingeben muss. Dies kann (z.Zt.) nur über zwei Scripte erfolgen, da einige Einstellungen einen _**reboot**_ erfordern.
 
-Daher muss das **Script** [_`preparations2pi.sh`_](https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparation2pi.sh) (siehe Installationsanleitung) als **erstes** ausgeführt werden.
+Daher muss das **Script** [_`preparations2pi.sh`_](https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparations2pi.sh) (siehe Installationsanleitung) als **erstes** ausgeführt werden.
 
 Hierbei wird
 
@@ -30,7 +30,7 @@ Hierbei wird
 
 ---
 
-Anschließend wird das **(zweite) Script** [_`settings2pi.sh`_](https://raw.githubusercontent.com/pimanDE/settings2pi/master/setting2pi.sh) (siehe Installationsanleitung) ausgeführt.
+Anschließend wird das **(zweite) Script** [_`settings2pi.sh`_](https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh) (siehe Installationsanleitung) ausgeführt.
 
 Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisiert vorgenommen:
 
@@ -66,12 +66,12 @@ Wer schnell und bequem loslegen möchte, kann die Scripte mit den folgenden Befe
 ---
 Script 1:
 ```bash
-curl -sSL https://raw.githubusercontent.com/pimanDE/setting2pi/master/preparation2pi.sh | bash
+bash -c "$(curl -sSL https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparations2pi.sh)"
 ```
 ---
 Script 2:
 ```bash
-curl -sSL https://raw.githubusercontent.com/pimanDE/setting2pi/master/settings2pi.sh | bash
+bash -c "$(curl -sSL https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh)"
 ```
 
 ---
@@ -79,10 +79,10 @@ curl -sSL https://raw.githubusercontent.com/pimanDE/setting2pi/master/settings2p
 Alternativ können die Scripte auch folgendermaßen ausgeführt werden:
 
 ```bash
-wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparation2pi.sh
-chmod 775 preparation2pi.sh
+wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparations2pi.sh
+chmod 775 preparations2pi.sh
 
-wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/setting2pi.sh
+wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh
 chmod 775 settings2pi.sh
 
 ./preparation2pi.sh
@@ -107,7 +107,7 @@ chmod 775 settings2pi.sh
 1. [Raspbian OS Lite Image](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-01-12/2021-01-11-raspios-buster-armhf-lite.zip) auf eine SD Karte schreiben
 2. System starten und als user *pi* anmelden
 4. Script 1 [(preparation2pi.sh](https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparation2pi.sh)) ausführen
-5. Script 2 [(settings2pi.sh](https://raw.githubusercontent.com/pimanDE/settings2pi/master/setting2pi.sh)) ausführen
+5. Script 2 [(settings2pi.sh](https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh)) ausführen
 
 <br>
 <br>
