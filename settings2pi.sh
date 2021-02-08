@@ -255,7 +255,7 @@ echo
 
 sudo apt install -y fail2ban
 
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/main/Dateien/fail2ban/jail.local -P /etc/fail2ban/
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/fail2ban/jail.local -P /etc/fail2ban/
 sudo rpl "username" "$username" /etc/fail2ban/jail.local > /dev/null 2>&1				# den eigenen Benutzer hinzufügen
 sudo rpl "IgnorierteIP" "$ignoreip" /etc/fail2ban/jail.local > /dev/null 2>&1				# IP Adresse/n hinzufügen, die fail2ban ignorieren soll
 sudo chmod 644 /etc/fail2ban/jail.local
@@ -320,12 +320,12 @@ sudo apt install -y s-nail
 
 sudo mv /etc/s-nail.rc /etc/s-nail.rc.orig
 
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/main/Dateien/s-nail/s-nail.rc -P /etc/
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/s-nail/s-nail.rc -P /etc/
 sudo chown $username:$username /etc/s-nail.rc
 sudo chmod 440 /etc/s-nail.rc
 
 mkdir ~/Scripte/ssh-login
-wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/main/Dateien/s-nail/ssh-login.sh -P ~/Scripte/ssh-login/
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/s-nail/ssh-login.sh -P ~/Scripte/ssh-login/
 chmod 550 ~/Scripte/ssh-login/ssh-login.sh
 
 # siehe Eräuterungen zum Script (https://github.com/pimanDE/settings2pi/Erläuterungen%20zum%20Script)
