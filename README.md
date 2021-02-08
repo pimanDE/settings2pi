@@ -39,7 +39,7 @@ Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisier
 - Installation diverser Systemprogramme
 - ssh wird gehärtet
 - fail2ban wird installiert und konfiguriert
-- s-nail wird installiert und konfiguriert ([siehe Erläuterungen zum Script](https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dokumentation/Erläuterungen%20zum%20Script.md))
+- s-nail wird installiert und konfiguriert ([siehe Erläuterungen zum Script](https://github.com/pimanDE/settings2pi/blob/master/Dokumentation/Erläuterungen%20zum%20Script.md))
 - ...
 
 <br>
