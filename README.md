@@ -49,7 +49,7 @@ Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisier
 
 - haben Sie ein Backup von Ihrem System gemacht,
 - haben Sie sich vom Quellcode überzeugt,
-- haben Sie die [Erläuterungen zum Script](https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dokumentation/Erläuterungen%20zum%20Script.md) gelesen,
+- haben Sie die [Erläuterungen zum Script](https://github.com/pimanDE/settings2pi/blob/master/Dokumentation/Erläuterungen%20zum%20Script.md) gelesen,
 - haben Sie den Haftungsausschluss gelesen und akzeptiert,
 - wissen Sie, dass Sie alles auf eigene Gefahr tun,
 - wissen Sie, dass pimanDE alles nach bestem Wissen und Gewissen gemacht hat,
