@@ -39,8 +39,11 @@ done="${gruenfett} done!${standard}"
 ####################################################################################################################
 # Anlegen von benötigten Verzeichnissen
 
-mkdir /home/$username/Scripte
-mkdir /home/$username/Log
+cd /home/$username
+
+mkdir -p Log
+mkdir -p Scripte
+mkdir -p Downloads
 
 # touch /tmp/error-preparations2pi.log
 # exec 2>&1 /tmp/error-preparations2pi.log
@@ -94,7 +97,7 @@ while ! ((antwortok)); do
         read -p "   Wie soll der neue Rechnername lauten: " rechnername
      echo
      echo
-     echo -e "   Der neue Benutzername ist jetzt:"${blaufett} $newuser ${standard}
+     echo -e "   Der neue Benutzername ist jetzt:"${blaufett} $neuerbenutzer ${standard}
      echo -e "   Der neue Rechnername ist jetzt:" ${blaufett} $rechnername ${standard}
        while :; do
        echo
@@ -119,7 +122,7 @@ echo
 # Neuen Benutzer hinzufügen
 sudo adduser --gecos "" $newuser
 # Neuen Benutzer den Gruppen hinzufügen
-sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio $newuser
+sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio $neuerbenutzer
 
 # User pi deaktivieren
 sudo usermod -L pi
@@ -241,13 +244,13 @@ done
 
 # Verzeichnisse und Dateien dem neuen Benutzer übergeben
 
-sudo mv /home/$username/Scripte /home/$newuser
-sudo mv /home/$username/Log /home/$newuser
+sudo mv /home/$username/Scripte /home/$neuerbenutzer
+sudo mv /home/$username/Log /home/$neuerbenutzer
 
-sudo chown $newuser:$newuser /home/$newuser/Scripte
-sudo chown $newuser:$newuser /home/$newuser/Log
+sudo chown $neuerbenutzer:$neuerbenutzer /home/$neuerbenutzer/Scripte
+sudo chown $neuerbenutzer:$neuerbenutzer /home/$neuerbenutzer/Log
 
-sudo chown $newuser:$newuser /home/$newuser/Log/preparations2pi.log
+sudo chown $neuerbenutzer:$neuerbenutzer /home/$neuerbenutzer/Log/preparations2pi.log
 
 
 ####################################################################################################################
@@ -260,7 +263,7 @@ echo "   Der Rechner muss nun neu gestartet werden."
 echo
 echo
 
-echo -e "   Nach dem Neustart bitte mit dem Benutzernamen ${gruenfett}$newuser${standard} und dem neuen Passwort anmelden."
+echo -e "   Nach dem Neustart bitte mit dem Benutzernamen ${gruenfett}$neuerbenutzer${standard} und dem neuen Passwort anmelden."
 echo
 echo
 

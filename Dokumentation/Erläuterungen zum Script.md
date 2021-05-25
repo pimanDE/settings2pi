@@ -100,9 +100,9 @@ sudo chmod 644 /etc/profile
 `s-nail` könnte natürlich auch so installiert und konfiguriert werden, sodass keine Nacharbeiten erforderlich wären. Dabei müsste jedoch dann während des Scripts die E-Mail Adresse und das Passwort abgefragt werden. Dies soll dem Benutzer nicht abverlangt werden. Jeder soll selber entscheiden, ob er seiner Raspberry Pi Installation das Passwort vom E-Mail Account anvertraut.
 
 ---
-**Warum ...**
+**Wann wird das System automatisch aktualisiert?**
 
-...
+Das System wird täglich zwischen 0 Uhr und 3:00 Uhr nachts automatisch aktualisiert. Bei der Installation wird diese randomnisiert festgelegt.
 
 
 ---

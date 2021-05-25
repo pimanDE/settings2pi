@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Mit diesem Script werden verschiedene Programme installiert und diverse Einstellungen am Raspberry Pi automatisch vorgenommen.
-# getestet auf Raspberry Pi OS Lite Release vom 11. Januar 2021
+# getestet auf Raspberry Pi OS Lite Release vom 04. März 2021
 #
 # Benutzung auf eigene Gefahr!!!
 #
@@ -33,9 +33,6 @@ over="\\r\\033[K"
 fehler="[${rotfett}✗${standard}]"
 haken="[${gruenfett}✓${standard}]"
 done="${gruenfett} done!${standard}"
-
-#touch /tmp/error-settings2pi.log
-#exec 2> /tmp/error-settings2pi.log
 
 
 
@@ -128,8 +125,17 @@ done
 ####################################################################################################################
 # Anlegen von Ordner, Erstellen von Scripten, Listen etc.
 
-mkdir /home/$username/Downloads
+cd /home/$username
+
+mkdir -p Log
+mkdir -p Scripte
+mkdir -p Downloads
+
 touch /home/$username/Log/settings2pi.log
+touch /home/$username/Log/fail2ban.log						# die jail.local verlangt danach
+
+chmod 775 /home/$username/Log/settings2pi.log
+chmod 775 /home/$username/Log/fail2ban.log
 
 # sudo rpl "1200" "60000" /etc/sudoers > /dev/null 2>&1		# falls das Script länger dauert, behalten wir root-Rechte (wird am Ende wieder zurückgestellt)
 
@@ -182,42 +188,42 @@ echo -e "${blaufett}   Absichern des ssh-Ports ...${standard}"
 echo
 echo
 
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.orig							# http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man5/sshd_config.5?query=sshd_config&sec=5
-sudo chmod 777 /etc/ssh/sshd_config										# Dateirechte setzen
-sudo rpl '#Port 22' "Port $sshport" /etc/ssh/sshd_config > /dev/null 2>&1					# Neuer ssh-Port
-sudo rpl '#ListenAddress 0.0.0.0' "ListenAddress $ipadresse" /etc/ssh/sshd_config > /dev/null 2>&1		# ssh hört nur auf dieser IP-Adresse (manchmal hat ein Server mehrere IP Adressen)
-sudo rpl '#LogLevel INFO' 'LogLevel VERBOSE' /etc/ssh/sshd_config > /dev/null 2>&1				# ausführliches LogLevel
-sudo rpl '#LoginGraceTime 2m' 'LoginGraceTime 1m' /etc/ssh/sshd_config > /dev/null 2>&1			# wenn innerhalb von 1 Minute kein erfolgreicher Login stattgefunden hat, wird der Zugriff getrennt
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.orig														# http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man5/sshd_config.5?query=sshd_config&sec=5
+sudo chmod 777 /etc/ssh/sshd_config																			# Dateirechte setzen
+sudo rpl '#Port 22' "Port $sshport" /etc/ssh/sshd_config > /dev/null 2>&1									# Neuer ssh-Port
+sudo rpl '#ListenAddress 0.0.0.0' "ListenAddress $ipadresse" /etc/ssh/sshd_config > /dev/null 2>&1			# ssh hört nur auf dieser IP-Adresse (manchmal hat ein Server mehrere IP Adressen)
+sudo rpl '#LogLevel INFO' 'LogLevel VERBOSE' /etc/ssh/sshd_config > /dev/null 2>&1							# ausführliches LogLevel
+sudo rpl '#LoginGraceTime 2m' 'LoginGraceTime 1m' /etc/ssh/sshd_config > /dev/null 2>&1						# wenn innerhalb von 1 Minute kein erfolgreicher Login stattgefunden hat, wird der Zugriff getrennt
 sudo rpl '#PermitRootLogin prohibit-password' 'PermitRootLogin prohibit-password' /etc/ssh/sshd_config > /dev/null 2>&1		# root darf sich nicht mit einem Password anmelden
-sudo rpl '#StrictModes yes' 'StrictModes yes' /etc/ssh/sshd_config > /dev/null 2>&1				# https://wiki.hetzner.de/index.php/Sshd
-sudo rpl '#MaxAuthTries 6' 'MaxAuthTries 3' /etc/ssh/sshd_config > /dev/null 2>&1				# 3 mal falsches Passwort, dann wird die Verbindung getrennt
-sudo rpl '#MaxSessions 10' 'MaxSessions 3' /etc/ssh/sshd_config > /dev/null 2>&1				# gibt die maximale Anzahl von offenen Sitzungen pro Verbindung an
-sudo rpl '#PrintLastLog yes' 'PrintLastLog no' /etc/ssh/sshd_config > /dev/null 2>&1				# Ausschalten der Info
-sudo rpl '#MaxStartups 10:30:100' 'MaxStartups 3:30:10' /etc/ssh/sshd_config > /dev/null 2>&1			# gibt die maximale Anzahl gleichzeitiger nicht authentifizierter Verbindungen zum SSH-Daemon an
-sudo rpl 'X11Forwarding yes' 'X11Forwarding no' /etc/ssh/sshd_config > /dev/null 2>&1				# keine Weiterleitung der grafischen Benutzerobefläche
-sudo rpl '#TCPKeepAlive yes' '#TCPKeepAlive no' /etc/ssh/sshd_config > /dev/null 2>&1				# https://blog.buettner.xyz/sichere-ssh-konfiguration/
-sudo rpl '#Banner none' 'Banner /etc/ssh/banner' /etc/ssh/sshd_config > /dev/null 2>&1			# Angabe des Pfades der Bannerdatei (Begrüßungstext)
+sudo rpl '#StrictModes yes' 'StrictModes yes' /etc/ssh/sshd_config > /dev/null 2>&1							# https://wiki.hetzner.de/index.php/Sshd
+sudo rpl '#MaxAuthTries 6' 'MaxAuthTries 3' /etc/ssh/sshd_config > /dev/null 2>&1							# 3 mal falsches Passwort, dann wird die Verbindung getrennt
+sudo rpl '#MaxSessions 10' 'MaxSessions 3' /etc/ssh/sshd_config > /dev/null 2>&1							# gibt die maximale Anzahl von offenen Sitzungen pro Verbindung an
+sudo rpl '#PrintLastLog yes' 'PrintLastLog no' /etc/ssh/sshd_config > /dev/null 2>&1						# Ausschalten der Info
+sudo rpl '#MaxStartups 10:30:100' 'MaxStartups 3:30:10' /etc/ssh/sshd_config > /dev/null 2>&1				# gibt die maximale Anzahl gleichzeitiger nicht authentifizierter Verbindungen zum SSH-Daemon an
+sudo rpl 'X11Forwarding yes' 'X11Forwarding no' /etc/ssh/sshd_config > /dev/null 2>&1						# keine Weiterleitung der grafischen Benutzerobefläche
+sudo rpl '#TCPKeepAlive yes' '#TCPKeepAlive no' /etc/ssh/sshd_config > /dev/null 2>&1						# https://blog.buettner.xyz/sichere-ssh-konfiguration/
+sudo rpl '#Banner none' 'Banner /etc/ssh/banner' /etc/ssh/sshd_config > /dev/null 2>&1						# Angabe des Pfades der Bannerdatei (Begrüßungstext)
 sudo rpl '#HostbasedAuthentication no' '#HostbasedAuthentication yes' /etc/ssh/sshd_config > /dev/null 2>&1	# https://blog.buettner.xyz/sichere-ssh-konfiguration/
-sudo rpl '#IgnoreRhosts yes' 'IgnoreRhosts yes' /etc/ssh/sshd_config > /dev/null 2>&1				# https://blog.buettner.xyz/sichere-ssh-konfiguration/
+sudo rpl '#IgnoreRhosts yes' 'IgnoreRhosts yes' /etc/ssh/sshd_config > /dev/null 2>&1						# https://blog.buettner.xyz/sichere-ssh-konfiguration/
 sudo rpl '#PasswordAuthentication yes' 'PasswordAuthentication yes' /etc/ssh/sshd_config > /dev/null 2>&1	# Anmeldung nur mit Passwort
-sudo rpl '#PermitEmptyPasswords no' 'PermitEmptyPasswords no' /etc/ssh/sshd_config > /dev/null 2>&1		# Benutzer die kein Passwort haben, dürfen sich nicht anmelden
+sudo rpl '#PermitEmptyPasswords no' 'PermitEmptyPasswords no' /etc/ssh/sshd_config > /dev/null 2>&1			# Benutzer die kein Passwort haben, dürfen sich nicht anmelden
 
 echo >> /etc/ssh/sshd_config > /dev/null 2>&1
 
 sudo echo 'MaxStartups 3' >> /etc/ssh/sshd_config							# als Zusatz zu MaxStartups 3 (ist wahrscheinlich gleich/ähnlich)
-sudo echo 'RSAAuthentication no' >> /etc/ssh/sshd_config						# da es nur Protokoll Version 1 betrifft ist es nicht wichtig zu setzen, wird trotzdem gemacht
+sudo echo 'RSAAuthentication no' >> /etc/ssh/sshd_config					# da es nur Protokoll Version 1 betrifft ist es nicht wichtig zu setzen, wird trotzdem gemacht
 sudo echo 'Protocol 2' >> /etc/ssh/sshd_config								# nur Protokoll 2
-sudo echo 'DenyUsers root pi admin administrator' >> /etc/ssh/sshd_config				# die User root, pi, admin und administrator dürfen sich nicht anmelden
+sudo echo 'DenyUsers root pi admin administrator' >> /etc/ssh/sshd_config	# die User root, pi, admin und administrator dürfen sich nicht anmelden
 sudo echo 'DenyGroups root pi' >> /etc/ssh/sshd_config						# Mitglieder der Gruppen root und pi dürfen sich nicht anmelden
-sudo echo "AllowUsers $username" >> /etc/ssh/sshd_config						# nur der eigene User darf sich anmelden
-sudo echo "AllowGroups $username" >> /etc/ssh/sshd_config						# nur der eigene User der Gruppe eigeneUser darf sich anmelden
-sudo echo 'RhostsRSAAuthentication no' >> /etc/ssh/sshd_config					# https://wiki.hetzner.de/index.php/Sshd
+sudo echo "AllowUsers $username" >> /etc/ssh/sshd_config					# nur der eigene User darf sich anmelden
+sudo echo "AllowGroups $username" >> /etc/ssh/sshd_config					# nur der eigene User der Gruppe eigeneUser darf sich anmelden
+sudo echo 'RhostsRSAAuthentication no' >> /etc/ssh/sshd_config				# https://wiki.hetzner.de/index.php/Sshd
 sudo echo 'PermitRootLogin no' >> /etc/ssh/sshd_config						# ähnlich wie 'PermitRootLogin prohibit-password'
 sudo echo >> /etc/ssh/sshd_config
 
-sudo chmod 555 /etc/ssh/sshd_config									# Dateirechte setzen
+sudo chmod 555 /etc/ssh/sshd_config											# Dateirechte setzen
 
-sudo touch /etc/ssh/banner										# Bannerdatei erstellen
+sudo touch /etc/ssh/banner													# Bannerdatei erstellen
 sudo chmod 777 /etc/ssh/banner
 sudo echo > /etc/ssh/banner
 sudo echo >> /etc/ssh/banner
@@ -227,7 +233,7 @@ sudo echo "+++++++++++++++++++" >> /etc/ssh/banner
 sudo echo >> /etc/ssh/banner
 sudo chmod 644 /etc/ssh/sshd_config									# Dateirechte setzen
 
-sudo /etc/init.d/ssh restart										# anschließender Login: ssh onion@192.168.178.11 -p 31307
+sudo /etc/init.d/ssh restart										# anschließender Login: ssh benutzername@192.168.178.11 -p 31307
 
 echo '   2. ssh erfolgreich abgesichert' >> ~/Log/settings2pi.log
 echo
@@ -256,7 +262,7 @@ echo
 sudo apt install -y fail2ban
 
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/fail2ban/jail.local -P /etc/fail2ban/
-sudo rpl "username" "$username" /etc/fail2ban/jail.local > /dev/null 2>&1				# den eigenen Benutzer hinzufügen
+sudo rpl "username" "$username" /etc/fail2ban/jail.local > /dev/null 2>&1					# den eigenen Benutzer hinzufügen
 sudo rpl "IgnorierteIP" "$ignoreip" /etc/fail2ban/jail.local > /dev/null 2>&1				# IP Adresse/n hinzufügen, die fail2ban ignorieren soll
 sudo chmod 644 /etc/fail2ban/jail.local
 
@@ -294,7 +300,7 @@ rm veracrypt-console-1.24-Update7-Debian-10-armhf.deb
 # veracrypt -m=nokernelcrypto --truecrypt Quelle Ziel/		# --truecrypt = Einbinden von Truecryptbasierten Dateisystemen
 # veracrypt -m=nokernelcrypto --truecrypt /dev/sda1 /mnt/
 
-echo '   4. Veracrypt erfolgreich installiert' >> ~/Log/Erstinstallation.log
+echo '   4. Veracrypt erfolgreich installiert' >> ~/Log/settings2pi.log
 echo
 echo
 echo "   ++++++++++++++++++++++++++++++++++++++++"
@@ -324,8 +330,8 @@ sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateie
 sudo chown $username:$username /etc/s-nail.rc
 sudo chmod 440 /etc/s-nail.rc
 
-mkdir ~/Scripte/ssh-login
-wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/s-nail/ssh-login.sh -P ~/Scripte/ssh-login/
+mkdir -p /home/$username/Scripte/ssh-login
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/ssh-login.sh -P ~/Scripte/ssh-login/
 chmod 550 ~/Scripte/ssh-login/ssh-login.sh
 
 # siehe Eräuterungen zum Script (https://github.com/pimanDE/settings2pi/Erläuterungen%20zum%20Script)
@@ -349,6 +355,37 @@ sleep 2
 
 
 
+####################################################################################################################
+# Automatische Aktualisierung des Systems
+
+
+mkdir ~/Scripte/cron
+wget -q https://github.com/raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-and-upgrade.sh -P ~/Scripte/
+wget -q https://github.com/raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
+
+sudo rpl 'username' '$username' ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl 'username' '$username' ~/Scripte/cron > /dev/null 2>&1
+
+# Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
+sudo sed -i "s/59 1 /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
+
+sudo crontab -u root /home/$username/Scripte/cron/cronjobs.txt
+
+sudo chown root:root /home/$username/Scripte/update-and-upgrade.sh
+sudo chmod 550 /home/$username/Scripte/update-and-upgrade.sh
+
+sudo touch /home/$username/Log/update-and-upgrade.log
+
+echo '   6. Automatische Aktualisierung des Systems erfolgreich' >> ~/Log/settings2pi.log
+echo
+echo
+echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}6. Automatische Aktualisierung des Systems erfolgreich${standard} +"
+echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo
+echo
+sleep 2
+
 
 
 ####################################################################################################################
@@ -367,11 +404,11 @@ sudo apt autoclean			# wie clean, nur werden ausschließlich Pakete, die nicht m
 sudo apt autoremove			# Deinstallation ungenutzter Abhängigkeiten
 
 
-echo '   6. Cache wurde erfolgreich geleert' >> ~/Log/settings2pi.log
+echo '   7. Cache wurde erfolgreich geleert' >> ~/Log/settings2pi.log
 echo
 echo
 echo "   ++++++++++++++++++++++++++++++++++++++"
-echo -e "   + ${gruenfett}6. Cache wurde erfolgreich geleert${standard} +"
+echo -e "   + ${gruenfett}7. Cache wurde erfolgreich geleert${standard} +"
 echo "   ++++++++++++++++++++++++++++++++++++++"
 echo
 echo

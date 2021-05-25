@@ -124,7 +124,7 @@ chmod 775 settings2pi.sh
 - ~~ssh härten~~
 - ~~fail2ban installieren und konfigurieren~~
 - ~~s-nail installieren und konfigurieren~~
-- automatische Updates einspielen
+- ~~automatische Updates einspielen~~
 - Willkommens Bildschirm erstellen
 - Aliase vergeben
 - HDMI-Anschluss deaktivieren
@@ -136,7 +136,7 @@ chmod 775 settings2pi.sh
 - Farbe des Prompts ändern
 - Texteditor Nano konfigurieren
 - Konfiguration der /etc/sudoers (immer nach dem root Passwort fragen)
-- System aufräumen
+- ~~System aufräumen~~
 - ...
 - ...
 
