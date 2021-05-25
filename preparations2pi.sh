@@ -93,7 +93,7 @@ sleep 2
 
 while ! ((antwortok)); do
         echo
-	read -p "   Wie soll der neue Benutzername lauten: " newuser
+	read -p "   Wie soll der neue Benutzername lauten: " neuerbenutzer
         read -p "   Wie soll der neue Rechnername lauten: " rechnername
      echo
      echo
@@ -120,7 +120,7 @@ echo
 echo
 
 # Neuen Benutzer hinzufügen
-sudo adduser --gecos "" $newuser
+sudo adduser --gecos "" $neuerbenutzer
 # Neuen Benutzer den Gruppen hinzufügen
 sudo usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio $neuerbenutzer
 
