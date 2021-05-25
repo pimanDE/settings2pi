@@ -359,9 +359,9 @@ sleep 2
 # Automatische Aktualisierung des Systems
 
 
-mkdir ~/Scripte/cron
-wget -q https://github.com/raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-and-upgrade.sh -P ~/Scripte/
-wget -q https://github.com/raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
+mkdir /home/$username/Scripte/cron
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-and-upgrade.sh -P ~/Scripte/
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
 
 sudo rpl 'username' '$username' ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
 sudo rpl 'username' '$username' ~/Scripte/cron > /dev/null 2>&1
@@ -379,9 +379,9 @@ sudo touch /home/$username/Log/update-and-upgrade.log
 echo '   6. Automatische Aktualisierung des Systems erfolgreich' >> ~/Log/settings2pi.log
 echo
 echo
-echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo -e "   + ${gruenfett}6. Automatische Aktualisierung des Systems erfolgreich${standard} +"
-echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo
 echo
 sleep 2
