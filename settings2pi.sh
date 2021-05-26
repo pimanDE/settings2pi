@@ -261,9 +261,10 @@ echo
 
 sudo apt install -y fail2ban
 
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/fail2ban/jail.local -P /etc/fail2ban/
-sudo rpl "username" "$username" /etc/fail2ban/jail.local > /dev/null 2>&1					# den eigenen Benutzer hinzufügen
-sudo rpl "IgnorierteIP" "$ignoreip" /etc/fail2ban/jail.local > /dev/null 2>&1				# IP Adresse/n hinzufügen, die fail2ban ignorieren soll
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/fail2ban/jail.local -P /home/$username/Scripte/fail2ban
+rpl "benutzername" "$username" /home/$username/Scripte/fail2ban/jail.local > /dev/null 2>&1				# den eigenen Benutzer hinzufügen
+rpl "IgnorierteIP" "$ignoreip" /home/$username/Scripte/fail2ban/jail.local > /dev/null 2>&1				# IP Adresse/n hinzufügen, die fail2ban ignorieren soll
+sudo mv /home/$username/Scripte/fail2ban/jail.local /etc/fail2ban
 sudo chmod 644 /etc/fail2ban/jail.local
 
 # https://kopfkino.irosaurus.com/tutorial-server-mit-fail2ban-absichern/
