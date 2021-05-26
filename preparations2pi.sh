@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Mit diesem Script werden einige Vorbereitungen für das Script settings2pi.sh getroffen.
-# getestet auf Raspberry Pi OS Lite Release vom 11. Januar 2021
+# getestet auf Raspberry Pi OS Lite Release vom 04. März 2021
 #
 # Benutzung auf eigene Gefahr!!!
 #

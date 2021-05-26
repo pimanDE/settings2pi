@@ -363,8 +363,8 @@ mkdir /home/$username/Scripte/cron
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-and-upgrade.sh -P ~/Scripte/
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
 
-sudo rpl 'username' '$username' ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
-sudo rpl 'username' '$username' ~/Scripte/cron > /dev/null 2>&1
+sudo rpl 'benutzername' '$username' ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl 'benutzername' '$username' ~/Scripte/cron > /dev/null 2>&1
 
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
 sudo sed -i "s/59 1 /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt

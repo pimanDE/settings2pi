@@ -247,7 +247,7 @@ port     = ssh-port
 maxretry = 3
 bantime  = 1209600
 filter   = sshd
-logpath  = /home/username/Log/fail2ban.log
+logpath  = /home/benutzername/Log/fail2ban.log
 backend  = %(sshd_backend)s
 
 

@@ -1,4 +1,4 @@
 ###########################################################################
 # Aktualisieren des Systems
 
-59 1  * * * /home/username/Scripte/update-and-upgrade.sh > /dev/null 2>&1
+59 1 * * * /home/benutzername/Scripte/update-and-upgrade.sh > /dev/null 2>&1
