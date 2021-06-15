@@ -403,8 +403,6 @@ sleep 2
 echo
 echo
 echo -e "${blaufett}   Die Blockseite wird angepasst ... ${standard}"
-echo
-echo
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/blockseite.html -P /var/www/pihole
 sudo rpl '/pihole/index.php' '/pihole/blockseite.html' /etc/lighttpd/lighttpd.conf > /dev/null 2>&1
 sudo service lighttpd restart
@@ -420,8 +418,9 @@ sudo chmod 664 /etc/pihole/pihole-FTL.conf
 
 sudo mv /etc/pihole/setupVars.conf /etc/pihole/setupVars.conf.orig		# Einstellungen für Einstellungen/DNS
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/setupVars.conf -P /etc/pihole
-sudo rpl "local-ip" "$ipadresse" /home/$username/Scripte/pihole/setupVars.conf > /dev/null 2>&1
-sudo rpl ' /24' '/24' /home/$username/Scripte/pihole/setupVars.conf > /dev/null 2>&1
+sudo chmod 777 /etc/pihole/pihole/setupVars.conf
+sudo rpl "local-ip" "$ipadresse" /etc/pihole/setupVars.conf > /dev/null 2>&1
+sudo rpl ' /24' '/24' /etc/pihole/pihole/setupVars.conf > /dev/null 2>&1
 sudo chown root:root /etc/pihole/setupVars.conf
 sudo chmod 644 /etc/pihole/setupVars.conf
 
