@@ -39,7 +39,12 @@ Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisier
 - Installation diverser Systemprogramme
 - ssh wird gehärtet
 - fail2ban wird installiert und konfiguriert
+- veracrypt wird installiert
 - s-nail wird installiert und konfiguriert ([siehe Erläuterungen zum Script](https://github.com/pimanDE/settings2pi/blob/master/Dokumentation/Erläuterungen%20zum%20Script.md))
+- der HDMI Anschluss wird deaktiviert
+- pihole wird installiert und konfiguriert
+- unbound wird installiert
+- das System wird automatisch aktuell gehalten
 - ...
 
 <br>
@@ -54,6 +59,7 @@ Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisier
 - wissen Sie, dass Sie alles auf eigene Gefahr tun,
 - wissen Sie, dass pimanDE alles nach bestem Wissen und Gewissen gemacht hat,
 - kennen Sie die IP-Adresse Ihres Computers, von dem Sie sich aus (immer) am Raspberry Pi anmelden (wird im Laufe des zweiten Scripts benötigt)
+- haben Sie eine E-Mail Adresse von [GMX](https://www.gmx.net) (nicht zwingend erforderlich)
 - ...
 
 <br>
@@ -96,7 +102,7 @@ chmod 775 settings2pi.sh
 
 - Dieses Script eignet sich nur für User, die ausschließlich per _**ssh**_ auf dem Raspberry arbeiten
 - ein grafisches Login wird nach Ausführen des Scripts nicht mehr möglich sein, da der HDMI-Anschluss deaktiviert wird
-- gestet unter Raspberry Pi OS Lite Release vom 11. Januar 2021 ([Download](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-01-12/2021-01-11-raspios-buster-armhf-lite.zip))
+- getestet unter Raspberry Pi OS Lite Release vom 07. Mai 2021 ([Download](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-05-28/2021-05-07-raspios-buster-armhf-lite.zip))
 - ...
 
 <br>
@@ -104,7 +110,7 @@ chmod 775 settings2pi.sh
 
 **Zusammenfassung:**
 
-1. [Raspbian OS Lite Image](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-01-12/2021-01-11-raspios-buster-armhf-lite.zip) auf eine SD Karte schreiben
+1. [Raspbian OS Lite Image](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-05-28/2021-05-07-raspios-buster-armhf-lite.zip) auf eine SD Karte schreiben
 2. System starten und als user *pi* anmelden
 4. Script 1 [(preparation2pi.sh](https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparation2pi.sh)) ausführen
 5. Script 2 [(settings2pi.sh](https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh)) ausführen
@@ -127,12 +133,13 @@ chmod 775 settings2pi.sh
 - ~~automatische Updates einspielen~~
 - Willkommens Bildschirm erstellen
 - Aliase vergeben
-- HDMI-Anschluss deaktivieren
-- Erstellen von diversen Scripten für automatische Arbeiten
+- ~~HDMI-Anschluss deaktivieren~~
+- ~~Erstellen von diversen Scripten für automatische Arbeiten~~
 - die Firewall aktivieren
-- pi-hole installieren und konfigurieren
-- unbound installieren und konfigurieren
+- ~~pi-hole installieren und konfigurieren~~
+- ~~unbound installieren und konfigurieren~~
 - Port Knocking
+- einen Honigtopf 'aufstellen'
 - Farbe des Prompts ändern
 - Texteditor Nano konfigurieren
 - Konfiguration der /etc/sudoers (immer nach dem root Passwort fragen)
