@@ -72,9 +72,9 @@ veracrypt -m=nokernelcrypto --truecrypt /Quelle /Einhängepunkt
 
 **Was ist s-nail und wie aktiviere ich es?**
 
-`s-nail` ist ein einfacher und schlanker Mailclient. Er soll dazu dienen, dass bei jeder Anmeldung am Raspberry Pi eine kurze Mail als Info geschickt wird. So wird man sofort informiert, wenn ein Login stattfindet. Man benötigt hierzu eine E-Mail Adresse von ([GMX](https://www.gmx.net)). Sicherlich geht es auch mit anderen E-Mail Providern.
+`s-nail` ist ein einfacher und schlanker Mailclient. Er soll dazu dienen, dass bei jeder Anmeldung am Raspberry Pi eine kurze Mail als Info gesendet wird. So wird man sofort informiert, wenn ein Login stattfindet. Man benötigt hierzu eine E-Mail Adresse von [GMX](https://www.gmx.net). Sicherlich geht es auch mit anderen E-Mail Providern.
 
-Die meisten Einstellungen für `s-nail` sind bereits voreingestellt. Lediglich die dritt-, viert-und fünftvorletzte Zeile der Datei `/etc/s-nail.rc`muss editiert werden. Welche Änderungen dort vorgenommen werden müssen, sind in der Datei selbsterklärend.
+Die meisten Einstellungen für `s-nail` sind bereits voreingestellt. Lediglich die dritt-, viert- und fünftvorletzte Zeile der Datei `/etc/s-nail.rc`muss editiert werden. Welche Änderungen dort vorgenommen werden müssen, sind in der Datei selbsterklärend.
 
 ```bash
 sudo nano +224,20 /etc/s-nail.rc
@@ -97,21 +97,88 @@ sudo chmod 644 /etc/profile
 ---
 **Warum kann s-nail nicht auch automatisch konfiguriert werden?**
 
-`s-nail` könnte natürlich auch so installiert und konfiguriert werden, sodass keine Nacharbeiten erforderlich wären. Dabei müsste jedoch dann während des Scripts die E-Mail Adresse und das Passwort abgefragt werden. Dies soll dem Benutzer nicht abverlangt werden. Jeder soll selber entscheiden, ob er seiner Raspberry Pi Installation das Passwort vom E-Mail Account anvertraut.
+`s-nail` könnte natürlich auch so installiert und konfiguriert werden, sodass keine Nacharbeiten erforderlich wären. Dabei müsste jedoch dann während des Scripts die E-Mail Adresse und das Passwort abgefragt werden. Dies soll dem Benutzer nicht abverlangt werden. Jeder soll selber entscheiden, ob er seinem Raspberry Pi Installation das Passwort vom E-Mail Account anvertraut.
 
 ---
 **Wann wird das System automatisch aktualisiert?**
 
-Das System wird täglich zwischen 0 Uhr und 3:00 Uhr nachts automatisch aktualisiert. Bei der Installation wird diese randomnisiert festgelegt.
+Das System wird täglich zwischen 0 Uhr und 3:00 Uhr nachts automatisch aktualisiert. Bei der Installation wird dieser Zeitpunkt randomnisiert festgelegt.
+Ob die Aktualisierung erfolgreich war, kann im Verzeichnis `~/Log` geprüft werden.
 
 
 ---
+**Warum wird der HDMI-Anschluss deaktiviert?**
+
+Der Grundgedanke dieses Scriptes ist, dass kein zusätzlicher Monitor benötigt wird. Daher lag es nahe, den Ansschluss zu deaktivieren.
+Immer nach dem Motto: Was nicht benötigt wird, ist nicht vorhanden.
+
+
+---
+
+
+**Ich möchte aber einen Monitor anschließen. Wie kann ich den HDMI-Anschluss wieder aktivieren?**
+
+Der HDMI-Anschluss wird folgendermaßen mit den Standard Einstellungen wieder aktiviert:
+```bash
+sudo tvservice -p
+```
+Zur Kontrolle:
+
+```bash
+sudo tvservice -status
+```
+
+
+---
+
+
+**Warum wurde im pihole die Blockingpage geändert**
+
+Die Anzeige der mofifizierten Blockingpage signalisiert dem Benutzer eindeutig, dass die Seite gesperrt ist.
+
+
+---
+
+
+
+**Ich möchte aber die Original Blockingpage haben. Geht das?**
+
+Ja, das geht. Folgende zwei Befehle sind hierzu erforderlich:
+```bash
+sudo rpl '/pihole/blockseite.html' '/pihole/index.php' /etc/lighttpd/lighttpd.conf > /dev/null 2>&1
+sudo service lighttpd restart
+```
+
+
+---
+
+
+
+**Muss ich noch etwas im pihole einstellen?**
+
+Dem Grunde nach sollte pihole anstandslos funktionieren. Unter Einstellungen/DNS kann unten noch die Bedingte Weiterleitung aktiviert werden. Weitere Informationen sind unter [docs.pi-hole.net](https://docs.pi-hole.net/routers/fritzbox-de/) am Ende der Seite zu finden.
+
+
+---
+
+
 **Warum ...**
 
 ...
 
 
 ---
+
+
+**Warum ...**
+
+...
+
+
+---
+
+
+
 
 
 **Sind Verbesserungsvorschläge und Anregungen erwünscht?**
