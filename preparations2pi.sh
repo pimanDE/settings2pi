@@ -43,6 +43,7 @@ cd /home/$username
 
 mkdir -p Log
 mkdir -p Scripte
+mkdir -p Scripte/cron
 mkdir -p Downloads
 
 # touch /tmp/error-preparations2pi.log
