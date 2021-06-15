@@ -418,7 +418,7 @@ sudo chmod 664 /etc/pihole/pihole-FTL.conf
 
 sudo mv /etc/pihole/setupVars.conf /etc/pihole/setupVars.conf.orig		# Einstellungen für Einstellungen/DNS
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/setupVars.conf -P /etc/pihole
-sudo chmod 777 /etc/pihole/pihole/setupVars.conf
+sudo chmod 777 /etc/pihole/setupVars.conf
 sudo rpl "local-ip" "$ipadresse" /etc/pihole/setupVars.conf > /dev/null 2>&1
 sudo rpl ' /24' '/24' /etc/pihole/pihole/setupVars.conf > /dev/null 2>&1
 sudo chown root:root /etc/pihole/setupVars.conf
