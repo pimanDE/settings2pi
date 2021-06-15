@@ -127,10 +127,6 @@ done
 
 cd /home/$username
 
-mkdir -p Log
-mkdir -p Scripte
-mkdir -p Downloads
-
 touch /home/$username/Log/settings2pi.log
 touch /home/$username/Log/fail2ban.log						# die jail.local verlangt danach
 
@@ -358,35 +354,178 @@ sleep 2
 
 
 ####################################################################################################################
+# HDMI-Anschluss deaktivieren
+
+sudo tvservice -o > /dev/null
+
+echo '   6. HDMI-Anschluss wurde deaktiviert' >> ~/Log/master-install.log
+echo
+echo
+echo "   +++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}6. HDMI-Anschluss wurde deaktiviert${standard} +"
+echo "   +++++++++++++++++++++++++++++++++++++++"
+echo
+echo
+sleep 2
+
+
+
+####################################################################################################################
+# Installation von pihole
+
+echo
+echo
+
+echo -e "${blaufett}   Installiere pihole ...${standard}"
+
+echo
+echo
+
+sudo curl -sSL https://install.pi-hole.net | bash
+
+echo
+echo
+
+echo -e "${gruenfett}   Erledigt${standard}"
+sleep 2
+
+pihole -a -p									# Passwort löschen
+
+cd /home/$username/Scripte
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/listen-geräte-gruppen-hinzufügen.sh
+chmod +x listen-geräte-gruppen-hinzufügen.sh
+sudo ./listen-geräte-gruppen-hinzufügen.sh		# Hinzufügen von Domainen, Gruppen, Blocklisten etc.
+
+echo
+echo
+sleep 2
+
+echo
+echo
+echo -e "${blaufett}   Die Blockseite wird angepasst ... ${standard}"
+echo
+echo
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/blockseite.html -P /var/www/pihole
+sudo rpl '/pihole/index.php' '/pihole/blockseite.html' /etc/lighttpd/lighttpd.conf > /dev/null 2>&1
+sudo service lighttpd restart
+
+echo -e "${gruenfett}   Erledigt${standard}"
+sleep 2
+
+sudo chmod 666 /etc/pihole/pihole-FTL.conf
+echo "BLOCKINGMODE=IP" >> /etc/pihole/pihole-FTL.conf					# damit die Blockingpage angezeigt wird
+echo "DBINTERVALL=60" >> /etc/pihole/pihole-FTL.conf					# Schreibvorgänge nur alle 60 Minuten (Standard =1 Minute)
+# echo "MAXDBDAYS=90" >> /etc/pihole/pihole-FTL.conf					# Einträge die älter als 90 Tage sind, werden gelöscht
+sudo chmod 664 /etc/pihole/pihole-FTL.conf
+
+sudo mv /etc/pihole/setupVars.conf /etc/pihole/setupVars.conf.orig		# Einstellungen für Einstellungen/DNS
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/setupVars.conf -P /etc/pihole
+sudo rpl "local-ip" "$ipadresse" /home/$username/Scripte/pihole/setupVars.conf > /dev/null 2>&1
+sudo rpl ' /24' '/24' /home/$username/Scripte/pihole/setupVars.conf > /dev/null 2>&1
+sudo chown root:root /etc/pihole/setupVars.conf
+sudo chmod 644 /etc/pihole/setupVars.conf
+
+sudo chmod 777 /etc/pihole/dns-servers.conf
+sudo echo "Dismail;80.241.218.68;;" >> /etc/pihole/dns-servers.conf		# Dismail als zusätzliche Alternative
+sudo chmod 644 /etc/pihole/dns-servers.conf
+
+sudo service pihole-FTL restart
+
+sudo curl -sSL https://raw.githubusercontent.com/pimanDE/translate2german/master/translate2german.sh | bash		# Übersetzt die Weboberfläche auf deutsch
+
+echo
+echo
+echo '   7. Pihole wurde erfolgreich installiert' >> ~/Log/master-install.log
+echo
+echo
+echo "   +++++++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}7. Pihole wurde erfolgreich installiert${standard} +"
+echo "   +++++++++++++++++++++++++++++++++++++++++++"
+echo
+echo
+sleep 2
+
+
+
+####################################################################################################################
+# Installation von unbound
+
+echo
+echo
+
+echo -e "${blaufett}   Installiere Unbound ...${standard}"
+
+echo
+echo
+
+sudo apt install -y unbound
+
+sudo wget -q https://www.internic.net/domain/named.root -O /var/lib/unbound/root.hints
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
+sudo service unbound restart
+
+
+echo 'Unbound erfolgreich aktualisiert' >> /home/$username/Log/update-root-nameserver.log
+date +"am %A, den %d. %B %Y um %H:%M:%S Uhr" >> /home/$username/Log/update-root-nameserver.log
+echo '#####################################################' >> /home/$username/Log/update-root-nameserver.log
+echo >> /home/$username/Log/update-root-nameserver.log
+echo >> /home/$username/Log/update-root-nameserver.log
+
+
+echo
+echo
+echo '   8. Unbound wurde erfolgreich installiert und konfiguriert' >> ~/Log/master-install.log
+echo
+echo
+echo "   ++++++++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}8. Unbound wurde erfolgreich installiert${standard} +"
+echo "   ++++++++++++++++++++++++++++++++++++++++++++"
+echo
+echo
+sleep 2
+
+
+
+####################################################################################################################
 # Automatische Aktualisierung des Systems
 
 
-mkdir /home/$username/Scripte/cron
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-and-upgrade.sh -P ~/Scripte/
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-root-nameserver.sh -P ~/Scripte
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
 
 sudo rpl 'benutzername' '$username' ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
-sudo rpl 'benutzername' '$username' ~/Scripte/cron > /dev/null 2>&1
+sudo rpl 'benutzername' '$username' ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
+sudo rpl 'benutzername' '$username' ~/Scripte/cronjobs.txt > /dev/null 2>&1
 
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
-sudo sed -i "s/59 1 /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
+sudo sed -i "s/AB C /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
+sudo sed -i "s/DE F /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
 
 sudo crontab -u root /home/$username/Scripte/cron/cronjobs.txt
 
 sudo chown root:root /home/$username/Scripte/update-and-upgrade.sh
 sudo chmod 550 /home/$username/Scripte/update-and-upgrade.sh
-
 sudo touch /home/$username/Log/update-and-upgrade.log
 
-echo '   6. Automatische Aktualisierung des Systems erfolgreich' >> ~/Log/settings2pi.log
+sudo chown root:root /home/$username/Scripte/update-root-nameserver.sh
+sudo chmod 550 /home/$username/Scripte/update-root-nameserver.sh
+
+
+echo
+echo
+
+echo '   9. Automatische Aktualisierung des Systems erfolgreich' >> ~/Log/settings2pi.log
 echo
 echo
 echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo -e "   + ${gruenfett}6. Automatische Aktualisierung des Systems erfolgreich${standard} +"
+echo -e "   + ${gruenfett}9. Automatische Aktualisierung des Systems erfolgreich${standard} +"
 echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo
 echo
 sleep 2
+
+
 
 
 
@@ -406,12 +545,12 @@ sudo apt autoclean			# wie clean, nur werden ausschließlich Pakete, die nicht m
 sudo apt autoremove			# Deinstallation ungenutzter Abhängigkeiten
 
 
-echo '   7. Cache wurde erfolgreich geleert' >> ~/Log/settings2pi.log
+echo '   10. Cache wurde erfolgreich geleert' >> ~/Log/settings2pi.log
 echo
 echo
-echo "   ++++++++++++++++++++++++++++++++++++++"
-echo -e "   + ${gruenfett}7. Cache wurde erfolgreich geleert${standard} +"
-echo "   ++++++++++++++++++++++++++++++++++++++"
+echo "   +++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}10. Cache wurde erfolgreich geleert${standard} +"
+echo "   +++++++++++++++++++++++++++++++++++++++"
 echo
 echo
 sleep 2
@@ -423,6 +562,8 @@ sleep 2
 
 # echo
 # echo
+
+
 
 
 ####################################################################################################################
