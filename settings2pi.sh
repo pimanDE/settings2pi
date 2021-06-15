@@ -389,6 +389,9 @@ echo
 echo -e "${gruenfett}   Erledigt${standard}"
 sleep 2
 
+echo
+echo
+
 pihole -a -p									# Passwort löschen
 
 cd /home/$username/Scripte

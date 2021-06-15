@@ -51,6 +51,7 @@ sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabl
 
 
 echo -e "${gruenfett}   Erledigt${standard}"
+sleep 2
 
 
 
@@ -150,7 +151,7 @@ sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabl
 
 
 echo -e "${gruenfett}   Erledigt${standard}"
-
+sleep 2
 
 
 ####################################################################################################################
@@ -187,7 +188,7 @@ pihole -g
 
 
 echo -e "${gruenfett}   Erledigt${standard}"
-
+sleep 2
 
 
 ####################################################################################################################
@@ -205,7 +206,7 @@ echo -e "${blaufett}   Füge Geräte hinzu ... ${standard}"
 
 
 echo -e "${gruenfett}   Erledigt${standard}"
-
+sleep 2
 
 
 ####################################################################################################################
@@ -222,7 +223,7 @@ sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO 'group' (enabled, name, descrip
 
 
 echo -e "${gruenfett}   Erledigt${standard}"
-
+sleep 2
 
 
 ####################################################################################################################
