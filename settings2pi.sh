@@ -405,7 +405,7 @@ echo
 echo -e "${blaufett}   Die Blockseite wird angepasst ... ${standard}"
 echo
 echo
-wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/blockseite.html -P /var/www/pihole
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/blockseite.html -P /var/www/pihole
 sudo rpl '/pihole/index.php' '/pihole/blockseite.html' /etc/lighttpd/lighttpd.conf > /dev/null 2>&1
 sudo service lighttpd restart
 
@@ -496,7 +496,7 @@ wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cro
 
 sudo rpl 'benutzername' '$username' ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
 sudo rpl 'benutzername' '$username' ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
-sudo rpl 'benutzername' '$username' ~/Scripte/cronjobs.txt > /dev/null 2>&1
+sudo rpl 'benutzername' '$username' ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
 sudo sed -i "s/AB C /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
