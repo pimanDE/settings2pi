@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Mit diesem Script werden verschiedene Programme installiert und diverse Einstellungen am Raspberry Pi automatisch vorgenommen.
-# getestet auf Raspberry Pi OS Lite Release vom 04. März 2021
+# getestet auf Raspberry Pi OS Lite Release vom 07. Mai 2021
 #
 # Benutzung auf eigene Gefahr!!!
 #
@@ -406,7 +406,7 @@ sleep 2
 echo
 echo
 echo -e "${blaufett}   Die Blockseite wird angepasst ... ${standard}"
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/blockseite.html -P /var/www/pihole
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/blockseite.html -P /var/www/html/pihole
 sudo rpl '/pihole/index.php' '/pihole/blockseite.html' /etc/lighttpd/lighttpd.conf > /dev/null 2>&1
 sudo service lighttpd restart
 
