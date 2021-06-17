@@ -183,6 +183,6 @@ Dem Grunde nach sollte pihole anstandslos funktionieren. Unter Einstellungen/DNS
 
 **Sind Verbesserungsvorschläge und Anregungen erwünscht?**
 
-Ja natürlich. Ich kann jedoch nicht garantieren, ob ich diese dann auch umsetzen kann. Leider ist meine Zeit begrenzt. Ich werden jedoch mein Bestes geben :sunglasses:
+Ja natürlich. Ich kann jedoch nicht garantieren, ob ich diese dann auch umsetzen kann. Leider ist meine Zeit begrenzt. Ich werde jedoch mein Bestes geben :sunglasses:
 
 ---
