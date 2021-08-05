@@ -258,8 +258,8 @@ echo
 sudo apt install -y fail2ban
 
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/fail2ban/jail.local -P /home/$username/Scripte/fail2ban
-rpl "benutzername" "$username" /home/$username/Scripte/fail2ban/jail.local > /dev/null 2>&1				# den eigenen Benutzer hinzufügen
-rpl "ssh-port" "$sshport" /home/$username/Scripte/fail2ban/jail.local > /dev/null 2>&1				# den ssh Port hinzufügen
+rpl "benutzername" $username /home/$username/Scripte/fail2ban/jail.local > /dev/null 2>&1				# den eigenen Benutzer hinzufügen
+rpl "ssh-port" "$sshport" /home/$username/Scripte/fail2ban/jail.local > /dev/null 2>&1					# den ssh Port hinzufügen
 rpl "IgnorierteIP" "$ignoreip" /home/$username/Scripte/fail2ban/jail.local > /dev/null 2>&1				# IP Adresse/n hinzufügen, die fail2ban ignorieren soll
 sudo mv /home/$username/Scripte/fail2ban/jail.local /etc/fail2ban
 sudo chmod 644 /etc/fail2ban/jail.local
@@ -358,7 +358,7 @@ sleep 2
 
 sudo tvservice -o > /dev/null
 
-echo '   6. HDMI-Anschluss wurde deaktiviert' >> ~/Log/master-install.log
+echo '   6. HDMI-Anschluss wurde deaktiviert' >> ~/Log/settings2pi.log
 echo
 echo
 echo "   +++++++++++++++++++++++++++++++++++++++"
@@ -437,7 +437,7 @@ sudo curl -sSL https://raw.githubusercontent.com/pimanDE/translate2german/master
 
 echo
 echo
-echo '   7. Pihole wurde erfolgreich installiert' >> ~/Log/master-install.log
+echo '   7. Pihole wurde erfolgreich installiert' >> ~/Log/settings2pi.log
 echo
 echo
 echo "   +++++++++++++++++++++++++++++++++++++++++++"
@@ -476,7 +476,7 @@ echo >> /home/$username/Log/update-root-nameserver.log
 
 echo
 echo
-echo '   8. Unbound wurde erfolgreich installiert und konfiguriert' >> ~/Log/master-install.log
+echo '   8. Unbound wurde erfolgreich installiert und konfiguriert' >> ~/Log/settings2pi.log
 echo
 echo
 echo "   ++++++++++++++++++++++++++++++++++++++++++++"
@@ -496,9 +496,9 @@ wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/upd
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-root-nameserver.sh -P ~/Scripte
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
 
-sudo rpl 'benutzername' '$username' ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
-sudo rpl 'benutzername' '$username' ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
-sudo rpl 'benutzername' '$username' ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
+sudo rpl 'benutzername' $username ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl 'benutzername' $username ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
+sudo rpl 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
 sudo sed -i "s/AB C /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
@@ -542,9 +542,9 @@ echo -e "${blaufett}   Leeren des Caches ...${standard}"
 echo
 echo
 
-sudo apt clean				# Leeren des Paketcaches (Entfernen von zur Installation heruntergeladenen Paketen)
-sudo apt autoclean			# wie clean, nur werden ausschließlich Pakete, die nicht mehr in den Quellen verfügbar sind, gelöscht
-sudo apt autoremove			# Deinstallation ungenutzter Abhängigkeiten
+sudo apt clean					# Leeren des Paketcaches (Entfernen von zur Installation heruntergeladenen Paketen)
+sudo apt autoclean				# wie clean, nur werden ausschließlich Pakete, die nicht mehr in den Quellen verfügbar sind, gelöscht
+sudo apt autoremove -y			# Deinstallation ungenutzter Abhängigkeiten
 
 
 echo '   10. Cache wurde erfolgreich geleert' >> ~/Log/settings2pi.log
