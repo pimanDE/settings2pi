@@ -352,19 +352,19 @@ sleep 2
 
 
 ####################################################################################################################
-# HDMI-Anschluss deaktivieren
+# HDMI-Anschluss deaktivieren (Funktion wird noch geprüft.)
 
-sudo tvservice -o > /dev/null
+# sudo tvservice -o > /dev/null
 
-echo '   6. HDMI-Anschluss wurde deaktiviert' >> ~/Log/settings2pi.log
-echo
-echo
-echo "   +++++++++++++++++++++++++++++++++++++++"
-echo -e "   + ${gruenfett}6. HDMI-Anschluss wurde deaktiviert${standard} +"
-echo "   +++++++++++++++++++++++++++++++++++++++"
-echo
-echo
-sleep 2
+# echo '   6. HDMI-Anschluss wurde deaktiviert' >> ~/Log/settings2pi.log
+# echo
+# echo
+# echo "   +++++++++++++++++++++++++++++++++++++++"
+# echo -e "   + ${gruenfett}6. HDMI-Anschluss wurde deaktiviert${standard} +"
+# echo "   +++++++++++++++++++++++++++++++++++++++"
+# echo
+# echo
+# sleep 2
 
 
 
