@@ -65,7 +65,8 @@ echo
 echo -e "${blaufett}   Füge gesperrte Domains hinzu ...${standard}"
 
 # Exakte Blacklist
-sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'beispiel.com',1,'Beispiel');"
+# sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'beispiel.com',1,'Beispiel');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'vcs.vdspf.com',1,'Location Lookup');"
 
 
 # RegEx Blacklist
@@ -170,17 +171,14 @@ sudo sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist"
 
 
 # Eigene Listen
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/multi.txt', 1, 'Zelo72 Multi-Liste');"
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/fake.txt', 1, 'Zelo72 Fake-Liste');"
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/privacy.txt', 1, 'Zelo72 Privacy-Liste');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/big.txt', 1, 'Zelo72 Big-Liste');"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/affiliatetracking.txt', 1, 'Zelo72 Affiliate-Liste');"
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/cryptoscamdb.txt', 1, 'Zelo72 CryptoScamDB-Liste');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/threat-intelligence.txt', 1, 'Zelo72 Threat Intelligence Feeds');"
+
 
 # Hinzufügen
 # sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('file:///home/___user___/Dateien/Liste.txt', 1, 'Beschreibung');"
 
-# alle Listen löschen
-# sudo sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist"
 
 
 # Listen aktualisieren

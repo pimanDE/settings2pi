@@ -1,14 +1,20 @@
 #!/bin/bash
 #
+# Aktualisierung des Systems
+#
+#
+#
+#####################################################################################################################
+# Start des Script's
 
-set -e
+clear
 
-sudo apt update
-sudo apt upgrade -y
-echo 'Update und Upgrade erfolgreich' >> /home/benutzername/Log/update-and-upgrade.log &&
-date +'am %A, den %d. %B %Y um %H:%M:%S Uhr' >> /home/benutzername/Log/update-and-upgrade.log &&
-echo '#####################################################' >> /home/benutzername/Log/update-and-upgrade.log &&
-echo >> /home/benutzername/Log/update-and-upgrade.log &&
-echo >> /home/benutzername/Log/update-and-upgrade.log &&
+
+
+# Aktualisierung des Systems
+
+sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y &&
+date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/benutzername/Log/update-and-upgrade.log || echo "ACHTUNG! Systemupdate auf rechnername war fehlerhaft!" | s-nail -A MAIL -s "ACHTUNG! Systemupdate auf rechnername war fehlerhaft!" meine-email@gmx.net
+
 
 exit

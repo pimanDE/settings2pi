@@ -155,11 +155,9 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y dialog git locate lsof
 
-echo 'Update und Upgrade erfolgreich' > /home/$username/Log/update-and-upgrade.log
-date +'am %A, den %d. %B %Y um %H:%M:%S Uhr' >> /home/$username/Log/update-and-upgrade.log
-echo '#####################################################' >> /home/$username/Log/update-and-upgrade.log
-echo >> /home/$username/Log/update-and-upgrade.log
-echo >> /home/$username/Log/update-and-upgrade.log
+echo 'Update und Upgrade erfolgreich am:' > /home/$username/Log/update-and-upgrade.log
+date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/$username/Log/update-and-upgrade.log
+
 
 echo '   1. Update der Quellen und Installation diverser Programme erfolgreich' >> ~/Log/settings2pi.log
 echo
@@ -229,7 +227,18 @@ sudo echo "+++++++++++++++++++" >> /etc/ssh/banner
 sudo echo >> /etc/ssh/banner
 sudo chmod 644 /etc/ssh/sshd_config									# Dateirechte setzen
 
-sudo /etc/init.d/ssh restart										# anschließender Login: ssh benutzername@192.168.178.11 -p 31307
+sudo /etc/init.d/ssh restart										# anschließender Login: ssh benutzername@192.168.178.11 -p Portnummer
+
+mkdir -p /home/$username/Scripte/ssh-login
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/ssh-login.sh -P ~/Scripte/ssh-login/
+chmod 554 ~/Scripte/ssh-login/ssh-login.sh
+
+# siehe Eräuterungen zum Script (https://github.com/pimanDE/settings2pi/Erläuterungen%20zum%20Script)
+sudo chmod 777 /etc/profile
+sudo echo "/home/$username/Scripte/ssh-login/ssh-login.sh | s-nail -A MAIL -s 'SSH Login auf $hostname' meine-email@gmx.net" >> /etc/profile	# bei jedem ssh-Login wird eine E-Mail versendet
+sudo chmod 644 /etc/profile
+
+# echo "Dieser Text erscheint in der Mail" | s-nail -A MAIL -s "Dieser Text erscheint im Betreff" meine-email@gmx.net
 
 echo '   2. ssh erfolgreich abgesichert' >> ~/Log/settings2pi.log
 echo
@@ -326,18 +335,7 @@ sudo mv /etc/s-nail.rc /etc/s-nail.rc.orig
 
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/s-nail/s-nail.rc -P /etc/
 sudo chown $username:$username /etc/s-nail.rc
-sudo chmod 440 /etc/s-nail.rc
-
-mkdir -p /home/$username/Scripte/ssh-login
-wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/ssh-login.sh -P ~/Scripte/ssh-login/
-chmod 550 ~/Scripte/ssh-login/ssh-login.sh
-
-# siehe Eräuterungen zum Script (https://github.com/pimanDE/settings2pi/Erläuterungen%20zum%20Script)
-sudo chmod 777 /etc/profile
-sudo echo "/home/$username/Scripte/ssh-login/ssh-login.sh | s-nail -A MAIL -s 'SSH Login auf $hostname' email@gmx.net" >> /etc/profile	# bei jedem ssh-Login wird eine E-Mail versendet
-sudo chmod 644 /etc/profile
-
-# echo "Dieser Text erscheint in der Mail" | s-nail -A MAIL -s "Dieser Text erscheint im Betreff" email@gmx.net
+sudo chmod 400 /etc/s-nail.rc
 
 echo
 echo
@@ -462,17 +460,16 @@ echo
 
 sudo apt install -y unbound
 
+sudo rpl 'benutzername' '$username' /home/$username/Scripte/update-rootnameserver.sh
+sudo rpl 'rechnername' '$hostname' /home/$username/Scripte/update-rootnameserver.sh
+
 sudo wget -q https://www.internic.net/domain/named.root -O /var/lib/unbound/root.hints
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
 sudo service unbound restart
 
 
-echo 'Unbound erfolgreich aktualisiert' >> /home/$username/Log/update-root-nameserver.log
-date +"am %A, den %d. %B %Y um %H:%M:%S Uhr" >> /home/$username/Log/update-root-nameserver.log
-echo '#####################################################' >> /home/$username/Log/update-root-nameserver.log
-echo >> /home/$username/Log/update-root-nameserver.log
-echo >> /home/$username/Log/update-root-nameserver.log
-
+echo 'Unbound erfolgreich aktualisiert am:' > /home/$username/Log/update-root-nameserver.log
+date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/$username/Log/update-root-nameserver.log
 
 echo
 echo
@@ -507,11 +504,11 @@ sudo sed -i "s/DE F /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.
 sudo crontab -u root /home/$username/Scripte/cron/cronjobs.txt
 
 sudo chown root:root /home/$username/Scripte/update-and-upgrade.sh
-sudo chmod 550 /home/$username/Scripte/update-and-upgrade.sh
+sudo chmod 554 /home/$username/Scripte/update-and-upgrade.sh
 sudo touch /home/$username/Log/update-and-upgrade.log
 
 sudo chown root:root /home/$username/Scripte/update-root-nameserver.sh
-sudo chmod 550 /home/$username/Scripte/update-root-nameserver.sh
+sudo chmod 554 /home/$username/Scripte/update-root-nameserver.sh
 
 
 echo
@@ -602,7 +599,7 @@ echo -e "${rotfett}   Beispiel: ssh pimanDE@192.168.178.30 -p 4711${standard}"
 echo
 
 echo -e "${rotfett}   Um s-nail zu konfigurieren, lesen Sie bitte${standard}"
-echo -e "${rotfett}   die Erläuterungen zum Script in der Dokumentation.${standard}"
+echo -e "${rotfett}   die Erläuterungen zum Script in der Dokumentation auf github.com.${standard}"
 
 echo
 echo

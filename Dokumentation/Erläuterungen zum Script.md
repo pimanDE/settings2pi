@@ -83,7 +83,7 @@ sudo nano +224,20 /etc/s-nail.rc
 <html><u>Achtung!</u></html> Nach dem Editieren der Datei bitte die entsprechenden Lese- und Schreibrechte setzen:
 
 ```bash
-sudo chmod 440 /etc/s-nail.rc
+sudo chmod 400 /etc/s-nail.rc
 ```
 
 Ebenso muss noch die Datei `/etc/profile` am Ende editiert werden. Hierbei bitte die voreingetragene E-Mail durch die eigene E-Mail Adresse ersetzen.
@@ -97,14 +97,28 @@ sudo chmod 644 /etc/profile
 ---
 **Warum kann s-nail nicht auch automatisch konfiguriert werden?**
 
-`s-nail` könnte natürlich auch so installiert und konfiguriert werden, sodass keine Nacharbeiten erforderlich wären. Dabei müsste jedoch dann während des Scripts die E-Mail Adresse und das Passwort abgefragt werden. Dies soll dem Benutzer nicht abverlangt werden. Jeder soll selber entscheiden, ob er seinem Raspberry Pi Installation das Passwort vom E-Mail Account anvertraut.
+`s-nail` könnte natürlich auch so installiert und konfiguriert werden, sodass keine Nacharbeiten erforderlich wären. Dabei müsste jedoch dann während des Scripts die E-Mail Adresse und das Passwort abgefragt werden. Dies soll dem Benutzer nicht abverlangt werden. Jeder soll selber entscheiden, ob er seinem Raspberry Pi das Passwort vom E-Mail Account anvertraut.
 
 ---
 **Wann wird das System automatisch aktualisiert?**
 
-Das System wird täglich zwischen 0 Uhr und 3:00 Uhr nachts automatisch aktualisiert. Bei der Installation wird dieser Zeitpunkt randomnisiert festgelegt.
+Das System wird täglich zwischen 0 Uhr und 3:00 Uhr automatisch aktualisiert (`~/Scripte/update-and-upgrade.sh`).
+Ebenso wird alle drei Monate die `root.hints` für `unbound` zwischen 0 Uhr und 3:00 Uhr automatisch aktualisiert (`~/Scripte/update-root-nameserver.sh`).
+
+Bei der Installation werden die Uhrzeiten randomnisiert festgelegt.
 Ob die Aktualisierung erfolgreich war, kann im Verzeichnis `~/Log` geprüft werden.
 
+Wenn die automatischen Aktualisierungen nicht durchgeführt werden konnten, können Sie darüber eine Mail erhalten.
+Hierzu müssen Sie folgende Dateien editieren. Hierbei bitte die voreingetragene E-Mail durch die eigene E-Mail Adresse ersetzen.
+
+```bash
+sudo chmod 777 ~/Scripte/update*.sh
+sudo nano +17,270 ~/Scripte/update-and-upgrade.sh
+sudo nano +21,270 ~/Scripte/update-root-nameserver.sh
+sudo chmod 554 ~/Scripte/update*.sh
+```
+
+Bei der Aktualisierung der `root.hints` wird in jedem Fall eine E-Mail versendet.
 
 ---
 **Warum wird der HDMI-Anschluss deaktiviert?**
