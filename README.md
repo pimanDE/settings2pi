@@ -63,6 +63,7 @@ Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisier
 - ...
 
 **Achtung! Dieses Script funktioniert (zur Zeit) nur unter Raspberry Pi OS Buster vom 07.05.2021**
+<br>
 Download unter: [https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-05-28/2021-05-07-raspios-buster-armhf-lite.zip](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-05-28/2021-05-07-raspios-buster-armhf-lite.zip) 
 <br>
 
