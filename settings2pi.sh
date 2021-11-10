@@ -352,19 +352,19 @@ sleep 2
 
 
 ####################################################################################################################
-# HDMI-Anschluss deaktivieren (Funktion wird noch geprüft.)
+# HDMI-Anschluss deaktivieren
 
-# sudo tvservice -o > /dev/null
+sudo tvservice -o > /dev/null
 
-# echo '   6. HDMI-Anschluss wurde deaktiviert' >> ~/Log/settings2pi.log
-# echo
-# echo
-# echo "   +++++++++++++++++++++++++++++++++++++++"
-# echo -e "   + ${gruenfett}6. HDMI-Anschluss wurde deaktiviert${standard} +"
-# echo "   +++++++++++++++++++++++++++++++++++++++"
-# echo
-# echo
-# sleep 2
+echo '   6. HDMI-Anschluss wurde deaktiviert' >> ~/Log/settings2pi.log
+echo
+echo
+echo "   +++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}6. HDMI-Anschluss wurde deaktiviert${standard} +"
+echo "   +++++++++++++++++++++++++++++++++++++++"
+echo
+echo
+sleep 2
 
 
 
@@ -460,9 +460,6 @@ echo
 
 sudo apt install -y unbound
 
-sudo rpl 'benutzername' '$username' /home/$username/Scripte/update-rootnameserver.sh
-sudo rpl 'rechnername' '$hostname' /home/$username/Scripte/update-rootnameserver.sh
-
 sudo wget -q https://www.internic.net/domain/named.root -O /var/lib/unbound/root.hints
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
 sudo service unbound restart
@@ -495,6 +492,7 @@ wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cro
 
 sudo rpl 'benutzername' $username ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
 sudo rpl 'benutzername' $username ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
+sudo rpl 'rechnername' $hostname ~/Scripte/update-rootnameserver.sh  > /dev/null 2>&1
 sudo rpl 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert

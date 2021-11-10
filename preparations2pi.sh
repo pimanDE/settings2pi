@@ -207,7 +207,7 @@ while ! ((antwortwlan)); do
 		echo
 		echo
 		echo "   ++++++++++++++++++++++++++++++++++++++++++++++++"
-		echo -e "   + ${gruenfett}3. WLAN Kanäle wurden erfolgreich aktiviert.${standard} +"
+		echo -e "   + ${gruenfett}4. WLAN Kanäle wurden erfolgreich aktiviert.${standard} +"
 		echo "   ++++++++++++++++++++++++++++++++++++++++++++++++"
 		echo
 		echo
@@ -224,7 +224,7 @@ while ! ((antwortwlan)); do
 		echo
 		echo
 		echo "   +++++++++++++++++++++++++++++++++++++++++++++++"
-		echo -e "   + ${gruenfett}3. WLAN Kanäle wurden nicht freigeschaltet.${standard} +"
+		echo -e "   + ${gruenfett}4. WLAN Kanäle wurden nicht freigeschaltet.${standard} +"
 		echo "   +++++++++++++++++++++++++++++++++++++++++++++++"
 		echo
 		echo
