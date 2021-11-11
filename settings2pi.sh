@@ -496,7 +496,7 @@ sudo rpl 'benutzername' $username ~/Scripte/update-and-upgrade.sh > /dev/null 2>
 sudo rpl 'rechnername' $hostname ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
 
 sudo rpl 'benutzername' $username ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
-sudo rpl 'rechnername' $hostname ~/Scripte/update-rootnameserver.sh  > /dev/null 2>&1
+sudo rpl 'rechnername' $hostname ~/Scripte/update-root-nameserver.sh  > /dev/null 2>&1
 
 sudo rpl 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 
