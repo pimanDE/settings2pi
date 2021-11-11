@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Mit diesem Script werden einige Vorbereitungen für das Script settings2pi.sh getroffen.
-# getestet auf Raspberry Pi OS Lite Release vom 04. März 2021
+# getestet auf Raspberry Pi OS Lite Release vom 27. Mai 2021
 #
 # Benutzung auf eigene Gefahr!!!
 #
@@ -43,7 +43,6 @@ cd /home/$username
 
 mkdir -p Log
 mkdir -p Scripte
-mkdir -p Scripte/cron
 mkdir -p Downloads
 
 # touch /tmp/error-preparations2pi.log
