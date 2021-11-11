@@ -127,6 +127,8 @@ done
 
 cd /home/$username
 
+mkdir /home/$username/Scripte/cron
+
 touch /home/$username/Log/settings2pi.log
 touch /home/$username/Log/fail2ban.log						# die jail.local verlangt danach
 
@@ -491,8 +493,11 @@ wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/upd
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
 
 sudo rpl 'benutzername' $username ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl 'rechnername' $hostname ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
+
 sudo rpl 'benutzername' $username ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
 sudo rpl 'rechnername' $hostname ~/Scripte/update-rootnameserver.sh  > /dev/null 2>&1
+
 sudo rpl 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
@@ -548,6 +553,29 @@ echo
 echo "   +++++++++++++++++++++++++++++++++++++++"
 echo -e "   + ${gruenfett}10. Cache wurde erfolgreich geleert${standard} +"
 echo "   +++++++++++++++++++++++++++++++++++++++"
+echo
+echo
+sleep 2
+
+
+
+####################################################################################################################
+# Aliase vergeben
+
+echo "#" > ~/.bash_aliases
+
+echo "alias 'ls=ls -lh --color=auto'" >> ~/.bash_aliases	# aus 'ls -l' wird 'ls'; evtl mit der Option --color=auto
+echo "alias 'his=clear && history'" >> ~/.bash_aliases		# listet letzte Befehle auf
+
+echo >> ~/.bash_aliases										# Leerzeile einfügen
+source ~/.bash_aliases										# Konfigurationsdatei neu einlesen
+
+echo '   11. Aliase erfolgreich vergeben' >> ~/Log/settings2pi.log
+echo
+echo
+echo "   +++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}11. Aliase erfolgreich vergeben${standard} +"
+echo "   +++++++++++++++++++++++++++++++++++"
 echo
 echo
 sleep 2
