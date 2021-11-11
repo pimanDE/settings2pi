@@ -137,11 +137,12 @@ chmod 775 settings2pi.sh
 - ~~s-nail installieren und konfigurieren~~
 - ~~automatische Updates einspielen~~
 - Willkommens Bildschirm erstellen
-- Aliase vergeben
+- ~~Aliase vergeben~~
 - ~~HDMI-Anschluss deaktivieren~~
 - ~~Erstellen von diversen Scripten für automatische Arbeiten~~
 - die Firewall aktivieren
 - ~~pi-hole installieren und konfigurieren~~
+- ~~die Weboberfläche von pihole auf deutsch übersetzen~~
 - ~~unbound installieren und konfigurieren~~
 - Port Knocking
 - einen Honigtopf 'aufstellen'
