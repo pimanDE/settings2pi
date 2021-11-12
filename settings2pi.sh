@@ -490,7 +490,7 @@ sleep 2
 
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-and-upgrade.sh -P ~/Scripte/
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-root-nameserver.sh -P ~/Scripte
-wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/mail-update-and-upgrade.sh -P ~/Scripte
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/email-update-and-upgrade.sh -P ~/Scripte
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
 
 sudo rpl 'benutzername' $username ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
@@ -499,8 +499,8 @@ sudo rpl 'rechnername' $hostname ~/Scripte/update-and-upgrade.sh > /dev/null 2>&
 sudo rpl 'benutzername' $username ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
 sudo rpl 'rechnername' $hostname ~/Scripte/update-root-nameserver.sh  > /dev/null 2>&1
 
-sudo rpl 'benutzername' $username ~/Scripte/mail-update-and-upgrade.sh > /dev/null 2>&1
-sudo rpl 'rechnername' $hostname ~/Scripte/mail-update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl 'benutzername' $username ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl 'rechnername' $hostname ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
 
 sudo rpl 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 
