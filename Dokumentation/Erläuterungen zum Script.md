@@ -112,13 +112,15 @@ Wenn die automatischen Aktualisierungen nicht durchgeführt werden konnten, kön
 Hierzu müssen Sie folgende Dateien editieren. Hierbei bitte die voreingetragene E-Mail durch die eigene E-Mail Adresse ersetzen.
 
 ```bash
-sudo chmod 777 ~/Scripte/update*.sh
+sudo chmod 777 ~/Scripte/*pdate*.sh
 sudo nano +17,270 ~/Scripte/update-and-upgrade.sh
 sudo nano +21,270 ~/Scripte/update-root-nameserver.sh
-sudo chmod 554 ~/Scripte/update*.sh
+sudo nano + 37,120 ~/Scripte/mail-update-and-upgrade.sh
+sudo chmod 554 ~/Scripte/*pdate*.sh
 ```
 
 Bei der Aktualisierung der `root.hints` wird in jedem Fall eine E-Mail versendet.
+Darüber hinaus wird immer am 1. des Monats eine E-Mail über die letzten 3 Aktualisierungen versendet.
 
 ---
 **Warum wird der HDMI-Anschluss deaktiviert?**

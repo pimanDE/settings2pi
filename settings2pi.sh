@@ -490,6 +490,7 @@ sleep 2
 
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-and-upgrade.sh -P ~/Scripte/
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-root-nameserver.sh -P ~/Scripte
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/mail-update-and-upgrade.sh -P ~/Scripte
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
 
 sudo rpl 'benutzername' $username ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
@@ -498,11 +499,15 @@ sudo rpl 'rechnername' $hostname ~/Scripte/update-and-upgrade.sh > /dev/null 2>&
 sudo rpl 'benutzername' $username ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
 sudo rpl 'rechnername' $hostname ~/Scripte/update-root-nameserver.sh  > /dev/null 2>&1
 
+sudo rpl 'benutzername' $username ~/Scripte/mail-update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl 'rechnername' $hostname ~/Scripte/mail-update-and-upgrade.sh > /dev/null 2>&1
+
 sudo rpl 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
 sudo sed -i "s/AB C /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
 sudo sed -i "s/DE F /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
+sudo sed -i "s/GH I /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
 
 sudo crontab -u root /home/$username/Scripte/cron/cronjobs.txt
 
@@ -514,8 +519,7 @@ sudo chown root:root /home/$username/Scripte/update-root-nameserver.sh
 sudo chmod 554 /home/$username/Scripte/update-root-nameserver.sh
 
 
-echo
-echo
+
 
 echo '   9. Automatische Aktualisierung des Systems erfolgreich' >> ~/Log/settings2pi.log
 echo
