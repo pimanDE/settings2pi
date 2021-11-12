@@ -399,8 +399,6 @@ wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pih
 chmod +x listen-geräte-gruppen-hinzufügen.sh
 sudo ./listen-geräte-gruppen-hinzufügen.sh		# Hinzufügen von Domainen, Gruppen, Blocklisten etc.
 
-echo
-echo
 sleep 2
 
 echo
@@ -464,6 +462,7 @@ sudo apt install -y unbound
 
 sudo wget -q https://www.internic.net/domain/named.root -O /var/lib/unbound/root.hints
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
+sleep 2
 sudo service unbound restart
 
 
