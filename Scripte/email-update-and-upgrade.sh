@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Mit diesem Script wird am letztes Tag des Monats eine Mail gesendet, mit der Info der letzten Aktualisierungen
+# Mit diesem Script wird am ersten Tag des Monats eine E-Mail gesendet, mit der Info der letzten Aktualisierungen
 #
 #
 #
