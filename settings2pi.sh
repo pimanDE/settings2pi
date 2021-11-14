@@ -401,8 +401,6 @@ sudo ./listen-geräte-gruppen-hinzufügen.sh		# Hinzufügen von Domainen, Gruppe
 
 sleep 2
 
-echo
-echo
 echo -e "${blaufett}   Die Blockseite wird angepasst ... ${standard}"
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/blockseite.html -P /var/www/html/pihole
 sudo rpl '/pihole/index.php' '/pihole/blockseite.html' /etc/lighttpd/lighttpd.conf > /dev/null 2>&1
@@ -463,7 +461,7 @@ sudo apt install -y unbound
 sudo wget -q https://www.internic.net/domain/named.root -O /var/lib/unbound/root.hints
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
 sleep 2
-sudo service unbound restart
+# sudo service unbound restart		# wird hier vorerst deaktiviert, da Fehlermeldung; wird jedoch nach dem reboot erneut gestartet
 
 
 echo 'Unbound erfolgreich aktualisiert am:' > /home/$username/Log/update-root-nameserver.log
@@ -477,8 +475,8 @@ echo
 echo "   ++++++++++++++++++++++++++++++++++++++++++++"
 echo -e "   + ${gruenfett}8. Unbound wurde erfolgreich installiert${standard} +"
 echo "   ++++++++++++++++++++++++++++++++++++++++++++"
-echo
-echo
+# echo
+# echo
 sleep 2
 
 
@@ -516,7 +514,6 @@ sudo touch /home/$username/Log/update-and-upgrade.log
 
 sudo chown root:root /home/$username/Scripte/update-root-nameserver.sh
 sudo chmod 554 /home/$username/Scripte/update-root-nameserver.sh
-
 
 
 
@@ -586,6 +583,75 @@ sleep 2
 
 
 ####################################################################################################################
+# E-Mail Adresse im System hinterlegen
+
+echo
+echo
+echo "   Wenn Sie möchten, können Sie auf dieser Installation Ihre E-Mail Adresse hinterlegen,"
+echo "   sodass Sie vom System Informationen per E-Mail zugesendet bekommen."
+echo "   Wenn Sie Ihre E-Mail Adresse später hinterlegen möchten sowie weitergehende"
+echo "   Informationen finden Sie in der Dokumentation auf github.com/pimanDE/settings2pi"
+
+while ! ((antwortemail)); do
+	echo
+	echo
+   while :; do
+        echo
+        read -p "   Möchten Sie Ihre E-Mail Adresse im System hinterlegen? [j/N]: " antwort
+        case "$antwort" in
+	   j)
+		antwortemail=1
+		echo
+		# echo -e "   ${blaufett}E-Mail Adresse wird hinterlegt ...${standard}"
+		# sleep 2
+
+		cd ~/Scripte
+		wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/email-eintragen.sh
+		chmod +x email-eintragen.sh
+		./email-eintragen.sh
+		# sudo curl -sSL https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/email-eintragen.sh | bash
+
+		echo
+		echo
+
+		echo '   12. E-Mail Adresse wurde erfolgreich im System hinterlegt.' >> ~/Log/preparations2pi.log
+		echo
+		echo
+		echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		echo -e "   + ${gruenfett}12. E-Mail Adresse wurde erfolgreich im System hinterlegt.${standard} +"
+		echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		echo
+		echo
+		sleep 2
+
+	       break
+               ;;
+           N|n|"")
+                antwortemail=2
+		echo
+		echo
+
+		echo '   12. E-Mail Adresse wurde nicht im System hinterlegt.' >> ~/Log/preparations2pi.log
+		echo
+		echo
+		echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		echo -e "   + ${gruenfett}12. E-Mail Adresse wurde nicht im System hinterlegt.${standard} +"
+		echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		echo
+		echo
+		sleep 2
+
+                break
+               ;;
+           *)
+               ;;
+       esac
+   done
+done
+
+
+
+####################################################################################################################
 # Nacharbeiten
 
 # echo
@@ -597,7 +663,6 @@ sleep 2
 ####################################################################################################################
 # Meldung über Abschluss
 
-clear
 echo
 echo
 echo
