@@ -68,61 +68,62 @@ veracrypt -m=nokernelcrypto /Quelle /Einhängepunkt
 veracrypt -m=nokernelcrypto --truecrypt /Quelle /Einhängepunkt
 ```
 
+
+
 ---
+
+
 
 **Was ist s-nail und wie aktiviere ich es?**
 
-`s-nail` ist ein einfacher und schlanker Mailclient. Er soll dazu dienen, dass bei jeder Anmeldung am Raspberry Pi eine kurze Mail als Info gesendet wird. So wird man sofort informiert, wenn ein Login stattfindet. Man benötigt hierzu eine E-Mail Adresse von [GMX](https://www.gmx.net). Sicherlich geht es auch mit anderen E-Mail Providern.
+`s-nail` ist ein einfacher und schlanker Mailclient. Er soll dazu dienen, dass bei folgenden Ereignissen eine E-Mail versendet wird:
 
-Die meisten Einstellungen für `s-nail` sind bereits voreingestellt. Lediglich die dritt-, viert- und fünftvorletzte Zeile der Datei `/etc/s-nail.rc`muss editiert werden. Welche Änderungen dort vorgenommen werden müssen, sind in der Datei selbsterklärend.
+- bei jeder Anmeldung am Raspberry Pi
+- bei fehlgeschlagenem Systemupdate (`~/Scripte/update-and-upgrade.sh`)
+- monatliche Info über die letzten drei Systemaktualisierungen (`~/Scripte/update-and-upgrade.sh`)
+- Aktualisierung der `root.hints` für `unbound`
 
-```bash
-sudo nano +224,20 /etc/s-nail.rc
-```
+Man benötigt hierzu eine E-Mail Adresse von [GMX](https://www.gmx.net). Sicherlich geht es auch mit anderen E-Mail Providern.
 
-<html><u>Achtung!</u></html> Nach dem Editieren der Datei bitte die entsprechenden Lese- und Schreibrechte setzen:
+Am Ende des Script's wird die E-Mail Adresse abgefragt. Ebenso wird die Datei `/etc/s-nail.rc` geöffnet, damit das Passwort eingetragen werden kann.
 
-```bash
-sudo chmod 400 /etc/s-nail.rc
-```
 
-Ebenso muss noch die Datei `/etc/profile` am Ende editiert werden. Hierbei bitte die voreingetragene E-Mail durch die eigene E-Mail Adresse ersetzen.
-
-```bash
-sudo chmod 777 /etc/profile
-sudo nano +35,99 /etc/profile
-sudo chmod 644 /etc/profile
-```
 
 ---
-**Warum kann s-nail nicht auch automatisch konfiguriert werden?**
 
-`s-nail` könnte natürlich auch so installiert und konfiguriert werden, sodass keine Nacharbeiten erforderlich wären. Dabei müsste jedoch dann während des Scripts die E-Mail Adresse und das Passwort abgefragt werden. Dies soll dem Benutzer nicht abverlangt werden. Jeder soll selber entscheiden, ob er seinem Raspberry Pi das Passwort vom E-Mail Account anvertraut.
+
+
+**Kann ich meine E-Mail Adresse auch später hinterlegen?**
+
+Ja. Wenn Sie Ihre E-Mail Adresse später eingeben wollen, dann rufen Sie einfach folgendes Script auf:
+
+```bash
+bash -c "$(curl -sSL https://raw.githubusercontent.com/pimanDE/settings2pi/master/email-eintragen.sh)"
+```
+
 
 ---
-**Wann wird das System automatisch aktualisiert?**
 
-Das System wird täglich zwischen 0 Uhr und 3:00 Uhr automatisch aktualisiert (`~/Scripte/update-and-upgrade.sh`).
-Ebenso wird alle drei Monate die `root.hints` für `unbound` zwischen 0 Uhr und 3:00 Uhr automatisch aktualisiert (`~/Scripte/update-root-nameserver.sh`).
 
-Bei der Installation werden die Uhrzeiten randomnisiert festgelegt.
+
+**Wird das System automatisch aktualisiert?**
+
+Ja. Das System wird täglich zwischen 0:00 Uhr und 3:00 Uhr automatisch aktualisiert (`~/Scripte/update-and-upgrade.sh`).
+Ebenso wird alle drei Monate die `root.hints` für `unbound` zwischen 0:00 Uhr und 3:00 Uhr automatisch aktualisiert (`~/Scripte/update-root-nameserver.sh`).
+
+Bei der Installation werden die Uhrzeiten randomnisiert in der `crontab` festgelegt.
 Ob die Aktualisierung erfolgreich war, kann im Verzeichnis `~/Log` geprüft werden.
 
-Wenn die automatischen Aktualisierungen nicht durchgeführt werden konnten, können Sie darüber eine Mail erhalten.
-Hierzu müssen Sie folgende Dateien editieren. Hierbei bitte die voreingetragene E-Mail durch die eigene E-Mail Adresse ersetzen.
-
-```bash
-sudo chmod 777 ~/Scripte/*pdate*.sh
-sudo nano +17,270 ~/Scripte/update-and-upgrade.sh
-sudo nano +21,270 ~/Scripte/update-root-nameserver.sh
-sudo nano + 37,120 ~/Scripte/mail-update-and-upgrade.sh
-sudo chmod 554 ~/Scripte/*pdate*.sh
-```
+Wenn die automatischen Aktualisierungen nicht durchgeführt werden konnten, können Sie darüber eine Mail erhalten. Siehe hierzu den Abschnitt über `s-nail`.
 
 Bei der Aktualisierung der `root.hints` wird in jedem Fall eine E-Mail versendet.
-Darüber hinaus wird immer am 1. des Monats eine E-Mail über die letzten 3 Aktualisierungen versendet.
+Darüber hinaus wird immer am 1. des Monats eine E-Mail über die letzten 3 Systemaktualisierungen versendet.
+
+
 
 ---
+
+
 **Warum wird der HDMI-Anschluss deaktiviert?**
 
 Der Grundgedanke dieses Scriptes ist, dass kein zusätzlicher Monitor benötigt wird. Daher lag es nahe, den Ansschluss zu deaktivieren.
@@ -134,7 +135,7 @@ Immer nach dem Motto: Was nicht benötigt wird, ist nicht vorhanden.
 
 **Ich möchte aber einen Monitor anschließen. Wie kann ich den HDMI-Anschluss wieder aktivieren?**
 
-Der HDMI-Anschluss wird folgendermaßen mit den Standard Einstellungen wieder aktiviert:
+Ja. Der HDMI-Anschluss wird folgendermaßen mit den Standard Einstellungen wieder aktiviert:
 ```bash
 sudo tvservice -p
 ```
@@ -172,7 +173,9 @@ sudo service lighttpd restart
 
 **Muss ich noch etwas im pihole einstellen?**
 
-Dem Grunde nach sollte pihole anstandslos funktionieren. Unter Einstellungen/DNS kann unten noch die Bedingte Weiterleitung aktiviert werden. Weitere Informationen sind unter [docs.pi-hole.net](https://docs.pi-hole.net/routers/fritzbox-de/) am Ende der Seite zu finden.
+Dem Grunde nach sollte pihole anstandslos funktionieren. Unter Einstellungen/DNS kann unten noch die Bedingte Weiterleitung aktiviert werden.
+
+Darüberhinaus muss natürlich noch der Router entsprechend eingestellt werden. Weitere Informationen hierzu sind unter [docs.pi-hole.net](https://docs.pi-hole.net/routers/fritzbox-de/) am Ende der Seite zu finden.
 
 
 ---
