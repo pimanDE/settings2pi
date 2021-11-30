@@ -130,12 +130,12 @@ cd /home/$username
 mkdir /home/$username/Scripte/cron
 
 touch /home/$username/Log/settings2pi.log
-touch /home/$username/Log/fail2ban.log						# die jail.local verlangt danach
+touch /home/$username/Log/fail2ban.log                      # die jail.local verlangt danach
 
 chmod 775 /home/$username/Log/settings2pi.log
 chmod 775 /home/$username/Log/fail2ban.log
 
-# sudo rpl "1200" "60000" /etc/sudoers > /dev/null 2>&1		# falls das Script länger dauert, behalten wir root-Rechte (wird am Ende wieder zurückgestellt)
+# sudo rpl "1200" "60000" /etc/sudoers > /dev/null 2>&1     # falls das Script länger dauert, behalten wir root-Rechte (wird am Ende wieder zurückgestellt)
 
 echo
 echo
@@ -184,37 +184,37 @@ echo -e "${blaufett}   Absichern des ssh-Ports ...${standard}"
 echo
 echo
 
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.orig														# http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man5/sshd_config.5?query=sshd_config&sec=5
-sudo chmod 777 /etc/ssh/sshd_config																			# Dateirechte setzen
-sudo rpl '#Port 22' "Port $sshport" /etc/ssh/sshd_config > /dev/null 2>&1									# Neuer ssh-Port
-sudo rpl '#ListenAddress 0.0.0.0' "ListenAddress $ipadresse" /etc/ssh/sshd_config > /dev/null 2>&1			# ssh hört nur auf dieser IP-Adresse (manchmal hat ein Server mehrere IP Adressen)
-sudo rpl '#LogLevel INFO' 'LogLevel VERBOSE' /etc/ssh/sshd_config > /dev/null 2>&1							# ausführliches LogLevel
-sudo rpl '#LoginGraceTime 2m' 'LoginGraceTime 1m' /etc/ssh/sshd_config > /dev/null 2>&1						# wenn innerhalb von 1 Minute kein erfolgreicher Login stattgefunden hat, wird der Zugriff getrennt
-sudo rpl '#PermitRootLogin prohibit-password' 'PermitRootLogin prohibit-password' /etc/ssh/sshd_config > /dev/null 2>&1		# root darf sich nicht mit einem Password anmelden
-sudo rpl '#StrictModes yes' 'StrictModes yes' /etc/ssh/sshd_config > /dev/null 2>&1							# https://wiki.hetzner.de/index.php/Sshd
-sudo rpl '#MaxAuthTries 6' 'MaxAuthTries 3' /etc/ssh/sshd_config > /dev/null 2>&1							# 3 mal falsches Passwort, dann wird die Verbindung getrennt
-sudo rpl '#MaxSessions 10' 'MaxSessions 3' /etc/ssh/sshd_config > /dev/null 2>&1							# gibt die maximale Anzahl von offenen Sitzungen pro Verbindung an
-sudo rpl '#PrintLastLog yes' 'PrintLastLog no' /etc/ssh/sshd_config > /dev/null 2>&1						# Ausschalten der Info
-sudo rpl '#MaxStartups 10:30:100' 'MaxStartups 3:30:10' /etc/ssh/sshd_config > /dev/null 2>&1				# gibt die maximale Anzahl gleichzeitiger nicht authentifizierter Verbindungen zum SSH-Daemon an
-sudo rpl 'X11Forwarding yes' 'X11Forwarding no' /etc/ssh/sshd_config > /dev/null 2>&1						# keine Weiterleitung der grafischen Benutzerobefläche
-sudo rpl '#TCPKeepAlive yes' '#TCPKeepAlive no' /etc/ssh/sshd_config > /dev/null 2>&1						# https://blog.buettner.xyz/sichere-ssh-konfiguration/
-sudo rpl '#Banner none' 'Banner /etc/ssh/banner' /etc/ssh/sshd_config > /dev/null 2>&1						# Angabe des Pfades der Bannerdatei (Begrüßungstext)
-sudo rpl '#HostbasedAuthentication no' '#HostbasedAuthentication yes' /etc/ssh/sshd_config > /dev/null 2>&1	# https://blog.buettner.xyz/sichere-ssh-konfiguration/
-sudo rpl '#IgnoreRhosts yes' 'IgnoreRhosts yes' /etc/ssh/sshd_config > /dev/null 2>&1						# https://blog.buettner.xyz/sichere-ssh-konfiguration/
-sudo rpl '#PasswordAuthentication yes' 'PasswordAuthentication yes' /etc/ssh/sshd_config > /dev/null 2>&1	# Anmeldung nur mit Passwort
-sudo rpl '#PermitEmptyPasswords no' 'PermitEmptyPasswords no' /etc/ssh/sshd_config > /dev/null 2>&1			# Benutzer die kein Passwort haben, dürfen sich nicht anmelden
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.orig                                                      # http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man5/sshd_config.5?query=sshd_config&sec=5
+sudo chmod 777 /etc/ssh/sshd_config                                                                         # Dateirechte setzen
+sudo rpl '#Port 22' "Port $sshport" /etc/ssh/sshd_config > /dev/null 2>&1                                   # Neuer ssh-Port
+sudo rpl '#ListenAddress 0.0.0.0' "ListenAddress $ipadresse" /etc/ssh/sshd_config > /dev/null 2>&1          # ssh hört nur auf dieser IP-Adresse (manchmal hat ein Server mehrere IP Adressen)
+sudo rpl '#LogLevel INFO' 'LogLevel VERBOSE' /etc/ssh/sshd_config > /dev/null 2>&1                          # ausführliches LogLevel
+sudo rpl '#LoginGraceTime 2m' 'LoginGraceTime 1m' /etc/ssh/sshd_config > /dev/null 2>&1                     # wenn innerhalb von 1 Minute kein erfolgreicher Login stattgefunden hat, wird der Zugriff getrennt
+sudo rpl '#PermitRootLogin prohibit-password' 'PermitRootLogin prohibit-password' /etc/ssh/sshd_config > /dev/null 2>&1     # root darf sich nicht mit einem Password anmelden
+sudo rpl '#StrictModes yes' 'StrictModes yes' /etc/ssh/sshd_config > /dev/null 2>&1                         # https://wiki.hetzner.de/index.php/Sshd
+sudo rpl '#MaxAuthTries 6' 'MaxAuthTries 3' /etc/ssh/sshd_config > /dev/null 2>&1                           # 3 mal falsches Passwort, dann wird die Verbindung getrennt
+sudo rpl '#MaxSessions 10' 'MaxSessions 3' /etc/ssh/sshd_config > /dev/null 2>&1                            # gibt die maximale Anzahl von offenen Sitzungen pro Verbindung an
+sudo rpl '#PrintLastLog yes' 'PrintLastLog no' /etc/ssh/sshd_config > /dev/null 2>&1                        # Ausschalten der Info
+sudo rpl '#MaxStartups 10:30:100' 'MaxStartups 3:30:10' /etc/ssh/sshd_config > /dev/null 2>&1               # gibt die maximale Anzahl gleichzeitiger nicht authentifizierter Verbindungen zum SSH-Daemon an
+sudo rpl 'X11Forwarding yes' 'X11Forwarding no' /etc/ssh/sshd_config > /dev/null 2>&1                       # keine Weiterleitung der grafischen Benutzerobefläche
+sudo rpl '#TCPKeepAlive yes' '#TCPKeepAlive no' /etc/ssh/sshd_config > /dev/null 2>&1                       # https://blog.buettner.xyz/sichere-ssh-konfiguration/
+sudo rpl '#Banner none' 'Banner /etc/ssh/banner' /etc/ssh/sshd_config > /dev/null 2>&1                      # Angabe des Pfades der Bannerdatei (Begrüßungstext)
+sudo rpl '#HostbasedAuthentication no' '#HostbasedAuthentication yes' /etc/ssh/sshd_config > /dev/null 2>&1 # https://blog.buettner.xyz/sichere-ssh-konfiguration/
+sudo rpl '#IgnoreRhosts yes' 'IgnoreRhosts yes' /etc/ssh/sshd_config > /dev/null 2>&1                       # https://blog.buettner.xyz/sichere-ssh-konfiguration/
+sudo rpl '#PasswordAuthentication yes' 'PasswordAuthentication yes' /etc/ssh/sshd_config > /dev/null 2>&1   # Anmeldung nur mit Passwort
+sudo rpl '#PermitEmptyPasswords no' 'PermitEmptyPasswords no' /etc/ssh/sshd_config > /dev/null 2>&1         # Benutzer die kein Passwort haben, dürfen sich nicht anmelden
 
 echo >> /etc/ssh/sshd_config > /dev/null 2>&1
 
-sudo echo 'MaxStartups 3' >> /etc/ssh/sshd_config							# als Zusatz zu MaxStartups 3 (ist wahrscheinlich gleich/ähnlich)
-sudo echo 'RSAAuthentication no' >> /etc/ssh/sshd_config					# da es nur Protokoll Version 1 betrifft ist es nicht wichtig zu setzen, wird trotzdem gemacht
-sudo echo 'Protocol 2' >> /etc/ssh/sshd_config								# nur Protokoll 2
-sudo echo 'DenyUsers root pi admin administrator' >> /etc/ssh/sshd_config	# die User root, pi, admin und administrator dürfen sich nicht anmelden
-sudo echo 'DenyGroups root pi' >> /etc/ssh/sshd_config						# Mitglieder der Gruppen root und pi dürfen sich nicht anmelden
-sudo echo "AllowUsers $username" >> /etc/ssh/sshd_config					# nur der eigene User darf sich anmelden
-sudo echo "AllowGroups $username" >> /etc/ssh/sshd_config					# nur der eigene User der Gruppe eigeneUser darf sich anmelden
-sudo echo 'RhostsRSAAuthentication no' >> /etc/ssh/sshd_config				# https://wiki.hetzner.de/index.php/Sshd
-sudo echo 'PermitRootLogin no' >> /etc/ssh/sshd_config						# ähnlich wie 'PermitRootLogin prohibit-password'
+sudo echo 'MaxStartups 3' >> /etc/ssh/sshd_config									# als Zusatz zu MaxStartups 3 (ist wahrscheinlich gleich/ähnlich)
+sudo echo 'RSAAuthentication no' >> /etc/ssh/sshd_config							# da es nur Protokoll Version 1 betrifft ist es nicht wichtig zu setzen, wird trotzdem gemacht
+sudo echo 'Protocol 2' >> /etc/ssh/sshd_config										# nur Protokoll 2
+sudo echo 'DenyUsers root pi admin administrator nobody' >> /etc/ssh/sshd_config	# die User root, pi, etc. dürfen sich nicht anmelden
+sudo echo 'DenyGroups root pi nobody' >> /etc/ssh/sshd_config						# Mitglieder der Gruppen root, pi, etc dürfen sich nicht anmelden
+sudo echo "AllowUsers $username" >> /etc/ssh/sshd_config							# nur der eigene User darf sich anmelden
+sudo echo "AllowGroups $username" >> /etc/ssh/sshd_config							# nur der eigene User der Gruppe eigeneUser darf sich anmelden
+sudo echo 'RhostsRSAAuthentication no' >> /etc/ssh/sshd_config						# https://wiki.hetzner.de/index.php/Sshd
+sudo echo 'PermitRootLogin no' >> /etc/ssh/sshd_config								# ähnlich wie 'PermitRootLogin prohibit-password'
 sudo echo >> /etc/ssh/sshd_config
 
 sudo chmod 555 /etc/ssh/sshd_config											# Dateirechte setzen
@@ -663,6 +663,7 @@ done
 ####################################################################################################################
 # Meldung über Abschluss
 
+clear
 echo
 echo
 echo
@@ -692,8 +693,8 @@ echo -e "${rotfett}   Beispiel: ssh pimanDE@192.168.178.30 -p 4711${standard}"
 
 echo
 
-echo -e "${rotfett}   Um s-nail zu konfigurieren, lesen Sie bitte${standard}"
-echo -e "${rotfett}   die Erläuterungen zum Script in der Dokumentation auf github.com.${standard}"
+echo -e "${rotfett}   Lesen Sie bitte die Erläuterungen zum Script${standard}"
+echo -e "${rotfett}   in der Dokumentation auf github.com/pimanDE/settings2pi.${standard}"
 
 echo
 echo
