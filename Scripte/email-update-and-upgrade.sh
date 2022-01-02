@@ -11,9 +11,9 @@ clear
 
 
 
-echo "Letzte Updates des Systems am:" > /home/benutzername/Log/last-updates.txt
-tail -4 /home/benutzername/Log/update-and-upgrade.log >> /home/benutzername/Log/last-updates.txt
+echo "Letzte Updates des Systems auf rechnername am:" > /home/benutzername/Log/letzte-updates-system.log
+tail -4 /home/benutzername/Log/update-and-upgrade.log >> /home/benutzername/Log/letzte-updates-system.log
 
-cat /home/benutzername/Log/last-updates.txt | s-nail -A MAIL -s 'Info über letzte Systemupdates auf rechnername.' meine-email@gmx.net
+cat /home/benutzername/Log/letzte-updates-system.log | s-nail -A MAIL -s 'Info über letzte Systemupdates auf rechnername.' meine-email@gmx.net
 
 exit

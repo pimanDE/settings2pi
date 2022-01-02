@@ -7,7 +7,7 @@ AB C  * * * /home/benutzername/Scripte/update-and-upgrade.sh > /dev/null 2>&1
 ###########################################################################
 # Update der Root-Nameserver
 
-DE F  1 2,8 * /home/benutzername/Scripte/update-root-nameserver.sh > /dev/null 2>&1
+DE F  1 Feb,Aug * /home/benutzername/Scripte/update-root-nameserver.sh > /dev/null 2>&1
 
 
 ###########################################################################

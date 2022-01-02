@@ -210,16 +210,21 @@ sudo echo 'MaxStartups 3' >> /etc/ssh/sshd_config									# als Zusatz zu MaxSta
 sudo echo 'RSAAuthentication no' >> /etc/ssh/sshd_config							# da es nur Protokoll Version 1 betrifft ist es nicht wichtig zu setzen, wird trotzdem gemacht
 sudo echo 'Protocol 2' >> /etc/ssh/sshd_config										# nur Protokoll 2
 sudo echo 'DenyUsers root pi admin administrator nobody' >> /etc/ssh/sshd_config	# die User root, pi, etc. dürfen sich nicht anmelden
-sudo echo 'DenyGroups root pi nobody' >> /etc/ssh/sshd_config						# Mitglieder der Gruppen root, pi, etc dürfen sich nicht anmelden
+sudo echo 'DenyGroups root pi admin administrator nobody' >> /etc/ssh/sshd_config						# Mitglieder der Gruppen root, pi, etc dürfen sich nicht anmelden
 sudo echo "AllowUsers $username" >> /etc/ssh/sshd_config							# nur der eigene User darf sich anmelden
 sudo echo "AllowGroups $username" >> /etc/ssh/sshd_config							# nur der eigene User der Gruppe eigeneUser darf sich anmelden
 sudo echo 'RhostsRSAAuthentication no' >> /etc/ssh/sshd_config						# https://wiki.hetzner.de/index.php/Sshd
 sudo echo 'PermitRootLogin no' >> /etc/ssh/sshd_config								# ähnlich wie 'PermitRootLogin prohibit-password'
+
+sudo echo 'AllowStreamLocalForwarding no' >> /etc/ssh/sshd_config                   # https://forum.kuketz-blog.de/viewtopic.php?t=8759
+sudo echo 'AllowTcpForwarding no' >> /etc/ssh/sshd_config                           # https://forum.kuketz-blog.de/viewtopic.php?t=8759
+sudo echo 'ClientAliveInterval 600' >> /etc/ssh/sshd_config                         # https://forum.kuketz-blog.de/viewtopic.php?t=8759
+
 sudo echo >> /etc/ssh/sshd_config
 
-sudo chmod 555 /etc/ssh/sshd_config											# Dateirechte setzen
+sudo chmod 555 /etc/ssh/sshd_config                                                 # Dateirechte setzen
 
-sudo touch /etc/ssh/banner													# Bannerdatei erstellen
+sudo touch /etc/ssh/banner                                                          # Bannerdatei erstellen
 sudo chmod 777 /etc/ssh/banner
 sudo echo > /etc/ssh/banner
 sudo echo >> /etc/ssh/banner
@@ -392,12 +397,12 @@ sleep 2
 echo
 echo
 
-pihole -a -p									# Passwort löschen
+pihole -a -p                                                            # Passwort löschen
 
 cd /home/$username/Scripte
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/listen-geräte-gruppen-hinzufügen.sh
 chmod +x listen-geräte-gruppen-hinzufügen.sh
-sudo ./listen-geräte-gruppen-hinzufügen.sh		# Hinzufügen von Domainen, Gruppen, Blocklisten etc.
+sudo ./listen-geräte-gruppen-hinzufügen.sh                              # Hinzufügen von Domainen, Gruppen, Blocklisten etc.
 
 sleep 2
 
@@ -410,10 +415,18 @@ echo -e "${gruenfett}   Erledigt${standard}"
 sleep 2
 
 sudo chmod 666 /etc/pihole/pihole-FTL.conf
-echo "BLOCKINGMODE=IP" >> /etc/pihole/pihole-FTL.conf					# damit die Blockingpage angezeigt wird
-echo "DBINTERVALL=60" >> /etc/pihole/pihole-FTL.conf					# Schreibvorgänge nur alle 60 Minuten (Standard =1 Minute)
-# echo "MAXDBDAYS=90" >> /etc/pihole/pihole-FTL.conf					# Einträge die älter als 90 Tage sind, werden gelöscht
+echo "BLOCKINGMODE=IP" >> /etc/pihole/pihole-FTL.conf                   # damit die Blockingpage angezeigt wird
+echo "DBINTERVALL=60" >> /etc/pihole/pihole-FTL.conf                    # Schreibvorgänge nur alle 60 Minuten (Standard =1 Minute)
+echo "MAXDBDAYS=60" >> /etc/pihole/pihole-FTL.conf                      # Einträge die älter als 60 Tage sind, werden gelöscht
 sudo chmod 664 /etc/pihole/pihole-FTL.conf
+
+sudo systemctl disable systemd-resolved                                 # https://forum.kuketz-blog.de/viewtopic.php?p=85243
+
+sudo touch /etc/dnsmasq.d/10-pihole-extra.conf                          # https://forum.kuketz-blog.de/viewtopic.php?p=85243
+sudo chmod 777 /etc/dnsmasq.d/10-pihole-extra.conf
+sudo echo 'proxy-dnssec' >> /etc/dnsmasq.d/10-pihole-extra.conf
+sudo echo >> /etc/dnsmasq.d/10-pihole-extra.conf
+sudo chmod 644 /etc/dnsmasq.d/10-pihole-extra.conf
 
 sudo mv /etc/pihole/setupVars.conf /etc/pihole/setupVars.conf.orig		# Einstellungen für Einstellungen/DNS
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/setupVars.conf -P /etc/pihole
@@ -424,12 +437,12 @@ sudo chown root:root /etc/pihole/setupVars.conf
 sudo chmod 644 /etc/pihole/setupVars.conf
 
 sudo chmod 777 /etc/pihole/dns-servers.conf
-sudo echo "Dismail;80.241.218.68;;" >> /etc/pihole/dns-servers.conf		# Dismail als zusätzliche Alternative
+sudo echo "Dismail;80.241.218.68;;" >> /etc/pihole/dns-servers.conf     # Dismail als zusätzliche Alternative
 sudo chmod 644 /etc/pihole/dns-servers.conf
 
 sudo service pihole-FTL restart
 
-sudo curl -sSL https://raw.githubusercontent.com/pimanDE/translate2german/master/translate2german.sh | bash		# Übersetzt die Weboberfläche auf deutsch
+sudo curl -sSL https://raw.githubusercontent.com/pimanDE/translate2german/master/translate2german.sh | bash     # Übersetzt die Weboberfläche auf deutsch
 
 echo
 echo
@@ -461,7 +474,7 @@ sudo apt install -y unbound
 sudo wget -q https://www.internic.net/domain/named.root -O /var/lib/unbound/root.hints
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
 sleep 2
-# sudo service unbound restart		# wird hier vorerst deaktiviert, da Fehlermeldung; wird jedoch nach dem reboot erneut gestartet
+# sudo service unbound restart                      # wird hier vorerst deaktiviert, da Fehlermeldung; wird jedoch nach dem reboot erneut gestartet
 
 
 echo 'Unbound erfolgreich aktualisiert am:' > /home/$username/Log/update-root-nameserver.log
@@ -499,7 +512,7 @@ sudo rpl 'rechnername' $hostname ~/Scripte/update-root-nameserver.sh  > /dev/nul
 sudo rpl 'benutzername' $username ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
 sudo rpl 'rechnername' $hostname ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
 
-sudo rpl 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
+sudo rpl '' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
 sudo sed -i "s/AB C /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
@@ -542,9 +555,9 @@ echo -e "${blaufett}   Leeren des Caches ...${standard}"
 echo
 echo
 
-sudo apt clean					# Leeren des Paketcaches (Entfernen von zur Installation heruntergeladenen Paketen)
-sudo apt autoclean				# wie clean, nur werden ausschließlich Pakete, die nicht mehr in den Quellen verfügbar sind, gelöscht
-sudo apt autoremove -y			# Deinstallation ungenutzter Abhängigkeiten
+sudo apt clean                  # Leeren des Paketcaches (Entfernen von zur Installation heruntergeladenen Paketen)
+sudo apt autoclean              # wie clean, nur werden ausschließlich Pakete, die nicht mehr in den Quellen verfügbar sind, gelöscht
+sudo apt autoremove -y          # Deinstallation ungenutzter Abhängigkeiten
 
 
 echo '   10. Cache wurde erfolgreich geleert' >> ~/Log/settings2pi.log
@@ -564,11 +577,11 @@ sleep 2
 
 echo "#" > ~/.bash_aliases
 
-echo "alias 'ls=ls -lh --color=auto'" >> ~/.bash_aliases	# aus 'ls -l' wird 'ls'; evtl mit der Option --color=auto
-echo "alias 'his=clear && history'" >> ~/.bash_aliases		# listet letzte Befehle auf
+echo "alias 'ls=ls -lh --color=auto'" >> ~/.bash_aliases    # aus 'ls -l' wird 'ls'; evtl mit der Option --color=auto
+echo "alias 'his=clear && history'" >> ~/.bash_aliases      # listet letzte Befehle auf
 
-echo >> ~/.bash_aliases										# Leerzeile einfügen
-source ~/.bash_aliases										# Konfigurationsdatei neu einlesen
+echo >> ~/.bash_aliases                                     # Leerzeile einfügen
+source ~/.bash_aliases                                      # Konfigurationsdatei neu einlesen
 
 echo '   11. Aliase erfolgreich vergeben' >> ~/Log/settings2pi.log
 echo
@@ -652,11 +665,47 @@ done
 
 
 ####################################################################################################################
+# Willkommensbildschirm installieren
+
+echo
+echo
+
+cd ~/Scripte
+rfkill unblock wifi                                 # Wlan am Raspberry Pi freischalten
+sudo ./install-welcome-screen.sh
+
+echo
+echo
+
+echo '   13. Willkommensbildschirm erfolgreich installiert.' >> ~/Log/preparations2pi.log
+echo
+echo
+echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}13. Willkommensbildschirm erfolgreich installiert.${standard} +"
+echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo
+echo
+sleep 2
+
+
+
+####################################################################################################################
 # Nacharbeiten
 
-# echo
-# echo
 
+# Schreibvorgänge des Systems reduzieren
+sudo mkdir /etc/systemd/journald.conf.d                                 # https://forum.kuketz-blog.de/viewtopic.php?p=85243
+sudo touch /etc/systemd/journald.conf.d/00-volatile-storage.conf
+sudo chmod 777 /etc/systemd/journald.conf.d/00-volatile-storage.conf
+sudo echo '[Journal]' > /etc/systemd/journald.conf.d/00-volatile-storage.conf
+sudo echo 'Storage=volatile' >> /etc/systemd/journald.conf.d/00-volatile-storage.conf
+sudo echo 'RuntimeMaxUse=30' >> /etc/systemd/journald.conf.d/00-volatile-storage.conf
+sudo echo >> /etc/systemd/journald.conf.d/00-volatile-storage.conf
+sudo chmod 644 /etc/systemd/journald.conf.d/00-volatile-storage.conf
+
+
+#
+#
 
 
 
