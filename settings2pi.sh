@@ -99,6 +99,7 @@ while ! ((antwortignoreip)); do
         echo "   fail2ban kann einen oder mehrere Rechner vom Blocken ausnehmen."
         echo "   Hierzu ist die Eingabe der IP Adresse/n notwendig."
         echo "   Mehrere IP Adressen werden durch Leerzeichen getrennt eingegeben."
+        echo
         read -p "   Bitte geben Sie die IP Adresse/n ein: " ignoreip
      echo
      echo
@@ -512,7 +513,7 @@ sudo rpl 'rechnername' $hostname ~/Scripte/update-root-nameserver.sh  > /dev/nul
 sudo rpl 'benutzername' $username ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
 sudo rpl 'rechnername' $hostname ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
 
-sudo rpl '' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
+sudo rpl 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
 sudo sed -i "s/AB C /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
