@@ -136,7 +136,7 @@ chmod 775 settings2pi.sh
 - ~~fail2ban installieren und konfigurieren~~
 - ~~s-nail installieren und konfigurieren~~
 - ~~automatische Updates einspielen~~
-- Willkommens Bildschirm erstellen
+- ~~Willkommens Bildschirm erstellen~~
 - ~~Aliase vergeben~~
 - ~~HDMI-Anschluss deaktivieren~~
 - ~~Erstellen von diversen Scripten für automatische Arbeiten~~
