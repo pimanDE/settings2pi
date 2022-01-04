@@ -75,7 +75,7 @@ done
 
 # E-Mail im System anpassen
 sudo chmod 777 /etc/s-nail.rc
-sudo rpl 'meine-email@gmx.net' $emailadresse /etc/s-nail.rc
+sudo rpl 'meine-email@gmx.net' $emailadresse /etc/s-nail.rc > /dev/null 2>&1
 echo
 echo
 echo
@@ -89,16 +89,16 @@ sudo chmod 400 /etc/s-nail.rc									# Leserechte setzen
 
 # E-Mail Adresse für Empfang der Systemanmeldung eintragen
 sudo chmod 777 /etc/profile
-sudo rpl 'meine-email@gmx.net' $emailadresse /etc/profile
+sudo rpl 'meine-email@gmx.net' $emailadresse /etc/profile > /dev/null 2>&1
 sudo chmod 644 /etc/profile
 
 
 
 # E-Mail Adresse in den Scripten anpassen
 sudo chmod 777 /home/$username/Scripte/*pdate*.sh
-sudo rpl 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/update-and-upgrade.sh
-sudo rpl 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/update-root-nameserver.sh
-sudo rpl 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/email-update-and-upgrade.sh
+sudo rpl 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/update-root-nameserver.sh > /dev/null 2>&1
+sudo rpl 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
 sudo chmod 554 /home/$username/Scripte/*pdate*.sh
 
 

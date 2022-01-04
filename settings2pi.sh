@@ -207,15 +207,15 @@ sudo rpl '#PermitEmptyPasswords no' 'PermitEmptyPasswords no' /etc/ssh/sshd_conf
 
 echo >> /etc/ssh/sshd_config > /dev/null 2>&1
 
-sudo echo 'MaxStartups 3' >> /etc/ssh/sshd_config									# als Zusatz zu MaxStartups 3 (ist wahrscheinlich gleich/ähnlich)
-sudo echo 'RSAAuthentication no' >> /etc/ssh/sshd_config							# da es nur Protokoll Version 1 betrifft ist es nicht wichtig zu setzen, wird trotzdem gemacht
-sudo echo 'Protocol 2' >> /etc/ssh/sshd_config										# nur Protokoll 2
-sudo echo 'DenyUsers root pi admin administrator nobody' >> /etc/ssh/sshd_config	# die User root, pi, etc. dürfen sich nicht anmelden
-sudo echo 'DenyGroups root pi admin administrator nobody' >> /etc/ssh/sshd_config						# Mitglieder der Gruppen root, pi, etc dürfen sich nicht anmelden
-sudo echo "AllowUsers $username" >> /etc/ssh/sshd_config							# nur der eigene User darf sich anmelden
-sudo echo "AllowGroups $username" >> /etc/ssh/sshd_config							# nur der eigene User der Gruppe eigeneUser darf sich anmelden
-sudo echo 'RhostsRSAAuthentication no' >> /etc/ssh/sshd_config						# https://wiki.hetzner.de/index.php/Sshd
-sudo echo 'PermitRootLogin no' >> /etc/ssh/sshd_config								# ähnlich wie 'PermitRootLogin prohibit-password'
+sudo echo 'MaxStartups 3' >> /etc/ssh/sshd_config                                   # als Zusatz zu MaxStartups 3 (ist wahrscheinlich gleich/ähnlich)
+sudo echo 'RSAAuthentication no' >> /etc/ssh/sshd_config                            # da es nur Protokoll Version 1 betrifft ist es nicht wichtig zu setzen, wird trotzdem gemacht
+sudo echo 'Protocol 2' >> /etc/ssh/sshd_config                                      # nur Protokoll 2
+sudo echo 'DenyUsers root pi admin administrator nobody' >> /etc/ssh/sshd_config    # die User root, pi, etc. dürfen sich nicht anmelden
+sudo echo 'DenyGroups root pi admin administrator nobody' >> /etc/ssh/sshd_config   # Mitglieder der Gruppen root, pi, etc dürfen sich nicht anmelden
+sudo echo "AllowUsers $username" >> /etc/ssh/sshd_config                            # nur der eigene User darf sich anmelden
+sudo echo "AllowGroups $username" >> /etc/ssh/sshd_config                           # nur der eigene User der Gruppe eigeneUser darf sich anmelden
+sudo echo 'RhostsRSAAuthentication no' >> /etc/ssh/sshd_config                      # https://wiki.hetzner.de/index.php/Sshd
+sudo echo 'PermitRootLogin no' >> /etc/ssh/sshd_config                              # ähnlich wie 'PermitRootLogin prohibit-password'
 
 sudo echo 'AllowStreamLocalForwarding no' >> /etc/ssh/sshd_config                   # https://forum.kuketz-blog.de/viewtopic.php?t=8759
 sudo echo 'AllowTcpForwarding no' >> /etc/ssh/sshd_config                           # https://forum.kuketz-blog.de/viewtopic.php?t=8759
@@ -229,9 +229,9 @@ sudo touch /etc/ssh/banner                                                      
 sudo chmod 777 /etc/ssh/banner
 sudo echo > /etc/ssh/banner
 sudo echo >> /etc/ssh/banner
-sudo echo "+++++++++++++++++++" >> /etc/ssh/banner
+sudo echo "+++++++++++++++++++++++" >> /etc/ssh/banner
 sudo echo "| Login on $hostname |" >> /etc/ssh/banner
-sudo echo "+++++++++++++++++++" >> /etc/ssh/banner
+sudo echo "+++++++++++++++++++++++" >> /etc/ssh/banner
 sudo echo >> /etc/ssh/banner
 sudo chmod 644 /etc/ssh/sshd_config									# Dateirechte setzen
 
@@ -429,7 +429,7 @@ sudo echo 'proxy-dnssec' >> /etc/dnsmasq.d/10-pihole-extra.conf
 sudo echo >> /etc/dnsmasq.d/10-pihole-extra.conf
 sudo chmod 644 /etc/dnsmasq.d/10-pihole-extra.conf
 
-sudo mv /etc/pihole/setupVars.conf /etc/pihole/setupVars.conf.orig		# Einstellungen für Einstellungen/DNS
+sudo mv /etc/pihole/setupVars.conf /etc/pihole/setupVars.conf.orig      # Einstellungen für Einstellungen/DNS
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/setupVars.conf -P /etc/pihole
 sudo chmod 777 /etc/pihole/setupVars.conf
 sudo rpl "local-ip" "$ipadresse" /etc/pihole/setupVars.conf > /dev/null 2>&1
@@ -438,7 +438,8 @@ sudo chown root:root /etc/pihole/setupVars.conf
 sudo chmod 644 /etc/pihole/setupVars.conf
 
 sudo chmod 777 /etc/pihole/dns-servers.conf
-sudo echo "Dismail;80.241.218.68;;" >> /etc/pihole/dns-servers.conf     # Dismail als zusätzliche Alternative
+sudo echo "Dismail.de;80.241.218.68;159.69.114.157;" >> /etc/pihole/dns-servers.conf       # Dismail als zusätzliche Alternative
+sudo echo "dnsforge.de;176.9.93.198;176.9.1.117;" >> /etc/pihole/dns-servers.conf       # dnsforge.de als zusätzliche Alternative
 sudo chmod 644 /etc/pihole/dns-servers.conf
 
 sudo service pihole-FTL restart

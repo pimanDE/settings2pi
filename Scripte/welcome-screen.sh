@@ -81,10 +81,10 @@ SYSTEM_UPDATE1=`tail -1 /home/$USERNAME/Log/update-and-upgrade.log`             
 
 
 # Update der Blocklisten
-BLOCKLIST_UPDATE1=`stat /var/log/pihole_updateGravity.log | tail -3 | head -1 | awk '{print $2}' | awk -F- '{print $3}'`    # 31.
-BLOCKLIST_UPDATE2=`stat /var/log/pihole_updateGravity.log | tail -3 | head -1 | awk '{print $2}' | awk -F- '{print $2}'`    # 12.
-BLOCKLIST_UPDATE3=`stat /var/log/pihole_updateGravity.log | tail -3 | head -1 | awk '{print $2}' | awk -F- '{print $1}'`    # 1900
-BLOCKLIST_UPDATE4=`stat /var/log/pihole_updateGravity.log | tail -3 | head -1 | awk '{print $3}' | awk -F. '{print $1}'`    # 20:15:00
+BLOCKLIST_UPDATE1=`stat /etc/pihole/gravity.db | tail -3 | head -1 | awk '{print $2}' | awk -F- '{print $3}'`    # 31.
+BLOCKLIST_UPDATE2=`stat /etc/pihole/gravity.db | tail -3 | head -1 | awk '{print $2}' | awk -F- '{print $2}'`    # 12.
+BLOCKLIST_UPDATE3=`stat /etc/pihole/gravity.db | tail -3 | head -1 | awk '{print $2}' | awk -F- '{print $1}'`    # 1900
+BLOCKLIST_UPDATE4=`stat /etc/pihole/gravity.db | tail -3 | head -1 | awk '{print $3}' | awk -F. '{print $1}'`    # 20:15:00
 
 
 
