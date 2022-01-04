@@ -392,7 +392,7 @@ sudo curl -sSL https://install.pi-hole.net | bash
 echo
 echo
 
-echo -e "${gruenfett}   Erledigt${standard}"
+echo "   Bitte das Passwort für die Weboberfläche ändern! [ENTER] = kein Passwort"
 sleep 2
 
 echo
@@ -603,6 +603,7 @@ echo
 echo
 echo "   Wenn Sie möchten, können Sie auf dieser Installation Ihre E-Mail Adresse hinterlegen,"
 echo "   sodass Sie vom System Informationen per E-Mail zugesendet bekommen."
+echo
 echo "   Wenn Sie Ihre E-Mail Adresse später hinterlegen möchten sowie weitergehende"
 echo "   Informationen finden Sie in der Dokumentation auf github.com/pimanDE/settings2pi"
 
@@ -672,7 +673,12 @@ echo
 echo
 
 cd ~/Scripte
-rfkill unblock wifi                                 # Wlan am Raspberry Pi freischalten
+
+wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/install-welcome-screen.sh
+wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/welcome-screen.sh
+chmod +x install-welcome-screen.sh
+chmod +x welcome-screen.sh
+
 sudo ./install-welcome-screen.sh
 
 echo
@@ -705,9 +711,9 @@ sudo echo >> /etc/systemd/journald.conf.d/00-volatile-storage.conf
 sudo chmod 644 /etc/systemd/journald.conf.d/00-volatile-storage.conf
 
 
+# Wlan am Raspberry Pi freischalten
 #
-#
-
+rfkill unblock wifi
 
 
 ####################################################################################################################
