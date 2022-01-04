@@ -679,7 +679,7 @@ wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/welcom
 chmod +x install-welcome-screen.sh
 chmod +x welcome-screen.sh
 
-sudo ./install-welcome-screen.sh
+./install-welcome-screen.sh
 
 echo
 echo
