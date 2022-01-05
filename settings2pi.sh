@@ -230,10 +230,10 @@ sudo chmod 777 /etc/ssh/banner
 sudo echo > /etc/ssh/banner
 sudo echo >> /etc/ssh/banner
 sudo echo "+++++++++++++++++++++++" >> /etc/ssh/banner
-sudo echo "| Login on $hostname |" >> /etc/ssh/banner
+sudo echo "| Login auf $hostname |" >> /etc/ssh/banner
 sudo echo "+++++++++++++++++++++++" >> /etc/ssh/banner
 sudo echo >> /etc/ssh/banner
-sudo chmod 644 /etc/ssh/sshd_config									# Dateirechte setzen
+sudo chmod 644 /etc/ssh/banner								# Dateirechte setzen
 
 sudo /etc/init.d/ssh restart										# anschließender Login: ssh benutzername@192.168.178.11 -p Portnummer
 
@@ -438,7 +438,7 @@ sudo chown root:root /etc/pihole/setupVars.conf
 sudo chmod 644 /etc/pihole/setupVars.conf
 
 sudo chmod 777 /etc/pihole/dns-servers.conf
-sudo echo "Dismail.de;80.241.218.68;159.69.114.157;" >> /etc/pihole/dns-servers.conf       # Dismail als zusätzliche Alternative
+sudo echo "Dismail.de;80.241.218.68;159.69.114.157;" >> /etc/pihole/dns-servers.conf    # Dismail als zusätzliche Alternative
 sudo echo "dnsforge.de;176.9.93.198;176.9.1.117;" >> /etc/pihole/dns-servers.conf       # dnsforge.de als zusätzliche Alternative
 sudo chmod 644 /etc/pihole/dns-servers.conf
 
