@@ -235,7 +235,7 @@ sudo echo "+++++++++++++++++++++++" >> /etc/ssh/banner
 sudo echo >> /etc/ssh/banner
 sudo chmod 644 /etc/ssh/banner								# Dateirechte setzen
 
-sudo /etc/init.d/ssh restart										# anschließender Login: ssh benutzername@192.168.178.11 -p Portnummer
+sudo /etc/init.d/ssh restart                                # anschließender Login: ssh benutzername@IP-Adresse -p Portnummer
 
 mkdir -p /home/$username/Scripte/ssh-login
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/ssh-login.sh -P ~/Scripte/ssh-login/
@@ -393,7 +393,6 @@ echo
 echo
 
 echo "   Bitte das Passwort für die Weboberfläche ändern! [ENTER] = kein Passwort"
-sleep 2
 
 echo
 echo
@@ -438,11 +437,9 @@ sudo chown root:root /etc/pihole/setupVars.conf
 sudo chmod 644 /etc/pihole/setupVars.conf
 
 sudo chmod 777 /etc/pihole/dns-servers.conf
-sudo echo "Dismail.de;80.241.218.68;159.69.114.157;" >> /etc/pihole/dns-servers.conf    # Dismail als zusätzliche Alternative
-sudo echo "dnsforge.de;176.9.93.198;176.9.1.117;" >> /etc/pihole/dns-servers.conf       # dnsforge.de als zusätzliche Alternative
+sudo echo "Dismail.de (DNS-over-TLS);80.241.218.68;159.69.114.157;" >> /etc/pihole/dns-servers.conf    # Dismail als zusätzliche Alternative
+sudo echo "dnsforge.de (DNS-over-TLS);176.9.93.198;176.9.1.117;" >> /etc/pihole/dns-servers.conf       # dnsforge.de als zusätzliche Alternative
 sudo chmod 644 /etc/pihole/dns-servers.conf
-
-sudo service pihole-FTL restart
 
 sudo curl -sSL https://raw.githubusercontent.com/pimanDE/translate2german/master/translate2german.sh | bash     # Übersetzt die Weboberfläche auf deutsch
 
@@ -473,14 +470,13 @@ echo
 
 sudo apt install -y unbound
 
-sudo wget -q https://www.internic.net/domain/named.root -O /var/lib/unbound/root.hints
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
-sleep 2
-# sudo service unbound restart                      # wird hier vorerst deaktiviert, da Fehlermeldung; wird jedoch nach dem reboot erneut gestartet
 
+sudo rm /etc/dnsmasq.d/01-pihole.conf
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/01-pihole.conf -P /etc/dnsmasq.d/
 
-echo 'Unbound erfolgreich aktualisiert am:' > /home/$username/Log/update-root-nameserver.log
-date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/$username/Log/update-root-nameserver.log
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/99-edns.conf -P /etc/dnsmasq.d/   # https://docs.pi-hole.net/guides/dns/unbound/
+
 
 echo
 echo
@@ -490,8 +486,8 @@ echo
 echo "   ++++++++++++++++++++++++++++++++++++++++++++"
 echo -e "   + ${gruenfett}8. Unbound wurde erfolgreich installiert${standard} +"
 echo "   ++++++++++++++++++++++++++++++++++++++++++++"
-# echo
-# echo
+echo
+echo
 sleep 2
 
 
@@ -501,15 +497,11 @@ sleep 2
 
 
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-and-upgrade.sh -P ~/Scripte/
-wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-root-nameserver.sh -P ~/Scripte
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/email-update-and-upgrade.sh -P ~/Scripte
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
 
 sudo rpl 'benutzername' $username ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
 sudo rpl 'rechnername' $hostname ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
-
-sudo rpl 'benutzername' $username ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
-sudo rpl 'rechnername' $hostname ~/Scripte/update-root-nameserver.sh  > /dev/null 2>&1
 
 sudo rpl 'benutzername' $username ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
 sudo rpl 'rechnername' $hostname ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
@@ -519,16 +511,12 @@ sudo rpl 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
 sudo sed -i "s/AB C /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
 sudo sed -i "s/DE F /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
-sudo sed -i "s/GH I /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
 
 sudo crontab -u root /home/$username/Scripte/cron/cronjobs.txt
 
 sudo chown root:root /home/$username/Scripte/update-and-upgrade.sh
 sudo chmod 554 /home/$username/Scripte/update-and-upgrade.sh
 sudo touch /home/$username/Log/update-and-upgrade.log
-
-sudo chown root:root /home/$username/Scripte/update-root-nameserver.sh
-sudo chmod 554 /home/$username/Scripte/update-root-nameserver.sh
 
 
 
@@ -622,10 +610,9 @@ while ! ((antwortemail)); do
 		# sleep 2
 
 		cd ~/Scripte
-		wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/email-eintragen.sh
+		wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/email-eintragen.sh
 		chmod +x email-eintragen.sh
 		./email-eintragen.sh
-		# sudo curl -sSL https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/email-eintragen.sh | bash
 
 		echo
 		echo
@@ -675,8 +662,8 @@ echo
 
 cd ~/Scripte
 
-wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/install-welcome-screen.sh
-wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/welcome-screen.sh
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/install-welcome-screen.sh
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/welcome-screen.sh
 chmod +x install-welcome-screen.sh
 chmod +x welcome-screen.sh
 
@@ -713,7 +700,6 @@ sudo chmod 644 /etc/systemd/journald.conf.d/00-volatile-storage.conf
 
 
 # Wlan am Raspberry Pi freischalten
-#
 rfkill unblock wifi
 
 
@@ -744,12 +730,14 @@ echo "   Der Rechner muss nun neu gestartet werden."
 echo
 echo
 
-echo -e "${rotfett}   Hinweis bei ssh-Portänderung:${standard}"
+echo -e "${rotfett}   _______________Hinweis bei ssh-Portänderung______________${standard}"
 echo -e "${rotfett}   Login: ssh benutzername@rechner-ip -p neue-ssh-portnummer${standard}"
+echo
 echo -e "${rotfett}   Beispiel: ssh pimanDE@192.168.178.30 -p 4711${standard}"
 
 echo
 
+echo -e "${rotfett}   ___________________Allgemeiner Hinweis__________________${standard}"
 echo -e "${rotfett}   Lesen Sie bitte die Erläuterungen zum Script${standard}"
 echo -e "${rotfett}   in der Dokumentation auf github.com/pimanDE/settings2pi.${standard}"
 

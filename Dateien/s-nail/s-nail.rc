@@ -222,7 +222,7 @@ set smtp-use-starttls=yes
 set smtp=smtp.gmx.net:587
 set smtp-auth=login
 set smtp-auth-user=meine-email@gmx.net
-set smtp-auth-password=XXXX
+set smtp-auth-password=
 set from="meine-email@gmx.net"
 set ssl-verify=ignore
 }

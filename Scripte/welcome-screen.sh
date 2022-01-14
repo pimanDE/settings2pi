@@ -89,7 +89,10 @@ BLOCKLIST_UPDATE4=`stat /etc/pihole/gravity.db | tail -3 | head -1 | awk '{print
 
 
 # Letztes Root-Nameserver Update
-ROOTSERVER_UPDATE1=`tail -1 /home/$USERNAME/Log/update-root-nameserver.log | head -1`   # 31.12.1900 um 20:15:00 Uhr
+ROOTSERVER_UPDATE1=`stat /usr/share/dns/root.hints | tail -3 | head -1 | awk '{print $2}' | awk -F- '{print $3}'`  # 31.
+ROOTSERVER_UPDATE2=`stat /usr/share/dns/root.hints | tail -3 | head -1 | awk '{print $2}' | awk -F- '{print $2}'`  # 12.
+ROOTSERVER_UPDATE3=`stat /usr/share/dns/root.hints | tail -3 | head -1 | awk '{print $2}' | awk -F- '{print $1}'`  # 1900
+ROOTSERVER_UPDATE4=`stat /usr/share/dns/root.hints | tail -3 | head -1 | awk '{print $3}' | awk -F. '{print $1}'`  # 20:15:00
 
 
 
@@ -105,7 +108,7 @@ echo "\033[1;32m                      \033[1;34m$DATUM
 \033[1;30m   ~ .~ (   ) ~. ~    \033[0;37mIP-Adressen..........: LAN: \033[0;37m$IP_LAN\033[0;37m | WLAN: \033[1;35m$IP_WLAN \033[1;35m
 \033[1;30m    (  : '~' :  )     \033[0;37mUpdate System am.....: \033[0;37m$SYSTEM_UPDATE1
 \033[1;30m     '~ .~~~. ~'      \033[0;37mUpdate Blocklisten am: \033[0;37m$BLOCKLIST_UPDATE1.$BLOCKLIST_UPDATE2.$BLOCKLIST_UPDATE3 um $BLOCKLIST_UPDATE4 Uhr
-\033[1;30m         '~'          \033[0;37mUpdate Root Server am: \033[0;37m$ROOTSERVER_UPDATE1
+\033[1;30m         '~'          \033[0;37mUpdate Root Server am: \033[0;37m$ROOTSERVER_UPDATE1.$ROOTSERVER_UPDATE2.$ROOTSERVER_UPDATE3 um $ROOTSERVER_UPDATE4 Uhr
 \033[m"
 
 echo
