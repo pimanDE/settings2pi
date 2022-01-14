@@ -97,7 +97,6 @@ sudo chmod 644 /etc/profile
 # E-Mail Adresse in den Scripten anpassen
 sudo chmod 777 /home/$username/Scripte/*pdate*.sh
 sudo rpl 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/update-and-upgrade.sh > /dev/null 2>&1
-sudo rpl 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/update-root-nameserver.sh > /dev/null 2>&1
 sudo rpl 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
 sudo chmod 554 /home/$username/Scripte/*pdate*.sh
 
