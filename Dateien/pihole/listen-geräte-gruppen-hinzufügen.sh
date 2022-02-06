@@ -217,10 +217,11 @@ sudo sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist"
 
 
 # Eigene Listen
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/big.txt', 1, 'Zelo72 Big-Liste');"
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/affiliatetracking.txt', 1, 'Zelo72 Affiliate-Liste');"
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/threat-intelligence.txt', 1, 'Zelo72 Threat Intelligence Feeds');"
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/doh-vpn-proxy-bypass.txt', 1, 'Zelo72 DoH/VPN/TOR/Proxy Bypass');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://dbl.oisd.nl/', 1, 'Full List von oisd.nl');"
+# sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/big.txt', 1, 'Zelo72 Big-Liste');"
+# sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/affiliatetracking.txt', 1, 'Zelo72 Affiliate-Liste');"
+# sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/threat-intelligence.txt', 1, 'Zelo72 Threat Intelligence Feeds');"
+# sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/doh-vpn-proxy-bypass.txt', 1, 'Zelo72 DoH/VPN/TOR/Proxy Bypass');"
 
 
 # Hinzufügen
