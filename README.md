@@ -12,25 +12,11 @@
 
 <br>
 
-Mit diesem Installations- und Konfigurationsscript sollen Programme auf dem Raspberry Pi im 'Handumdrehen' installiert und mit den persönlichen Einstellungen versehen werden.
+Mit diesem Installations- und Konfigurationsscript (Script) werden Programme auf dem Raspberry Pi im 'Handumdrehen' installiert und mit den persönlichen Einstellungen versehen werden.
 
-Es wird versucht, dass der Benutzer so wenig wie möglich von Hand eingeben muss. Dies kann (z.Zt.) nur über zwei Scripte erfolgen, da einige Einstellungen einen _**reboot**_ erfordern.
-
-Daher muss das **Script** [_`preparations2pi.sh`_](https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparations2pi.sh) (siehe Installationsanleitung) als **erstes** ausgeführt werden.
-
-Hierbei wird
-
-
-- ein neuer Benutzer angelegt (Benutzer pi wird deaktiviert)
-- der Rechnername geändert (bei Bedarf; empfohlen)
-- die Sprache wird auf deutsch gestellt
-- die Zeitzone wird auf Berlin/Europa gestellt
-- WLAN Country wird auf Deutschland gestellt (bei Bedarf)
-- zum Schluss der Raspberry Pi neu gestartet
+Es wird versucht, dass der Benutzer so wenig wie möglich von Hand eingeben muss. 
 
 ---
-
-Anschließend wird das **(zweite) Script** [_`settings2pi.sh`_](https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh) (siehe Installationsanleitung) ausgeführt.
 
 Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisiert vorgenommen:
 
@@ -41,7 +27,6 @@ Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisier
 - fail2ban wird installiert und konfiguriert
 - veracrypt wird installiert
 - s-nail wird installiert und konfiguriert ([siehe Erläuterungen zum Script](https://github.com/pimanDE/settings2pi/blob/master/Dokumentation/Erläuterungen%20zum%20Script.md))
-- der HDMI Anschluss wird deaktiviert
 - pihole wird installiert und konfiguriert
 - unbound wird installiert
 - das System wird automatisch aktuell gehalten
@@ -50,21 +35,20 @@ Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisier
 <br>
 <br>
 
-**Bevor Sie mit den Scripten beginnen:**
+**Bevor Sie mit dem Script beginnen:**
 
-- haben Sie ein Backup von Ihrem System gemacht,
+- haben Sie ein Backup von Ihren Systemen gemacht,
 - haben Sie sich vom Quellcode überzeugt,
 - haben Sie die [Erläuterungen zum Script](https://github.com/pimanDE/settings2pi/blob/master/Dokumentation/Erläuterungen%20zum%20Script.md) gelesen,
 - haben Sie den Haftungsausschluss gelesen und akzeptiert,
 - wissen Sie, dass Sie alles auf eigene Gefahr tun,
 - wissen Sie, dass pimanDE alles nach bestem Wissen und Gewissen gemacht hat,
-- kennen Sie die IP-Adresse Ihres Computers, von dem Sie sich aus (immer) am Raspberry Pi anmelden (wird im Laufe des zweiten Scripts benötigt)
-- haben Sie eine E-Mail Adresse von [GMX](https://www.gmx.net) (nicht zwingend erforderlich)
+- haben Sie sich eine E-Mail Adresse bei [GMX.net](https://www.gmx.net) registriert (nicht zwingend erforderlich)
 - ...
 
-**Achtung! Dieses Script funktioniert (zur Zeit) nur unter Raspberry Pi OS Buster vom 07.05.2021**
+**Achtung! Dieses Script wurde unter Raspberry Pi OS Bullseye vom 22.09.2022 getestet**
 <br>
-Download unter: [https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-05-28/2021-05-07-raspios-buster-armhf-lite.zip](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-05-28/2021-05-07-raspios-buster-armhf-lite.zip) 
+Download unter: [https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-09-26/2022-09-22-raspios-bullseye-armhf-lite.img.xz](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-09-26/2022-09-22-raspios-bullseye-armhf-lite.img.xz) 
 <br>
 
 <br>
@@ -72,65 +56,45 @@ Download unter: [https://downloads.raspberrypi.org/raspios_lite_armhf/images/ras
 
 **Installationsanleitung:**
 
-Wer schnell und bequem loslegen möchte, kann die Scripte mit den folgenden Befehlen in der richtigen Reihenfolge nach starten:
+Wer schnell und bequem loslegen möchte, kann die Installation mit folgendem Befehl starten:
 
 ---
-Script 1:
-```bash
-bash -c "$(curl -sSL https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparations2pi.sh)"
-```
----
-Script 2:
 ```bash
 bash -c "$(curl -sSL https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh)"
 ```
-
 ---
 
-Alternativ können die Scripte auch folgendermaßen ausgeführt werden:
+Alternativ kann das Script auch folgendermaßen ausgeführt werden:
 
 ```bash
-wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparations2pi.sh
-chmod 775 preparations2pi.sh
-
 wget https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh
 chmod 775 settings2pi.sh
 
-./preparation2pi.sh
 ./settings2pi.sh
 ```
 
 <br>
 <br>
 
-**Hinweise:**
-
-- Dieses Script eignet sich nur für User, die ausschließlich per _**ssh**_ auf dem Raspberry arbeiten
-- ein grafisches Login wird nach Ausführen des Scripts nicht mehr möglich sein, da der HDMI-Anschluss deaktiviert wird
-- getestet unter Raspberry Pi OS Lite Release vom 07. Mai 2021 ([Download](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-05-28/2021-05-07-raspios-buster-armhf-lite.zip))
+**Hinweise:**<br>
+- Dieses Script eignet sich nur für User, die ausschließlich per _**ssh**_ auf dem Raspberry arbeiten)
+- getestet unter Raspberry Pi OS Lite Release vom 22. September 2022 ([Download](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-09-26/2022-09-22-raspios-bullseye-armhf-lite.img.xz))
 - ...
 
 <br>
 <br>
 
-**Zusammenfassung:**
-
-1. [Raspbian OS Lite Image](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-05-28/2021-05-07-raspios-buster-armhf-lite.zip) auf eine SD Karte schreiben
-2. System starten und als user *pi* anmelden
-4. Script 1 [(preparation2pi.sh](https://raw.githubusercontent.com/pimanDE/settings2pi/master/preparation2pi.sh)) ausführen
-5. Script 2 [(settings2pi.sh](https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh)) ausführen
+**Zusammenfassung:**<br>
+1. [Raspbian OS Lite Image](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-09-26/2022-09-22-raspios-bullseye-armhf-lite.img.xz) mittels [Pi Imager](https://yewtu.be/watch?v=ntaXWS8Lk34) auf eine SD Karte schreiben
+2. System starten und per ssh anmelden
+3. Script [(settings2pi.sh](https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh)) ausführen
 
 <br>
 <br>
 
 **ToDo:**
 
-- ~~den Rechnernamen ändern~~
-- ~~neuen Benutzer erstellen~~
-- ~~die Sprache und lokalen Einstellungen auf deutsch ändern~~
-- ~~die Zeitzone auf Berlin/Europa ändern~~
-- ~~WLAN-Land ändern (nach Auswahl)~~
----
+
 - ~~System auf den aktuellen Stand bringen~~
 - ~~ssh härten~~
 - ~~fail2ban installieren und konfigurieren~~
@@ -138,7 +102,7 @@ chmod 775 settings2pi.sh
 - ~~automatische Updates einspielen~~
 - ~~Willkommens Bildschirm erstellen~~
 - ~~Aliase vergeben~~
-- ~~HDMI-Anschluss deaktivieren~~
+- HDMI-Anschluss deaktivieren
 - ~~Erstellen von diversen Scripten für automatische Arbeiten~~
 - die Firewall aktivieren
 - ~~pi-hole installieren und konfigurieren~~

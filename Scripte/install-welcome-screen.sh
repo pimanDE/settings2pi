@@ -45,7 +45,7 @@ sudo chmod 777 /etc/profile
 sudo echo /home/$username/Scripte/welcome-screen.sh >> /etc/profile
 sudo chmod 644 /etc/profile
 
-sudo rpl '#PrintLastLog yes' 'PrintLastLog no' /etc/ssh/sshd_config > /dev/null 2>&1
+sudo rpl --encoding UTF-8 '#PrintLastLog yes' 'PrintLastLog no' /etc/ssh/sshd_config > /dev/null 2>&1
 sudo /etc/init.d/ssh restart  > /dev/null 2>&1
 
 exit

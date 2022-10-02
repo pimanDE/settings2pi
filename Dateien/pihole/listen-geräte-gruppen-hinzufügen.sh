@@ -67,6 +67,10 @@ echo -e "${blaufett}   Füge gesperrte Domains hinzu ...${standard}"
 # Exakte Blacklist
 # sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'beispiel.com',1,'Beispiel');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'vcs.vdspf.com',1,'Location Lookup');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'rbm.mavenir.com',1,'https://github.com/HendrikWDev/Pi-Hole-Blocklist/blob/main/My-Blocklist.txt');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'asbc.de1.rbm.mavenir.com',1,'https://github.com/HendrikWDev/Pi-Hole-Blocklist/blob/main/My-Blocklist.txt');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'asbc.de2.rbm.mavenir.com',1,'https://github.com/HendrikWDev/Pi-Hole-Blocklist/blob/main/My-Blocklist.txt');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'asbc.de3.rbm.mavenir.com',1,'https://github.com/HendrikWDev/Pi-Hole-Blocklist/blob/main/My-Blocklist.txt');"
 
 
 ## Ganze Länder
@@ -203,7 +207,6 @@ sleep 2
 
 ####################################################################################################################
 # Hinzufügen der Blocklisten
-# github.com/Zelo72/rpi
 
 
 echo
@@ -217,11 +220,9 @@ sudo sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist"
 
 
 # Eigene Listen
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://dbl.oisd.nl/', 1, 'Full List von oisd.nl');"
-# sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/big.txt', 1, 'Zelo72 Big-Liste');"
-# sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/affiliatetracking.txt', 1, 'Zelo72 Affiliate-Liste');"
-# sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/threat-intelligence.txt', 1, 'Zelo72 Threat Intelligence Feeds');"
-# sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/Zelo72/rpi/master/pihole/blocklists/doh-vpn-proxy-bypass.txt', 1, 'Zelo72 DoH/VPN/TOR/Proxy Bypass');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/pro.txt', 1, 'Multi PRO - Extended Protection');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/tif.txt', 1, 'Threat Intelligence Feeds - Increases Security Significantly!');"
+
 
 
 # Hinzufügen
