@@ -578,9 +578,9 @@ echo
 echo '   9. Automatische Aktualisierung des Systems erfolgreich' >> ~/Log/settings2pi.log
 echo
 echo
-echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo -e "   + ${gruenfett}9. Automatische Aktualisierung des Systems erfolgreich${standard} +"
-echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo "   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}9. Automatische Aktualisierung des Systems erfolgreich.${standard} +"
+echo "   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo
 echo
 sleep 2
@@ -601,9 +601,50 @@ source ~/.bash_aliases                                      # Konfigurationsdate
 echo '   10. Aliase erfolgreich vergeben' >> ~/Log/settings2pi.log
 echo
 echo
-echo "   +++++++++++++++++++++++++++++++++++"
-echo -e "   + ${gruenfett}10. Aliase erfolgreich vergeben${standard} +"
-echo "   +++++++++++++++++++++++++++++++++++"
+echo "   ++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}10. Aliase erfolgreich vergeben.${standard} +"
+echo "   ++++++++++++++++++++++++++++++++++++"
+echo
+echo
+sleep 2
+
+
+
+####################################################################################################################
+# Systemsprache auf deutsch umstellen
+
+echo -e "   ${blaufett}Systemprache wird auf deutsch umgestellt ...${standard}"
+echo
+echo
+sudo rpl --encoding UTF-8 '\# de_DE.UTF-8 UTF-8' 'de_DE.UTF-8 UTF-8' /etc/locale.gen
+sudo rpl --encoding UTF-8 'LANG=en_GB.UTF-8' 'LANG=de_DE.UTF-8' /etc/default/locale > /dev/null 2>&1
+sudo locale-gen
+
+echo '   11. Sprache wurde erfolgreich auf deutsch umgestellt' >> ~/Log/settings2pi.log
+echo
+echo
+echo "   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}11. Sprache wurde erfolgreich auf deutsch umgestellt.${standard} +"
+echo "   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo
+echo
+sleep 2
+
+
+
+#####################################################################################################################
+# Texteditor Nano konfigurieren
+
+sudo chmod 666 /etc/nanorc
+sudo echo 'set constantshow' >> /etc/nanorc				# Zeigt in der Statuszeile die Zeilen- und Spaltennummer an
+sudo chmod 644 /etc/nanorc
+
+echo '   12. Texteditor nano wurde erfolgreich konfiguriert' >> ~/Log/settings2pi.log
+echo
+echo
+echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}12. Texteditor nano wurde erfolgreich konfiguriert${standard} +"
+echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo
 echo
 sleep 2
@@ -633,6 +674,8 @@ sudo chmod 644 /etc/systemd/journald.conf.d/00-volatile-storage.conf
 
 # Cache leeren
 echo -e "   ${blaufett}Aufräumen ...${standard}"
+echo
+echo
 sudo apt clean                  # Leeren des Paketcaches (Entfernen von zur Installation heruntergeladenen Paketen)
 sudo apt autoclean              # wie clean, nur werden ausschließlich Pakete, die nicht mehr in den Quellen verfügbar sind, gelöscht
 sudo apt autoremove -y          # Deinstallation ungenutzter Abhängigkeiten

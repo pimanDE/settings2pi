@@ -10,9 +10,9 @@ echo
 # Datum & Uhrzeit
 DATUM=`date +"%A, %d. %B %Y"`
 JAHR=`date +"%Y"`                       # 1900
-MONAT=`date +"%B"`                      # Dezember
+MONAT=`date +"%B"`                      # December
 TAG=`date +"%d"`                        # 31
-WOCHENTAG=`date +"%A"`                  # Montag
+WOCHENTAG=`date +"%A"`                  # Monday
 
 
 

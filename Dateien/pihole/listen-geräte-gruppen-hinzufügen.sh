@@ -66,13 +66,10 @@ echo -e "${blaufett}   Füge gesperrte Domains hinzu ...${standard}"
 
 # Exakte Blacklist
 # sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'beispiel.com',1,'Beispiel');"
-sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'vcs.vdspf.com',1,'Location Lookup');"
-sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'rbm.mavenir.com',1,'https://github.com/HendrikWDev/Pi-Hole-Blocklist/blob/main/My-Blocklist.txt');"
-sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'asbc.de1.rbm.mavenir.com',1,'https://github.com/HendrikWDev/Pi-Hole-Blocklist/blob/main/My-Blocklist.txt');"
-sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'asbc.de2.rbm.mavenir.com',1,'https://github.com/HendrikWDev/Pi-Hole-Blocklist/blob/main/My-Blocklist.txt');"
-sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'asbc.de3.rbm.mavenir.com',1,'https://github.com/HendrikWDev/Pi-Hole-Blocklist/blob/main/My-Blocklist.txt');"
 
 
+
+# RegEx Blacklist
 ## Ganze Länder
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.am$',1,'Domains aus Armenien');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.bd$',1,'Domains aus Bangladesch');"
@@ -132,6 +129,7 @@ sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabl
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.xxx$',1,'TLDs mit hoher Rate bösartiger Adressen');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.xyz$',1,'TLDs mit hoher Rate bösartiger Adressen');"
 
+# RegEx Blacklist
 ## Domaingruppen
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^(.+[-_.])??adse?rv(er?|ice)?s?[0-9]*[-.]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^(.+[-_.])??m?ad[sxv]?[0-9]*[-_.]',1,'Tracking, Pishing and Malware');"
@@ -198,6 +196,7 @@ sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabl
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^mads\.^pixels?[-.]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^track(ers?|ing)?[0-9]*[_.-]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'(^|\.)partner\.vxcp\.de$',1,'Tracking, Pishing and Malware');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'watson\..*\.microsoft.com',1,'Windows Telemetry');"
 
 
 
@@ -220,7 +219,7 @@ sudo sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist"
 
 
 # Eigene Listen
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/pro.txt', 1, 'Multi PRO - Extended Protection');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/pro.plus.txt', 1, 'Multi PRO++ - Maximum Protection');"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/tif.txt', 1, 'Threat Intelligence Feeds - Increases Security Significantly!');"
 
 

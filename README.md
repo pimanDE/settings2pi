@@ -108,6 +108,7 @@ chmod 775 settings2pi.sh
 - ~~pi-hole installieren und konfigurieren~~
 - ~~die Weboberfläche von pihole auf deutsch übersetzen~~
 - ~~unbound installieren und konfigurieren~~
+- ~~Systemsprache auf deutsch umstellen~~
 - Port Knocking
 - einen Honigtopf 'aufstellen'
 - Farbe des Prompts ändern
