@@ -221,7 +221,7 @@ sudo sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist"
 # Eigene Listen
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/pro.plus.txt', 1, 'Multi PRO++ - Maximum Protection');"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/tif.txt', 1, 'Threat Intelligence Feeds - Increases Security Significantly!');"
-
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/doh-vpn-proxy-bypass.txt', 1, 'DoH/VPN/TOR/Proxy Bypass - Prevent methods to bypass your DNS!');"
 
 
 # Hinzufügen
