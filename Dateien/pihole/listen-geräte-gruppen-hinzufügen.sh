@@ -134,7 +134,6 @@ sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabl
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^(.+[-_.])??adse?rv(er?|ice)?s?[0-9]*[-.]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^(.+[-_.])??m?ad[sxv]?[0-9]*[-_.]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^(.+[-_.])??telemetry[-.]',1,'Tracking, Pishing and Malware');"
-sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^(.+[-_.])??xn--',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^adim(age|g)s?[0-9]*[-_.]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^adtrack(er|ing)?[0-9]*[-.]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^advert(s|is(ing|ements?))?[0-9]*[-_.]',1,'Tracking, Pishing and Malware');"
@@ -184,7 +183,6 @@ sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabl
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^(.+[_.-])?ad[sxv]?[0-9]*[_.-]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^(.+[_.-])?adse?rv(er?|ice)?s?[0-9]*[_.-]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^(.+[_.-])?telemetry[_.-]',1,'Tracking, Pishing and Malware');"
-sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^(www[0-9]*\.)?xn--',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^adim(age|g)s?[0-9]*[_.-]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^adtrack(er|ing)?[0-9]*[_.-]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^advert(s|is(ing|ements?))?[0-9]*[_.-]',1,'Tracking, Pishing and Malware');"
@@ -196,7 +194,11 @@ sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabl
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^mads\.^pixels?[-.]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^track(ers?|ing)?[0-9]*[_.-]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'(^|\.)partner\.vxcp\.de$',1,'Tracking, Pishing and Malware');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.*(xn--).*',1,'Punycode');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'watson\..*\.microsoft.com',1,'Windows Telemetry');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^wpad\.',1,'WPAD Protokoll im Netzwerk verbieten');"
+
+
 
 
 
@@ -285,7 +287,7 @@ echo -e "${blaufett}   Füge Geräte den Gruppen hinzu ... ${standard}"
 
 # sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO client_by_group (client_id, group_id) VALUES (?, 0);"		# Standard Gruppe bereits allen zugewiesen
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO client_by_group (client_id, group_id) VALUES (1, 1);"			# Gerät 1
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO client_by_group (client_id, group_id) VALUES (2, 1);"			# Gerät 3
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO client_by_group (client_id, group_id) VALUES (2, 1);"			# Gerät 2
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO client_by_group (client_id, group_id) VALUES (3, 1);"			# Gerät 3
 
 
