@@ -616,7 +616,7 @@ sleep 2
 echo -e "   ${blaufett}Systemprache wird auf deutsch umgestellt ...${standard}"
 echo
 echo
-sudo rpl --encoding UTF-8 '\# de_DE.UTF-8 UTF-8' 'de_DE.UTF-8 UTF-8' /etc/locale.gen
+sudo rpl --encoding UTF-8 '\# de_DE.UTF-8 UTF-8' 'de_DE.UTF-8 UTF-8' /etc/locale.gen > /dev/null 2>&1
 sudo rpl --encoding UTF-8 'LANG=en_GB.UTF-8' 'LANG=de_DE.UTF-8' /etc/default/locale > /dev/null 2>&1
 sudo locale-gen
 
@@ -642,9 +642,9 @@ sudo chmod 644 /etc/nanorc
 echo '   12. Texteditor nano wurde erfolgreich konfiguriert' >> ~/Log/settings2pi.log
 echo
 echo
-echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo -e "   + ${gruenfett}12. Texteditor nano wurde erfolgreich konfiguriert${standard} +"
-echo "   ++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo "   +++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}12. Texteditor nano wurde erfolgreich konfiguriert.${standard} +"
+echo "   +++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo
 echo
 sleep 2
