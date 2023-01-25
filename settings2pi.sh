@@ -135,6 +135,7 @@ mkdir -p /home/$username/Log
 
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-and-upgrade.sh -P ~/Scripte/
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/email-update-and-upgrade.sh -P ~/Scripte
+wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-root-nameserver.sh -P ~/Scripte
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
 
 touch /home/$username/Log/settings2pi.log
@@ -560,6 +561,9 @@ sudo rpl --encoding UTF-8 'rechnername' $hostname ~/Scripte/update-and-upgrade.s
 
 sudo rpl --encoding UTF-8 'benutzername' $username ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
 sudo rpl --encoding UTF-8 'rechnername' $hostname ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
+
+sudo rpl --encoding UTF-8 'benutzername' $username ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
+sudo rpl --encoding UTF-8 'rechnername' $hostname ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
 
 sudo rpl --encoding UTF-8 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
 

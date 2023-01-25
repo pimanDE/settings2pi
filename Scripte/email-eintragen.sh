@@ -108,6 +108,7 @@ chmod 554 ~/Scripte/ssh-login/ssh-login.sh         # siehe Eräuterungen zum Scr
 sudo chmod 777 /home/$username/Scripte/*pdate*.sh
 sudo rpl --encoding UTF-8 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/update-and-upgrade.sh > /dev/null 2>&1
 sudo rpl --encoding UTF-8 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl --encoding UTF-8 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/update-root-nameserver.sh > /dev/null 2>&1
 sudo chmod 554 /home/$username/Scripte/*pdate*.sh
 
 
