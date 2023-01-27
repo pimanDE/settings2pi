@@ -15,4 +15,4 @@ DE F  1 * * /home/benutzername/Scripte/email-update-and-upgrade.sh > /dev/null 2
 ###########################################################################
 # Update Root-Nameserver alle 4 Monate
 
-* * * */4 * /home/benutzername/Scripte/update-root-nameserver.sh > /dev/null 2>&1
+0 0 0 */4 * /home/benutzername/Scripte/update-root-nameserver.sh > /dev/null 2>&1

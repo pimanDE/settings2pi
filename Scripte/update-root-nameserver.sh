@@ -14,10 +14,11 @@ clear
 # Aktualisierung der Root-Nameserver
 
 wget -O root.hints https://www.internic.net/domain/named.root &&
-mv -fv root.hints /var/lib/unbound/ &&
-sudo service unbound restart || echo "ACHTUNG! Unbound Fehler!" | s-nail -A MAIL -s "ACHTUNG! Update der Root-Nameserver auf rechnername war fehlerhaft! Unbound wurde nicht gestartet!" meine-email@gmx.net
+mv -f root.hints /var/lib/unbound/ &&
+date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/benutzername/Log/update-root-nameserver.log || echo "ACHTUNG! Update der Root-Nameserver auf rechnername war fehlerhaft! root.hints konnte nicht erneuert werden!" | s-nail -A MAIL -s "ACHTUNG! Unbound Fehler auf rechnername!" meine-email@gmx.net
 
-date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/benutzername/Log/updates-root-nameserver.log 
+sudo service unbound restart 
+
 
 
 exit

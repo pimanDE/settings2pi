@@ -435,7 +435,7 @@ pihole -a -p                                                            # Passwo
 
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/listen-geräte-gruppen-hinzufügen.sh
 chmod +x listen-geräte-gruppen-hinzufügen.sh
-sudo ./listen-geräte-gruppen-hinzufügen.sh                              # Hinzufügen von Domainen, Gruppen, Blocklisten etc.
+sudo ./listen-geräte-gruppen-hinzufügen.sh                              # Hinzufügen von Domains, Gruppen, Blocklisten etc.
 
 sleep 2
 
