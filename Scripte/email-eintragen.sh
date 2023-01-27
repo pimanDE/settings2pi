@@ -83,6 +83,7 @@ echo
 echo "   Bitte das E-Mail Passwort eintragen ..."
 echo
 read -p "   Weiter mit ENTER ..."
+clear
 sudo nano +225,24 /etc/s-nail.rc								# Passwort des E-Mail Accounts eintragen
 sudo chown $username:$username /etc/s-nail.rc                   # Eigentümer festlegen
 sudo chmod 400 /etc/s-nail.rc									# Leserechte setzen

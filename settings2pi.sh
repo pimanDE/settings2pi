@@ -509,6 +509,7 @@ sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateie
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/99-edns.conf -P /etc/dnsmasq.d/   # https://docs.pi-hole.net/guides/dns/unbound/
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
 
+date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/$username/Log/update-root-nameserver.log
 
 echo
 echo
@@ -617,7 +618,7 @@ sleep 2
 ####################################################################################################################
 # Systemsprache auf deutsch umstellen
 
-echo -e "   ${blaufett}Systemprache wird auf deutsch umgestellt ...${standard}"
+echo -e "   ${blaufett}Systemsprache wird auf deutsch umgestellt ...${standard}"
 echo
 echo
 sudo rpl --encoding UTF-8 '\# de_DE.UTF-8 UTF-8' 'de_DE.UTF-8 UTF-8' /etc/locale.gen > /dev/null 2>&1
