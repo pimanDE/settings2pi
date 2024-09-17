@@ -1,7 +1,7 @@
 #!/bin/bash
 
 benutzer=`pinky | tail -1 | awk '{ print $1 }'`
-ipadresse=`pinky | tail -1 | awk '{ print $5 }'`
+ipadresse=`pinky -f | awk '{ print $4 }'`
 
 echo
 echo

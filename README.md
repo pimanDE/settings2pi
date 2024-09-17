@@ -46,9 +46,9 @@ Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisier
 - haben Sie sich eine E-Mail Adresse bei [GMX.net](https://www.gmx.net) registriert (nicht zwingend erforderlich)
 - ...
 
-**Achtung! Dieses Script wurde unter Raspberry Pi OS Bullseye vom 22.09.2022 getestet**
+**Achtung! Dieses Script wurde unter Raspberry Pi OS Lite Debian Version 12 (bookworm) vom 04.07.2024 getestet**
 <br>
-Download unter: [https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-09-26/2022-09-22-raspios-bullseye-armhf-lite.img.xz](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-09-26/2022-09-22-raspios-bullseye-armhf-lite.img.xz) 
+Download unter: [https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-07-04/2024-07-04-raspios-bookworm-armhf-lite.img.xz](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-07-04/2024-07-04-raspios-bookworm-armhf-lite.img.xz) 
 <br>
 
 <br>

@@ -40,7 +40,7 @@ done="${gruenfett} done!${standard}"
 echo
 echo
 
-echo -e "${blaufett}   Füge erlaubte Domains hinzu ...${standard}"
+echo -e "${blaufett}   Füge zu erlaubende Domains hinzu ...${standard}"
 
 # Exakte Whitelist
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (0,'beispiel.com',1,'Beispiel');"
@@ -62,7 +62,7 @@ sleep 2
 echo
 echo
 
-echo -e "${blaufett}   Füge gesperrte Domains hinzu ...${standard}"
+echo -e "${blaufett}   Füge zu sperrende Domains hinzu ...${standard}"
 
 # Exakte Blacklist
 # sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'beispiel.com',1,'Beispiel');"
@@ -213,7 +213,7 @@ sleep 2
 echo
 echo
 
-echo -e "${blaufett}   Füge Blocklisten hinzu ...${standard}"
+echo -e "${blaufett}   Füge Blockierlisten hinzu ...${standard}"
 
 
 # Alle Listen Löschen
@@ -221,9 +221,10 @@ sudo sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist"
 
 
 # Eigene Listen
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt', 1, 'Multi-PRO - Extended Protection');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/ultimate.txt', 1, 'Aggressive Protection');"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/tif.txt', 1, 'Threat Intelligence Feeds - Increases Security Significantly!');"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/doh-vpn-proxy-bypass.txt', 1, 'DoH/VPN/TOR/Proxy Bypass - Prevent methods to bypass your DNS!');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/xRuffKez/NRD/main/nrd-14day_adblock.txt', 1, 'Domains jünger als 14 Tage');"
 
 
 # Hinzufügen

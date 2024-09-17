@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Mit diesem Script werden verschiedene Programme installiert und diverse Einstellungen am Raspberry Pi automatisch vorgenommen.
-# getestet auf Raspberry Pi OS Lite Release Bullseye vom 22. September 2022
+# getestet auf Raspberry Pi OS Lite Debian Version 12 (bookworm) vom 04.07.2024
 #
 # Benutzung auf eigene Gefahr!!!
 #
@@ -277,11 +277,8 @@ rpl --encoding UTF-8 "IgnorierteIP" "$ignoreip" /home/$username/Scripte/fail2ban
 sudo mv /home/$username/Scripte/fail2ban/jail.local /etc/fail2ban
 sudo chmod 644 /etc/fail2ban/jail.local
 
-# https://kopfkino.irosaurus.com/tutorial-server-mit-fail2ban-absichern/
-sudo cp /etc/fail2ban/action.d/iptables-common.conf /etc/fail2ban/action.d/iptables-common.conf.orig
-sudo rpl --encoding UTF-8 "blocktype = REJECT --reject-with icmp-port-unreachable" "blocktype = DROP" /etc/fail2ban/action.d/iptables-common.conf > /dev/null 2>&1
-sudo rpl --encoding UTF-8 "blocktype = REJECT --reject-with icmp6-port-unreachable" "blocktype = DROP" /etc/fail2ban/action.d/iptables-common.conf > /dev/null 2>&1
-
+sudo service fail2ban restart               # fail2ban neu starten
+sudo systemctl enable fail2ban              # fail2ban bei Systemstart automatisch startenht (htps://www.ionos.de/hilfe/sicherheit/dedicated-server/server-absichern-mit-fail2ban/)
 
 echo '   3. fail2ban erfolgreich konfiguriert' >> ~/Log/settings2pi.log
 echo
