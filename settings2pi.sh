@@ -454,14 +454,6 @@ echo 'DBINTERVALL=60' >> /etc/pihole/pihole-FTL.conf                    # Schrei
 echo 'MAXDBDAYS=60' >> /etc/pihole/pihole-FTL.conf                      # Einträge die älter als 60 Tage sind, werden gelöscht
 sudo chmod 664 /etc/pihole/pihole-FTL.conf
 
-sudo systemctl disable systemd-resolved                                 # https://forum.kuketz-blog.de/viewtopic.php?p=85243
-
-sudo touch /etc/dnsmasq.d/10-pihole-extra.conf                          # https://forum.kuketz-blog.de/viewtopic.php?p=85243
-sudo chmod 777 /etc/dnsmasq.d/10-pihole-extra.conf
-sudo echo 'proxy-dnssec' >> /etc/dnsmasq.d/10-pihole-extra.conf
-sudo echo >> /etc/dnsmasq.d/10-pihole-extra.conf
-sudo chmod 644 /etc/dnsmasq.d/10-pihole-extra.conf
-
 sudo mv /etc/pihole/setupVars.conf /etc/pihole/setupVars.conf.orig      # Einstellungen für Einstellungen/DNS
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/setupVars.conf -P /etc/pihole
 sudo chmod 777 /etc/pihole/setupVars.conf
@@ -748,3 +740,4 @@ echo
 sudo reboot
 
 exit
+

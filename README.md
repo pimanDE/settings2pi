@@ -12,7 +12,7 @@
 
 <br>
 
-Mit diesem Installations- und Konfigurationsscript (Script) werden Programme auf dem Raspberry Pi im 'Handumdrehen' installiert und mit den persönlichen Einstellungen versehen werden.
+Mit diesem Installations- und Konfigurationsscript (Script) werden Programme auf dem Raspberry Pi im 'Handumdrehen' installiert und mit den persönlichen Einstellungen versehen.
 
 Es wird versucht, dass der Benutzer so wenig wie möglich von Hand eingeben muss. 
 
@@ -112,7 +112,7 @@ chmod 775 settings2pi.sh
 - Port Knocking
 - einen Honigtopf 'aufstellen'
 - Farbe des Prompts ändern
-- Texteditor Nano konfigurieren
+- ~~Texteditor Nano konfigurieren~~
 - Konfiguration der /etc/sudoers (immer nach dem root Passwort fragen)
 - ~~System aufräumen~~
 - ...
