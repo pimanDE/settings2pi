@@ -64,9 +64,8 @@ echo
 
 echo -e "${blaufett}   Füge zu sperrende Domains hinzu ...${standard}"
 
-# Exakte Blacklist
+# Exakte Domains
 # sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (1,'beispiel.com',1,'Beispiel');"
-
 
 
 # RegEx Blacklist
@@ -128,6 +127,7 @@ sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabl
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.work$',1,'TLDs mit hoher Rate bösartiger Adressen');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.xxx$',1,'TLDs mit hoher Rate bösartiger Adressen');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.xyz$',1,'TLDs mit hoher Rate bösartiger Adressen');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.zip$',1,'TLDs mit hoher Rate bösartiger Adressen');"
 
 # RegEx Blacklist
 ## Domaingruppen
@@ -194,12 +194,13 @@ sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabl
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^mads\.^pixels?[-.]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^track(ers?|ing)?[0-9]*[_.-]',1,'Tracking, Pishing and Malware');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'(^|\.)partner\.vxcp\.de$',1,'Tracking, Pishing and Malware');"
-sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.*(xn--).*',1,'Punycode');"
+
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'watson\..*\.microsoft.com',1,'Windows Telemetry');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'sendgrid\.net$',1,'Alle URLs zu sendgrid.net');"
 sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^wpad\.',1,'WPAD Protokoll im Netzwerk verbieten');"
-
-
-
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'^hy[0-9]{2,4}.com$',1,'Raptor-Train Schadware Kampagne Crossbill, Finch, Oriole, Nosedive');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'\.[a-z][0-9]{4}\.com$',1,'Raptor-Train Schadware Kampagne Crossbill, Finch, Oriole, Nosedive');"
+sudo sqlite3 /etc/pihole/gravity.db "Insert into domainlist (type, domain, enabled, comment) values (3,'.*(xn--).*',1,'Punycode');"
 
 
 echo -e "${gruenfett}   Erledigt${standard}"
@@ -213,22 +214,18 @@ sleep 2
 echo
 echo
 
-echo -e "${blaufett}   Füge Blockierlisten hinzu ...${standard}"
+echo -e "${blaufett}   Füge Blocklisten hinzu ...${standard}"
 
 
 # Alle Listen Löschen
 sudo sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist"
 
 
-# Eigene Listen
+# Eigene Listen hinzufügen  
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/ultimate.txt', 1, 'Aggressive Protection');"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/tif.txt', 1, 'Threat Intelligence Feeds - Increases Security Significantly!');"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/doh-vpn-proxy-bypass.txt', 1, 'DoH/VPN/TOR/Proxy Bypass - Prevent methods to bypass your DNS!');"
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/xRuffKez/NRD/main/nrd-14day_adblock.txt', 1, 'Domains jünger als 14 Tage');"
-
-
-# Hinzufügen
-# sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('file:///home/___user___/Dateien/Liste.txt', 1, 'Beschreibung');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/xRuffKez/NRD/refs/heads/main/lists/14-day/adblock/nrd-14day_adblock.txt', 1, 'Domains jünger als 14 Tage');"
 
 
 

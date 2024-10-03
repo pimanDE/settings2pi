@@ -567,6 +567,10 @@ sudo chown root:root /home/$username/Scripte/update-and-upgrade.sh
 sudo chmod 554 /home/$username/Scripte/update-and-upgrade.sh
 sudo touch /home/$username/Log/update-and-upgrade.log
 
+sudo chown root:root /home/$username/Scripte/update-root-nameserver.sh
+sudo chmod 554 /home/$username/Scripte/update-root-nameserver.sh
+sudo touch /home/$username/Log/update-root-nameserver.log
+
 
 echo
 echo '   9. Automatische Aktualisierung des Systems erfolgreich' >> ~/Log/settings2pi.log
