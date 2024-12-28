@@ -88,27 +88,22 @@ BLOCKLIST_UPDATE4=`stat /etc/pihole/gravity.db | tail -3 | head -1 | awk '{print
 
 
 
-# Letztes Root-Nameserver Update
-ROOTSERVER_UPDATE1=`tail -1 ~/Log/update-root-nameserver.log`                                   # 01.01.1900 um 12:00:00 Uhr
-
-
-
 echo "\033[1;32m                      \033[1;34m$DATUM
 \033[1;32m
-\033[1;32m                      \033[0;37mRechnername..........: \033[1;30m$HOSTNAME
-\033[1;32m     .~~.   .~~.      \033[0;37mLetzter Login........: Benutzer $LAST1 am $LAST2. $LAST3. $LAST4 um $LAST5 Uhr von der IP-Adresse $LAST6 ($LAST7)
-\033[1;32m    '. \ ' ' /.'      \033[0;37mUptime...............: $UP1 Tage, $UP2 Stunden und $UP3 Minuten
-\033[1;31m     .~ .~~~..~.      \033[0;37mØ CPU Auslastung.....: $LOAD1 (1 Min.) | $LOAD2 (5 Min.) | $LOAD3 (15 Min.)
-\033[1;31m    : .~.'~'.~. :     \033[0;37mTemperatur...........: $TEMP °C
-\033[1;31m   ~ (   ) (   ) ~    \033[0;37mSpeicher (HD)........: Gesamt: $DISK1 | Belegt: $DISK2 | Frei: $DISK3
-\033[1;31m  ( : '~'.~.'~' : )   \033[0;37mSpeicher (RAM).......: Gesamt: $RAM1 | Belegt: $RAM2 | Frei: $RAM3 | Swap: $RAM4
-\033[1;31m   ~ .~ (   ) ~. ~    \033[0;37mIP-Adressen..........: LAN: \033[0;37m$IP_LAN\033[0;37m | WLAN: \033[1;35m$IP_WLAN \033[1;35m
-\033[1;31m    (  : '~' :  )     \033[0;37mUpdate System am.....: \033[0;37m$SYSTEM_UPDATE1
-\033[1;31m     '~ .~~~. ~'      \033[0;37mUpdate Blocklisten am: \033[0;37m$BLOCKLIST_UPDATE1.$BLOCKLIST_UPDATE2.$BLOCKLIST_UPDATE3 um $BLOCKLIST_UPDATE4 Uhr
-\033[1;31m         '~'          \033[0;37mUpdate Root Server am: \033[0;37m$ROOTSERVER_UPDATE1
+\033[1;32m     .~~.   .~~.      \033[0;37mRechnername..........: \033[1;30m$HOSTNAME
+\033[1;32m    '. \ ' ' /.'      \033[0;37mLetzter Login........: Benutzer $LAST1 am $LAST2. $LAST3. $LAST4 um $LAST5 Uhr von der IP-Adresse $LAST6 ($LAST7)
+\033[1;32m    .~ .~~~..~.       \033[0;37mUptime...............: $UP1 Tage, $UP2 Stunden und $UP3 Minuten
+\033[1;31m    : .~.'~'.~. :     \033[0;37mØ CPU Auslastung.....: $LOAD1 (1 Min.) | $LOAD2 (5 Min.) | $LOAD3 (15 Min.)
+\033[1;31m   ~ (   ) (   ) ~    \033[0;37mTemperatur...........: $TEMP °C
+\033[1;31m  ( : '~'.~.'~' : )   \033[0;37mSpeicher (HD)........: Gesamt: $DISK1 | Belegt: $DISK2 | Frei: $DISK3
+\033[1;31m   ~ .~ (   ) ~. ~    \033[0;37mSpeicher (RAM).......: Gesamt: $RAM1 | Belegt: $RAM2 | Frei: $RAM3 | Swap: $RAM4
+\033[1;31m    (  : '~' :  )     \033[0;37mIP-Adressen..........: LAN: \033[0;37m$IP_LAN\033[0;37m | WLAN: \033[1;35m$IP_WLAN \033[1;35m
+\033[1;31m     '~ .~~~. ~'      \033[0;37mUpdate System am.....: \033[0;37m$SYSTEM_UPDATE1
+\033[1;31m         '~'          \033[0;37mUpdate Blocklisten am: \033[0;37m$BLOCKLIST_UPDATE1.$BLOCKLIST_UPDATE2.$BLOCKLIST_UPDATE3 um $BLOCKLIST_UPDATE4 Uhr
 \033[m"
 
 echo
 echo
 
 exit
+

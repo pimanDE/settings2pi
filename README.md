@@ -46,9 +46,9 @@ Mit diesem Script werden die folgende Einstellungen am Raspberry Pi automatisier
 - haben Sie sich eine E-Mail Adresse bei [GMX.net](https://www.gmx.net) registriert (nicht zwingend erforderlich)
 - ...
 
-**Achtung! Dieses Script wurde unter Raspberry Pi OS Lite Debian Version 12 (bookworm) vom 04.07.2024 getestet**
+**Achtung! Dieses Script wurde unter Raspberry Pi OS Lite Debian Version 12 (bookworm) vom 19.11.2024 getestet!**
 <br>
-Download unter: [https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-07-04/2024-07-04-raspios-bookworm-armhf-lite.img.xz](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-07-04/2024-07-04-raspios-bookworm-armhf-lite.img.xz) 
+Download unter: [https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-11-19/2024-11-19-raspios-bookworm-armhf-lite.img.xz](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-11-19/2024-11-19-raspios-bookworm-armhf-lite.img.xz) 
 <br>
 
 <br>
@@ -78,14 +78,14 @@ chmod 775 settings2pi.sh
 
 **Hinweise:**<br>
 - Dieses Script eignet sich nur für User, die ausschließlich per _**ssh**_ auf dem Raspberry arbeiten)
-- getestet unter Raspberry Pi OS Lite Release vom 22. September 2022 ([Download](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-09-26/2022-09-22-raspios-bullseye-armhf-lite.img.xz))
+- getestet unter Raspberry Pi OS Lite Release vom 19. November 2024 ([Download](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-11-19/2024-11-19-raspios-bookworm-armhf-lite.img.xz))
 - ...
 
 <br>
 <br>
 
 **Zusammenfassung:**<br>
-1. [Raspbian OS Lite Image](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-09-26/2022-09-22-raspios-bullseye-armhf-lite.img.xz) mittels [Pi Imager](https://yewtu.be/watch?v=ntaXWS8Lk34) auf eine SD Karte schreiben
+1. [Raspbian OS Lite Image](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-11-19/2024-11-19-raspios-bookworm-armhf-lite.img.xz) mittels [Pi Imager](https://yewtu.be/watch?v=ntaXWS8Lk34) auf eine SD Karte schreiben
 2. System starten und per ssh anmelden
 3. Script [(settings2pi.sh](https://raw.githubusercontent.com/pimanDE/settings2pi/master/settings2pi.sh)) ausführen
 

@@ -60,7 +60,7 @@ veracrypt -m=nokernelcrypto --truecrypt /Quelle /Einhängepunkt
 
 Man benötigt hierzu eine E-Mail Adresse von [GMX](https://www.gmx.net). Sicherlich geht es auch mit anderen E-Mail Providern.
 
-Am Ende des Script's wird die E-Mail Adresse abgefragt. Ebenso wird die Datei `/etc/s-nail.rc` geöffnet, damit das Passwort eingetragen werden kann.
+Am Ende des Script's wird die E-Mail Adresse abgefragt. Ebenso wird die Datei `/etc/s-nail.rc` geöffnet, damit das Passwort eingetragen werden kann. Den Editor verlassen Sie mit der Tastenkombination STRG+S (speichern) und STRG+X (verlassen).
 
 
 

@@ -159,7 +159,7 @@ echo
 echo
 echo
 
-echo -e "${blaufett}   Aktualisiere das System ...${standard}"
+echo -e "${blaufett}   Aktualisiere das Betriebssystem ...${standard}"
 
 echo
 echo
@@ -241,7 +241,7 @@ sudo echo "+++++++++++++++++++++++" >> /etc/ssh/banner
 sudo echo >> /etc/ssh/banner
 sudo chmod 644 /etc/ssh/banner                                                      # Dateirechte setzen
 
-sudo /etc/init.d/ssh restart                                                        # anschließender Login: ssh benutzername@IP-Adresse -p Portnummer
+sudo /etc/init.d/ssh restart > /dev/null                                            # anschließender Login: ssh benutzername@IP-Adresse -p Portnummer
 
 
 echo '   2. ssh erfolgreich abgesichert' >> ~/Log/settings2pi.log
@@ -352,7 +352,7 @@ while ! ((antwortemail)); do
 		# sleep 2
 
 
-        echo -e "${blaufett}   s-nail wird installiert ...${standard}"
+        echo -e "${blaufett}   Installiere s-nail ...${standard}"
 
         echo
         echo
@@ -492,10 +492,11 @@ echo
 
 sudo apt install -y unbound
 
-sudo rm /etc/dnsmasq.d/01-pihole.conf
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/01-pihole.conf -P /etc/dnsmasq.d/
+sudo mv /etc/dnsmasq.d/01-pihole.conf /etc/dnsmasq.d/01-pihole.conf.orig
 
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/99-edns.conf -P /etc/dnsmasq.d/   # https://docs.pi-hole.net/guides/dns/unbound/
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/01-pihole.conf -P /etc/dnsmasq.d/
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/10-pihole-extra.conf -P /etc/dnsmasq.d/       # https://anleitungen.codeberg.page/PiHole-einrichtung/unbound.html
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/99-edns.conf -P /etc/dnsmasq.d/                   # https://docs.pi-hole.net/guides/dns/unbound/
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
 
 date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/$username/Log/update-root-nameserver.log
@@ -572,7 +573,6 @@ sudo chmod 554 /home/$username/Scripte/update-root-nameserver.sh
 sudo touch /home/$username/Log/update-root-nameserver.log
 
 
-echo
 echo '   9. Automatische Aktualisierung des Systems erfolgreich' >> ~/Log/settings2pi.log
 echo
 echo
@@ -681,7 +681,8 @@ sudo apt autoremove -y          # Deinstallation ungenutzter Abhängigkeiten
 
 
 # Wlan am Raspberry Pi freischalten
-rfkill unblock wifi
+sudo raspi-config nonint do_wifi_country DE        # https://raspberrypi.stackexchange.com/questions/123717/how-to-disable-wi-fi-is-currently-blocked-by-rfkill-message
+sudo rfkill unblock wifi
 
 
 

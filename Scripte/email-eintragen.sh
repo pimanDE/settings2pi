@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Mit diesem Script wird die eigene E-Mail im System hinterlegt, sodass E-Mail versendet werden können
-# getestet auf Raspberry Pi OS Lite Release vom 22. September 2022
+# getestet auf Raspberry Pi OS Lite Debian Version 12 (bookworm) vom 19.11.2024
 #
 # Benutzung auf eigene Gefahr!!!
 #
@@ -80,7 +80,12 @@ sudo rpl --encoding UTF-8 'meine-email@gmx.net' $emailadresse /etc/s-nail.rc > /
 echo
 echo
 echo
-echo "   Bitte das E-Mail Passwort eintragen ..."
+echo "   Bitte das E-Mail-Passwort eintragen und dann"
+echo -n "   die Datei mit "
+echo -n -e ${gruenfett}STRG+X, j ${standard}
+echo -n "und "
+echo -n -e ${gruenfett}Enter ${standard}
+echo "verlassen."
 echo
 read -p "   Weiter mit ENTER ..."
 clear
