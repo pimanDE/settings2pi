@@ -82,7 +82,7 @@ echo
 echo
 echo "   Bitte das E-Mail-Passwort eintragen und dann"
 echo -n "   die Datei mit "
-echo -n -e ${gruenfett}STRG+X, j ${standard}
+echo -n -e ${gruenfett}STRG+X, y ${standard}
 echo -n "und "
 echo -n -e ${gruenfett}Enter ${standard}
 echo "verlassen."
