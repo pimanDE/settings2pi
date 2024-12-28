@@ -90,7 +90,7 @@ BLOCKLIST_UPDATE4=`stat /etc/pihole/gravity.db | tail -3 | head -1 | awk '{print
 
 echo "\033[1;32m                      \033[1;34m$DATUM
 \033[1;32m
-\033[1;32m     .~~.   .~~.      \033[0;37mRechnername..........: \033[1;30m$HOSTNAME
+\033[1;32m     .~~.   .~~.      \033[0;37mRechnername..........: \033[1;31m$HOSTNAME
 \033[1;32m    '. \ ' ' /.'      \033[0;37mLetzter Login........: Benutzer $LAST1 am $LAST2. $LAST3. $LAST4 um $LAST5 Uhr von der IP-Adresse $LAST6 ($LAST7)
 \033[1;32m    .~ .~~~..~.       \033[0;37mUptime...............: $UP1 Tage, $UP2 Stunden und $UP3 Minuten
 \033[1;31m    : .~.'~'.~. :     \033[0;37mØ CPU Auslastung.....: $LOAD1 (1 Min.) | $LOAD2 (5 Min.) | $LOAD3 (15 Min.)
