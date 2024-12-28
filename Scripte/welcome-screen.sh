@@ -55,9 +55,9 @@ TEMP=`vcgencmd measure_temp | cut -c "6-9"`
 
 
 # Speicherbelegung
-DISK1=`df -h | grep 'dev/root' | awk '{print $2}'`              # Gesamtspeicher
-DISK2=`df -h | grep 'dev/root' | awk '{print $3}'`              # Belegt
-DISK3=`df -h | grep 'dev/root' | awk '{print $4}'`              # Frei
+DISK1=`df -h | grep 'dev/mmcblk0p2' | awk '{print $2}'`              # Gesamtspeicher
+DISK2=`df -h | grep 'dev/mmcblk0p2' | awk '{print $3}'`              # Belegt
+DISK3=`df -h | grep 'dev/mmcblk0p2' | awk '{print $4}'`              # Frei
 
 
 
