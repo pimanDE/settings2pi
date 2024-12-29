@@ -60,7 +60,7 @@ veracrypt -m=nokernelcrypto --truecrypt /Quelle /Einhängepunkt
 
 Man benötigt hierzu eine E-Mail Adresse von [GMX](https://www.gmx.net). Sicherlich geht es auch mit anderen E-Mail Providern.
 
-Am Ende des Script's wird die E-Mail Adresse abgefragt. Ebenso wird die Datei `/etc/s-nail.rc` geöffnet, damit das Passwort eingetragen werden kann. Den Editor verlassen Sie mit der Tastenkombination STRG+S (speichern) und STRG+X (verlassen).
+Am Ende des Script's wird die E-Mail Adresse abgefragt. Ebenso wird die Datei `/etc/s-nail.rc` geöffnet, damit das Passwort eingetragen werden kann. Den Editor verlassen Sie mit der Tastenkombination STRG+X, y und ENTER.
 
 
 
@@ -94,31 +94,6 @@ Wenn die automatischen Aktualisierungen nicht durchgeführt werden konnten, kön
 Bei der Aktualisierung der `root.hints` wird in jedem Fall eine E-Mail versendet.
 Darüber hinaus wird immer am 1. des Monats eine E-Mail über die letzten 3 Systemaktualisierungen versendet.
 
-
-
----
-
-
-**Warum wird der HDMI-Anschluss deaktiviert?**
-
-Der Grundgedanke dieses Scriptes ist, dass kein zusätzlicher Monitor benötigt wird. Daher lag es nahe, den Ansschluss zu deaktivieren.
-Immer nach dem Motto: Was nicht benötigt wird, ist nicht vorhanden.
-
-
----
-
-
-**Ich möchte aber einen Monitor anschließen. Wie kann ich den HDMI-Anschluss wieder aktivieren?**
-
-Ja. Der HDMI-Anschluss wird folgendermaßen mit den Standard Einstellungen wieder aktiviert:
-```bash
-sudo tvservice -p
-```
-Zur Kontrolle:
-
-```bash
-sudo tvservice -status
-```
 
 
 ---
