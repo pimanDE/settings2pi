@@ -283,9 +283,9 @@ sudo systemctl enable fail2ban              # fail2ban bei Systemstart automatis
 echo '   3. fail2ban erfolgreich konfiguriert' >> ~/Log/settings2pi.log
 echo
 echo
-echo "   ++++++++++++++++++++++++++++++++++++++++"
-echo -e "   + ${gruenfett}3. fail2ban erfolgreich konfiguriert${standard} +"
-echo "   ++++++++++++++++++++++++++++++++++++++++"
+echo "   +++++++++++++++++++++++++++++++++++++++"
+echo -e "   + ${gruenfett}3. fail2ban erfolgreich installiert${standard} +"
+echo "   +++++++++++++++++++++++++++++++++++++++"
 echo
 echo
 sleep 2
@@ -440,6 +440,7 @@ echo -e "${blaufett}   Die Blockseite wird angepasst ... ${standard}"
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/blockseite.html -P /var/www/html/pihole
 sudo rpl --encoding UTF-8 '/pihole/index.php' '/pihole/blockseite.html' /etc/lighttpd/lighttpd.conf > /dev/null 2>&1
 sudo service lighttpd restart
+echo -e "${gruenfett}   Erledigt${standard}"
 
 sleep 2
 
@@ -492,10 +493,11 @@ echo
 
 sudo apt install -y unbound
 
-sudo mv /etc/dnsmasq.d/01-pihole.conf /etc/dnsmasq.d/01-pihole.conf.orig
+sudo cp /etc/dnsmasq.d/01-pihole.conf /home/$username/Scripte/01-pihole.conf.orig           # erst (weg)kopieren
+sudo rm /etc/dnsmasq.d/01-pihole.conf                                                       # dann löschen
 
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/01-pihole.conf -P /etc/dnsmasq.d/
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/10-pihole-extra.conf -P /etc/dnsmasq.d/       # https://anleitungen.codeberg.page/PiHole-einrichtung/unbound.html
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/10-pihole-extra.conf -P /etc/dnsmasq.d/           # https://anleitungen.codeberg.page/PiHole-einrichtung/unbound.html
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/99-edns.conf -P /etc/dnsmasq.d/                   # https://docs.pi-hole.net/guides/dns/unbound/
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
 
