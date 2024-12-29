@@ -166,7 +166,7 @@ echo
 
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y rpl dialog git locate lsof sqlite3
+sudo apt install -y rpl dialog git locate lsof sqlite3 libfuse2
 
 echo 'Update und Upgrade erfolgreich am:' > /home/$username/Log/update-and-upgrade.log
 date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/$username/Log/update-and-upgrade.log
