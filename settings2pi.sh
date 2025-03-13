@@ -164,7 +164,7 @@ echo
 
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y rpl dialog git locate lsof sqlite3 libfuse2 pcscd
+sudo apt install -y rpl dialog git locate libayatana-appindicator3-1 libfuse2 libwxgtk3.2-1 lsof sqlite3 pcscd
 
 echo 'Update und Upgrade erfolgreich am:' > /home/$username/Log/update-and-upgrade.log
 date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/$username/Log/update-and-upgrade.log
