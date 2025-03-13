@@ -90,7 +90,7 @@ echo
 read -p "   Weiter mit ENTER ..."
 clear
 sudo nano +225,24 /etc/s-nail.rc								# Passwort des E-Mail Accounts eintragen
-sudo chown $username:$username /etc/s-nail.rc                   # Eigentümer festlegen
+sudo chown $username:$username /etc/s-nail.rc					# Eigentümer festlegen
 sudo chmod 400 /etc/s-nail.rc									# Leserechte setzen
 
 
@@ -106,7 +106,7 @@ sudo chmod 644 /etc/profile
 # E-Mail beim Login
 mkdir -p /home/$username/Scripte/ssh-login
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/ssh-login.sh -P ~/Scripte/ssh-login/
-chmod 554 ~/Scripte/ssh-login/ssh-login.sh         # siehe Eräuterungen zum Script (https://github.com/pimanDE/settings2pi/Erläuterungen%20zum%20Script)
+chmod 554 ~/Scripte/ssh-login/ssh-login.sh						# siehe Eräuterungen zum Script (https://github.com/pimanDE/settings2pi/Erläuterungen%20zum%20Script)
 
 
 
@@ -114,7 +114,6 @@ chmod 554 ~/Scripte/ssh-login/ssh-login.sh         # siehe Eräuterungen zum Scr
 sudo chmod 777 /home/$username/Scripte/*pdate*.sh
 sudo rpl --encoding UTF-8 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/update-and-upgrade.sh > /dev/null 2>&1
 sudo rpl --encoding UTF-8 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
-sudo rpl --encoding UTF-8 'meine-email@gmx.net' $emailadresse /home/$username/Scripte/update-root-nameserver.sh > /dev/null 2>&1
 sudo chmod 554 /home/$username/Scripte/*pdate*.sh
 
 

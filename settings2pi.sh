@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Mit diesem Script werden verschiedene Programme installiert und diverse Einstellungen am Raspberry Pi automatisch vorgenommen.
-# getestet auf Raspberry Pi OS Lite Debian Version 12 (bookworm) vom 04.07.2024
+# getestet auf Raspberry Pi OS Lite Debian Version 12 (bookworm) 32bit-Version vom 19.11.2024
 #
 # Benutzung auf eigene Gefahr!!!
 #
@@ -135,7 +135,6 @@ mkdir -p /home/$username/Log
 
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-and-upgrade.sh -P ~/Scripte/
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/email-update-and-upgrade.sh -P ~/Scripte
-wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Scripte/update-root-nameserver.sh -P ~/Scripte
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/cron/cronjobs.txt -P ~/Scripte/cron
 
 touch /home/$username/Log/settings2pi.log
@@ -146,7 +145,6 @@ chmod 775 /home/$username/Log/fail2ban.log
 
 cd /home/$username/Scripte
 
-# sudo rpl --encoding UTF-8 "1200" "60000" /etc/sudoers > /dev/null 2>&1     # falls das Script länger dauert, behalten wir root-Rechte (wird am Ende wieder zurückgestellt)
 
 echo
 echo
@@ -166,7 +164,7 @@ echo
 
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y rpl dialog git locate lsof sqlite3 libfuse2
+sudo apt install -y rpl dialog git locate lsof sqlite3 libfuse2 pcscd
 
 echo 'Update und Upgrade erfolgreich am:' > /home/$username/Log/update-and-upgrade.log
 date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/$username/Log/update-and-upgrade.log
@@ -197,22 +195,22 @@ echo
 
 sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.orig                                     # http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man5/sshd_config.5?query=sshd_config&sec=5
 sudo chmod 777 /etc/ssh/sshd_config                                                        # Dateirechte setzen
-sudo rpl --encoding UTF-8 '#Port 22' "Port $sshport" /etc/ssh/sshd_config > /dev/null 2>&1                                   # Neuer ssh-Port
-sudo rpl --encoding UTF-8 '#LogLevel INFO' 'LogLevel VERBOSE' /etc/ssh/sshd_config > /dev/null 2>&1                          # ausführliches LogLevel
-sudo rpl --encoding UTF-8 '#LoginGraceTime 2m' 'LoginGraceTime 1m' /etc/ssh/sshd_config > /dev/null 2>&1                     # wenn innerhalb von 1 Minute kein erfolgreicher Login stattgefunden hat, wird der Zugriff getrennt
-sudo rpl --encoding UTF-8 '#PermitRootLogin prohibit-password' 'PermitRootLogin no' /etc/ssh/sshd_config > /dev/null 2>&1    # root darf sich nicht anmelden (https://www.thomas-krenn.com/de/wiki/SSH_Root_Login_unter_Debian_verbieten)
-sudo rpl --encoding UTF-8 '#StrictModes yes' 'StrictModes yes' /etc/ssh/sshd_config > /dev/null 2>&1                         # .....
-sudo rpl --encoding UTF-8 '#MaxAuthTries 6' 'MaxAuthTries 3' /etc/ssh/sshd_config > /dev/null 2>&1                           # 3 mal falsches Passwort, dann wird die Verbindung getrennt
-sudo rpl --encoding UTF-8 '#MaxSessions 10' 'MaxSessions 3' /etc/ssh/sshd_config > /dev/null 2>&1                            # gibt die maximale Anzahl von offenen Sitzungen pro Verbindung an
-sudo rpl --encoding UTF-8 '#MaxStartups 10:30:100' 'MaxStartups 3:30:10' /etc/ssh/sshd_config > /dev/null 2>&1               # gibt die maximale Anzahl gleichzeitiger nicht authentifizierter Verbindungen zum SSH-Daemon an
-sudo rpl --encoding UTF-8 '#PrintLastLog yes' 'PrintLastLog no' /etc/ssh/sshd_config > /dev/null 2>&1                        # Ausschalten der Info
-sudo rpl --encoding UTF-8 'X11Forwarding yes' 'X11Forwarding no' /etc/ssh/sshd_config > /dev/null 2>&1                       # keine Weiterleitung der grafischen Benutzerobefläche
-sudo rpl --encoding UTF-8 '#TCPKeepAlive yes' '#TCPKeepAlive no' /etc/ssh/sshd_config > /dev/null 2>&1                       # .....
-sudo rpl --encoding UTF-8 '#Banner none' 'Banner /etc/ssh/banner' /etc/ssh/sshd_config > /dev/null 2>&1                      # Angabe des Pfades der Bannerdatei (Begrüßungstext)
-sudo rpl --encoding UTF-8 '#HostbasedAuthentication no' 'HostbasedAuthentication no' /etc/ssh/sshd_config > /dev/null 2>&1   # .....
-sudo rpl --encoding UTF-8 '#IgnoreRhosts yes' 'IgnoreRhosts yes' /etc/ssh/sshd_config > /dev/null 2>&1                       # .....
-sudo rpl --encoding UTF-8 '#PasswordAuthentication yes' 'PasswordAuthentication yes' /etc/ssh/sshd_config > /dev/null 2>&1   # Anmeldung nur mit Passwort
-sudo rpl --encoding UTF-8 '#PermitEmptyPasswords no' 'PermitEmptyPasswords no' /etc/ssh/sshd_config > /dev/null 2>&1         # Benutzer die kein Passwort haben, dürfen sich nicht anmelden
+sudo rpl -q --encoding UTF-8 '#Port 22' "Port $sshport" /etc/ssh/sshd_config                                   # Neuer ssh-Port
+sudo rpl -q --encoding UTF-8 '#LogLevel INFO' 'LogLevel VERBOSE' /etc/ssh/sshd_config                          # ausführliches LogLevel
+sudo rpl -q --encoding UTF-8 '#LoginGraceTime 2m' 'LoginGraceTime 1m' /etc/ssh/sshd_config                     # wenn innerhalb von 1 Minute kein erfolgreicher Login stattgefunden hat, wird der Zugriff getrennt
+sudo rpl -q --encoding UTF-8 '#PermitRootLogin prohibit-password' 'PermitRootLogin no' /etc/ssh/sshd_config    # root darf sich nicht anmelden (https://www.thomas-krenn.com/de/wiki/SSH_Root_Login_unter_Debian_verbieten)
+sudo rpl -q --encoding UTF-8 '#StrictModes yes' 'StrictModes yes' /etc/ssh/sshd_config                         # .....
+sudo rpl -q --encoding UTF-8 '#MaxAuthTries 6' 'MaxAuthTries 3' /etc/ssh/sshd_config                           # 3 mal falsches Passwort, dann wird die Verbindung getrennt
+sudo rpl -q --encoding UTF-8 '#MaxSessions 10' 'MaxSessions 3' /etc/ssh/sshd_config                            # gibt die maximale Anzahl von offenen Sitzungen pro Verbindung an
+sudo rpl -q --encoding UTF-8 '#MaxStartups 10:30:100' 'MaxStartups 3:30:10' /etc/ssh/sshd_config               # gibt die maximale Anzahl gleichzeitiger nicht authentifizierter Verbindungen zum SSH-Daemon an
+sudo rpl -q --encoding UTF-8 '#PrintLastLog yes' 'PrintLastLog no' /etc/ssh/sshd_config                        # Ausschalten der Info
+sudo rpl -q --encoding UTF-8 'X11Forwarding yes' 'X11Forwarding no' /etc/ssh/sshd_config                       # keine Weiterleitung der grafischen Benutzerobefläche
+sudo rpl -q --encoding UTF-8 '#TCPKeepAlive yes' '#TCPKeepAlive no' /etc/ssh/sshd_config                       # .....
+sudo rpl -q --encoding UTF-8 '#Banner none' 'Banner /etc/ssh/banner' /etc/ssh/sshd_config                      # Angabe des Pfades der Bannerdatei (Begrüßungstext)
+sudo rpl -q --encoding UTF-8 '#HostbasedAuthentication no' 'HostbasedAuthentication no' /etc/ssh/sshd_config   # .....
+sudo rpl -q --encoding UTF-8 '#IgnoreRhosts yes' 'IgnoreRhosts yes' /etc/ssh/sshd_config                       # .....
+sudo rpl -q --encoding UTF-8 '#PasswordAuthentication yes' 'PasswordAuthentication yes' /etc/ssh/sshd_config   # Anmeldung nur mit Passwort
+sudo rpl -q --encoding UTF-8 '#PermitEmptyPasswords no' 'PermitEmptyPasswords no' /etc/ssh/sshd_config         # Benutzer die kein Passwort haben, dürfen sich nicht anmelden
 
 echo >> /etc/ssh/sshd_config > /dev/null 2>&1
 
@@ -271,9 +269,9 @@ echo
 sudo apt install -y fail2ban
 
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/fail2ban/jail.local -P /home/$username/Scripte/fail2ban
-rpl --encoding UTF-8 "benutzername" $username /home/$username/Scripte/fail2ban/jail.local > /dev/null 2>&1				# den eigenen Benutzer hinzufügen
-rpl --encoding UTF-8 "ssh-port" "$sshport" /home/$username/Scripte/fail2ban/jail.local > /dev/null 2>&1					# den ssh Port hinzufügen
-rpl --encoding UTF-8 "IgnorierteIP" "$ignoreip" /home/$username/Scripte/fail2ban/jail.local > /dev/null 2>&1			# IP Adresse/n hinzufügen, die fail2ban ignorieren soll
+rpl -q --encoding UTF-8 "benutzername" $username /home/$username/Scripte/fail2ban/jail.local				# den eigenen Benutzer hinzufügen
+rpl -q --encoding UTF-8 "ssh-port" "$sshport" /home/$username/Scripte/fail2ban/jail.local					# den ssh Port hinzufügen
+rpl -q --encoding UTF-8 "IgnorierteIP" "$ignoreip" /home/$username/Scripte/fail2ban/jail.local				# IP Adresse/n hinzufügen, die fail2ban ignorieren soll
 sudo mv /home/$username/Scripte/fail2ban/jail.local /etc/fail2ban
 sudo chmod 644 /etc/fail2ban/jail.local
 
@@ -301,12 +299,20 @@ echo -e "${blaufett}   Installiere veracrypt ...${standard}"
 echo
 echo
 
-wget https://launchpad.net/veracrypt/trunk/1.24-update7/+download/veracrypt-console-1.24-Update7-Debian-10-armhf.deb
-sudo dpkg -i veracrypt-console-1.24-Update7-Debian-10-armhf.deb
-rm veracrypt-console-1.24-Update7-Debian-10-armhf.deb
+# mit dieser Version können noch Truecrypt-verschlüsselte Container und Laufwerke entschlüsselt werden
+# wget https://launchpad.net/veracrypt/trunk/1.24-update7/+download/veracrypt-console-1.24-Update7-Debian-10-armhf.deb
+# sudo dpkg -i veracrypt-console-1.24-Update7-Debian-10-armhf.deb
 
-# veracrypt -m=nokernelcrypto --truecrypt Quelle Ziel/		# --truecrypt = Einbinden von Truecryptbasierten Dateisystemen
-# veracrypt -m=nokernelcrypto --truecrypt /dev/sda1 /mnt/
+# veracrypt -m=nokernelcrypto --truecrypt /Quelle Ziel/		# --truecrypt = Einbinden von Truecryptbasierten Dateisystemen
+# veracrypt -m=nokernelcrypto --truecrypt /dev/sda1 /mnt/	#
+
+wget https://launchpad.net/veracrypt/trunk/1.26.20/+download/veracrypt-1.26.20-Debian-12-armhf.deb
+sudo dpkg -i veracrypt-1.26.20-Debian-12-armhf.deb
+rm veracrypt-1.26.20-Debian-12-armhf.deb
+
+# sudo veracrypt -m=nokernelcrypto /Quelle /Ziel
+# sudo veracrypt -m=nokernelcrypto -t -k "" --pim=0 --protect-hidden=no /Quelle /Ziel		# keine Abfrage, nur Passworteingabe
+
 
 
 echo '   4. Veracrypt erfolgreich installiert' >> ~/Log/settings2pi.log
@@ -428,41 +434,17 @@ echo "   Bitte das Passwort für die Weboberfläche ändern! [ENTER] = kein Pass
 echo
 echo
 
-pihole -a -p                                                            # Passwort neu vergeben oder löschen
+sudo pihole setpassword													# Passwort neu vergeben oder löschen
 
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/listen-geräte-gruppen-hinzufügen.sh
 chmod +x listen-geräte-gruppen-hinzufügen.sh
-sudo ./listen-geräte-gruppen-hinzufügen.sh                              # Hinzufügen von Domains, Gruppen, Blocklisten etc.
 
-sleep 2
+# das Hinzufügen von Listen im Terminal ist unter V6 noch nicht verfügbar	# https://github.com/pi-hole/pi-hole/issues/6047
+# sudo ./listen-geräte-gruppen-hinzufügen.sh								# Hinzufügen von Domains, Gruppen, Blocklisten etc.
 
-echo -e "${blaufett}   Die Blockseite wird angepasst ... ${standard}"
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/blockseite.html -P /var/www/html/pihole
-sudo rpl --encoding UTF-8 '/pihole/index.php' '/pihole/blockseite.html' /etc/lighttpd/lighttpd.conf > /dev/null 2>&1
-sudo service lighttpd restart
 echo -e "${gruenfett}   Erledigt${standard}"
 
 sleep 2
-
-sudo cp /etc/pihole/pihole-FTL.conf /etc/pihole/pihole-FTL.conf.orig
-
-sudo chmod 666 /etc/pihole/pihole-FTL.conf
-echo 'BLOCKINGMODE=IP-NODATA-AAAA' >> /etc/pihole/pihole-FTL.conf       # Damit die Blockseite angezeigt wird. ACHTUNG: Nur bei HTTP-Seiten!
-echo 'DBINTERVALL=60' >> /etc/pihole/pihole-FTL.conf                    # Schreibvorgänge nur alle 60 Minuten (Standard =1 Minute)
-echo 'MAXDBDAYS=60' >> /etc/pihole/pihole-FTL.conf                      # Einträge die älter als 60 Tage sind, werden gelöscht
-sudo chmod 664 /etc/pihole/pihole-FTL.conf
-
-sudo mv /etc/pihole/setupVars.conf /etc/pihole/setupVars.conf.orig      # Einstellungen für Einstellungen/DNS
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/setupVars.conf -P /etc/pihole
-sudo chmod 777 /etc/pihole/setupVars.conf
-sudo rpl --encoding UTF-8 "local-ip" $ipadresse /etc/pihole/setupVars.conf > /dev/null 2>&1
-sudo chown root:root /etc/pihole/setupVars.conf
-sudo chmod 644 /etc/pihole/setupVars.conf
-
-sudo chmod 777 /etc/pihole/dns-servers.conf
-sudo echo "Dismail.de (DNS-over-TLS);80.241.218.68;159.69.114.157;" >> /etc/pihole/dns-servers.conf    # Dismail als zusätzliche Alternative
-sudo echo "dnsforge.de (DNS-over-TLS);176.9.93.198;176.9.1.117;" >> /etc/pihole/dns-servers.conf       # dnsforge.de als zusätzliche Alternative
-sudo chmod 644 /etc/pihole/dns-servers.conf
 
 sudo curl -sSL https://raw.githubusercontent.com/pimanDE/translate2german/master/translate2german.sh | bash     # Übersetzt die Weboberfläche auf deutsch
 
@@ -493,15 +475,15 @@ echo
 
 sudo apt install -y unbound
 
-sudo cp /etc/dnsmasq.d/01-pihole.conf /home/$username/Scripte/01-pihole.conf.orig           # erst (weg)kopieren
-sudo rm /etc/dnsmasq.d/01-pihole.conf                                                       # dann löschen
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/	# neue unbound Config holen
 
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/01-pihole.conf -P /etc/dnsmasq.d/
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/10-pihole-extra.conf -P /etc/dnsmasq.d/           # https://anleitungen.codeberg.page/PiHole-einrichtung/unbound.html
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/99-edns.conf -P /etc/dnsmasq.d/                   # https://docs.pi-hole.net/guides/dns/unbound/
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/
+sudo mv /etc/pihole/pihole.toml /etc/pihole/pihole.toml.orig																			# Sicherung der Pihole-Settings anlegen
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/pihole.toml -P /etc/pihole						# neue Pihole-Settings holen
+sudo chown pihole:pihole /etc/pihole/pihole.toml																						# Eigentümer zuweisen
+sudo chmod 644 /etc/pihole/pihole.toml																									# Rechte anpassen
 
-date +'%d.%m.%Y um %H:%M:%S Uhr' >> /home/$username/Log/update-root-nameserver.log
+sudo service unbound restart
+
 
 echo
 echo
@@ -549,16 +531,13 @@ sleep 2
 ####################################################################################################################
 # Automatische Aktualisierung des Systems
 
-sudo rpl --encoding UTF-8 'benutzername' $username ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
-sudo rpl --encoding UTF-8 'rechnername' $hostname ~/Scripte/update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl -q --encoding UTF-8 'benutzername' $username ~/Scripte/update-and-upgrade.sh
+sudo rpl -q --encoding UTF-8 'rechnername' $hostname ~/Scripte/update-and-upgrade.sh
 
-sudo rpl --encoding UTF-8 'benutzername' $username ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
-sudo rpl --encoding UTF-8 'rechnername' $hostname ~/Scripte/email-update-and-upgrade.sh > /dev/null 2>&1
+sudo rpl -q --encoding UTF-8 'benutzername' $username ~/Scripte/email-update-and-upgrade.sh
+sudo rpl -q --encoding UTF-8 'rechnername' $hostname ~/Scripte/email-update-and-upgrade.sh
 
-sudo rpl --encoding UTF-8 'benutzername' $username ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
-sudo rpl --encoding UTF-8 'rechnername' $hostname ~/Scripte/update-root-nameserver.sh > /dev/null 2>&1
-
-sudo rpl --encoding UTF-8 'benutzername' $username ~/Scripte/cron/cronjobs.txt > /dev/null 2>&1
+sudo rpl -q --encoding UTF-8 'benutzername' $username ~/Scripte/cron/cronjobs.txt
 
 # Das System wird zwischen 0 Uhr und 2:59 Uhr aktualisiert
 sudo sed -i "s/AB C /$((RANDOM % 60)) $((RANDOM % 3))/" ~/Scripte/cron/cronjobs.txt
@@ -569,10 +548,6 @@ sudo crontab -u root /home/$username/Scripte/cron/cronjobs.txt
 sudo chown root:root /home/$username/Scripte/update-and-upgrade.sh
 sudo chmod 554 /home/$username/Scripte/update-and-upgrade.sh
 sudo touch /home/$username/Log/update-and-upgrade.log
-
-sudo chown root:root /home/$username/Scripte/update-root-nameserver.sh
-sudo chmod 554 /home/$username/Scripte/update-root-nameserver.sh
-sudo touch /home/$username/Log/update-root-nameserver.log
 
 
 echo '   9. Automatische Aktualisierung des Systems erfolgreich' >> ~/Log/settings2pi.log
@@ -616,8 +591,8 @@ sleep 2
 echo -e "   ${blaufett}Systemsprache wird auf deutsch umgestellt ...${standard}"
 echo
 echo
-sudo rpl --encoding UTF-8 '\# de_DE.UTF-8 UTF-8' 'de_DE.UTF-8 UTF-8' /etc/locale.gen > /dev/null 2>&1
-sudo rpl --encoding UTF-8 'LANG=en_GB.UTF-8' 'LANG=de_DE.UTF-8' /etc/default/locale > /dev/null 2>&1
+sudo rpl -q --encoding UTF-8 '\# de_DE.UTF-8 UTF-8' 'de_DE.UTF-8 UTF-8' /etc/locale.gen
+sudo rpl -q --encoding UTF-8 'LANG=en_GB.UTF-8' 'LANG=de_DE.UTF-8' /etc/default/locale
 sudo locale-gen
 
 echo '   11. Sprache wurde erfolgreich auf deutsch umgestellt' >> ~/Log/settings2pi.log
@@ -652,10 +627,27 @@ sleep 2
 
 
 ####################################################################################################################
+# Energie sparen
+
+
+sudo rpl -q --encoding UTF-8 'dtparam=audio=on' 'dtparam=audio=off' /boot/firmware/config.txt						# Disable analog audio
+sudo rpl -q --encoding UTF-8 'camera_auto_detect=1' 'camera_auto_detect=0' /boot/firmware/config.txt				# Automatically load overlays for detected cameras
+sudo rpl -q --encoding UTF-8 'display_auto_detect=1' 'display_auto_detect=0' /boot/firmware/config.txt				# Automatically load overlays for detected DSI displays
+sudo rpl -q --encoding UTF-8 'dtoverlay=vc4-kms-v3d' 'dtoverlay=vc4-kms-v3d,noaudio' /boot/firmware/config.txt		# Disable audio via HDMI
+
+# Dekativieren von Bluetooth, WiFi und HDMI muss von Hand an das Ende der /boot/firmware/config.txt eingefügt werden
+# dtoverlay=disable-bt
+# dtoverlay=disable-wifi
+# hdmi_blanking=1
+
+
+
+####################################################################################################################
 # Nacharbeiten
 
 
-# Schreibvorgänge des Systems reduzieren
+
+## Schreibvorgänge des Systems reduzieren
 sudo mkdir /etc/systemd/journald.conf.d                                 # https://forum.kuketz-blog.de/viewtopic.php?p=85243
 sudo touch /etc/systemd/journald.conf.d/00-volatile-storage.conf
 sudo chmod 777 /etc/systemd/journald.conf.d/00-volatile-storage.conf
@@ -664,11 +656,6 @@ sudo echo 'Storage=volatile' >> /etc/systemd/journald.conf.d/00-volatile-storage
 sudo echo 'RuntimeMaxUse=30' >> /etc/systemd/journald.conf.d/00-volatile-storage.conf
 sudo echo >> /etc/systemd/journald.conf.d/00-volatile-storage.conf
 sudo chmod 644 /etc/systemd/journald.conf.d/00-volatile-storage.conf
-
-
-
-# HDMI-Anschluss deaktivieren
-#sudo tvservice -o > /dev/null
 
 
 
@@ -744,4 +731,3 @@ echo
 sudo reboot
 
 exit
-

@@ -221,16 +221,16 @@ echo -e "${blaufett}   Füge Blocklisten hinzu ...${standard}"
 sudo sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist"
 
 
-# Eigene Listen hinzufügen  
+# Eigene Listen hinzufügen
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/ultimate.txt', 1, 'Aggressive Protection');"
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/tif.txt', 1, 'Threat Intelligence Feeds - Increases Security Significantly!');"
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/doh-vpn-proxy-bypass.txt', 1, 'DoH/VPN/TOR/Proxy Bypass - Prevent methods to bypass your DNS!');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/tif.txt', 1, 'Threat Intelligence Feeds - Increases Security Significantly');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/doh-vpn-proxy-bypass.txt', 1, 'DoH/VPN/TOR/Proxy Bypass - Prevent methods to bypass your DNS');"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/xRuffKez/NRD/refs/heads/main/lists/14-day/adblock/nrd-14day_adblock.txt', 1, 'Domains jünger als 14 Tage');"
 
 
 
 # Listen aktualisieren
-pihole -g
+sudo pihole -g
 
 
 echo -e "${gruenfett}   Erledigt${standard}"
