@@ -439,8 +439,7 @@ sudo pihole setpassword													# Passwort neu vergeben oder löschen
 wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/listen-geräte-gruppen-hinzufügen.sh
 chmod +x listen-geräte-gruppen-hinzufügen.sh
 
-# das Hinzufügen von Listen im Terminal ist unter V6 noch nicht verfügbar	# https://github.com/pi-hole/pi-hole/issues/6047
-# sudo ./listen-geräte-gruppen-hinzufügen.sh								# Hinzufügen von Domains, Gruppen, Blocklisten etc.
+sudo ./listen-geräte-gruppen-hinzufügen.sh								# Hinzufügen von Domains, Gruppen, Blocklisten etc.
 
 echo -e "${gruenfett}   Erledigt${standard}"
 
