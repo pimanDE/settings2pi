@@ -478,12 +478,9 @@ sudo apt install -y unbound
 sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/unbound/pi-hole.conf -P /etc/unbound/unbound.conf.d/	# neue unbound Config holen
 
 sudo mv /etc/pihole/pihole.toml /etc/pihole/pihole.toml.orig																			# Sicherung der Pihole-Settings anlegen
-sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/pihole.toml -P /etc/pihole						# neue Pihole-Settings holen
+sudo wget -q https://raw.githubusercontent.com/pimanDE/settings2pi/master/Dateien/pihole/pihole.toml -P /etc/pihole						# neue Pihole-Settings holen, Pihole und unbound werden zusammengeführt
 sudo chown pihole:pihole /etc/pihole/pihole.toml																						# Eigentümer zuweisen
 sudo chmod 644 /etc/pihole/pihole.toml																									# Rechte anpassen
-
-sudo service unbound restart
-
 
 echo
 echo
