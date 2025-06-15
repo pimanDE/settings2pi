@@ -276,7 +276,7 @@ sudo mv /home/$username/Scripte/fail2ban/jail.local /etc/fail2ban
 sudo chmod 644 /etc/fail2ban/jail.local
 
 sudo service fail2ban restart               # fail2ban neu starten
-sudo systemctl enable fail2ban              # fail2ban bei Systemstart automatisch startenht (htps://www.ionos.de/hilfe/sicherheit/dedicated-server/server-absichern-mit-fail2ban/)
+sudo systemctl enable fail2ban              # fail2ban bei Systemstart automatisch starten (htps://www.ionos.de/hilfe/sicherheit/dedicated-server/server-absichern-mit-fail2ban/)
 
 echo '   3. fail2ban erfolgreich konfiguriert' >> ~/Log/settings2pi.log
 echo
@@ -623,22 +623,6 @@ sleep 2
 
 
 ####################################################################################################################
-# Energie sparen
-
-
-sudo rpl -q --encoding UTF-8 'dtparam=audio=on' 'dtparam=audio=off' /boot/firmware/config.txt						# Disable analog audio
-sudo rpl -q --encoding UTF-8 'camera_auto_detect=1' 'camera_auto_detect=0' /boot/firmware/config.txt				# Automatically load overlays for detected cameras
-sudo rpl -q --encoding UTF-8 'display_auto_detect=1' 'display_auto_detect=0' /boot/firmware/config.txt				# Automatically load overlays for detected DSI displays
-sudo rpl -q --encoding UTF-8 'dtoverlay=vc4-kms-v3d' 'dtoverlay=vc4-kms-v3d,noaudio' /boot/firmware/config.txt		# Disable audio via HDMI
-
-# Dekativieren von Bluetooth, WiFi und HDMI muss von Hand an das Ende der /boot/firmware/config.txt eingefügt werden
-# dtoverlay=disable-bt
-# dtoverlay=disable-wifi
-# hdmi_blanking=1
-
-
-
-####################################################################################################################
 # Nacharbeiten
 
 
@@ -655,7 +639,22 @@ sudo chmod 644 /etc/systemd/journald.conf.d/00-volatile-storage.conf
 
 
 
+## Energie sparen
+sudo rpl -q --encoding UTF-8 'dtparam=audio=on' 'dtparam=audio=off' /boot/firmware/config.txt						# Disable analog audio
+sudo rpl -q --encoding UTF-8 'camera_auto_detect=1' 'camera_auto_detect=0' /boot/firmware/config.txt				# Automatically load overlays for detected cameras
+sudo rpl -q --encoding UTF-8 'display_auto_detect=1' 'display_auto_detect=0' /boot/firmware/config.txt				# Automatically load overlays for detected DSI displays
+sudo rpl -q --encoding UTF-8 'dtoverlay=vc4-kms-v3d' 'dtoverlay=vc4-kms-v3d,noaudio' /boot/firmware/config.txt		# Disable audio via HDMI
+
+# Dekativieren von Bluetooth, WiFi und HDMI muss von Hand an das Ende der /boot/firmware/config.txt eingefügt werden
+# dtoverlay=disable-bt
+# dtoverlay=disable-wifi
+# hdmi_blanking=1
+
+
+
 # Cache leeren
+echo
+echo
 echo -e "   ${blaufett}Aufräumen ...${standard}"
 echo
 echo
