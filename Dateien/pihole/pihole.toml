@@ -510,7 +510,7 @@
     #
     # Possible values are:
     #     valid NTP upstream server
-    server = "pool.ntp.org"
+    server = "de.pool.ntp.org"
 
     # Interval in seconds between successive synchronization attempts with the NTP server
     interval = 3600
