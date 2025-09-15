@@ -225,7 +225,8 @@ sudo sqlite3 /etc/pihole/gravity.db "DELETE FROM adlist"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://codeberg.org/hagezi/mirror2/raw/branch/main/dns-blocklists/adblock/ultimate.txt', 1, 'Aggressive Protection');"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://codeberg.org/hagezi/mirror2/raw/branch/main/dns-blocklists/adblock/tif.txt', 1, 'Threat Intelligence Feeds - Increases Security Significantly');"
 sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://codeberg.org/hagezi/mirror2/raw/branch/main/dns-blocklists/adblock/doh-vpn-proxy-bypass.txt', 1, 'DoH/VPN/TOR/Proxy Bypass - Prevent methods to bypass your DNS');"
-sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://raw.githubusercontent.com/xRuffKez/NRD/refs/heads/main/lists/14-day/adblock/nrd-14day', 1, 'Domains jünger als 14 Tage');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://codeberg.org/hagezi/mirror2/raw/branch/main/dns-blocklists/adblock/nrd7.txt', 1, 'Neue Domains der letzten 7 Tage');"
+sudo sqlite3 /etc/pihole/gravity.db "INSERT INTO adlist (address, enabled, comment) VALUES ('https://codeberg.org/hagezi/mirror2/raw/branch/main/dns-blocklists/adblock/nrd14-8.txt', 1, 'Neue Domains der letzten 8 bis 14 Tage');"
 
 
 
